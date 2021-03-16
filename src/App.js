@@ -38,7 +38,22 @@ const useStyles = makeStyles({
 
 function App() {
   const classes = useStyles();
+  const navTabs = ["trending", "newest", "discover", "watchlist"];
+  const navTabsIcons = [
+    <TheatersIcon />,
+    <TrendingUpIcon />,
+    <ArrowUpwardIcon />,
+    <MovieFilterIcon />,
+    <StarIcon />,
+  ];
+
   const [openNav, setOpenNav] = useState(true);
+  const [activeTab, setActiveTab] = useState(navTabs);
+
+  const handleActiveTab = (e) => {
+    console.log(e.target);
+  };
+
   return (
     <div className="App">
       <Router forceRefresh={false}>
@@ -50,56 +65,25 @@ function App() {
           open={openNav}
           classes={{ paper: classes.drawerPaper }}
         >
-          <Link to="/trending">
-            <List>
-              <ListItem button>
-                <ListItemIcon>
-                  <TrendingUpIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Trending"} />
-              </ListItem>
-            </List>
-          </Link>
-          <Link to="/newest">
-            <List>
-              <ListItem button>
-                <ListItemIcon>
-                  <TheatersIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Newest"} />
-              </ListItem>
-            </List>
-          </Link>
-          <Link to="/upcoming">
-            <List>
-              <ListItem button>
-                <ListItemIcon>
-                  <ArrowUpwardIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Upcoming"} />
-              </ListItem>
-            </List>
-          </Link>
-          <Link to="/discover">
-            <List>
-              <ListItem button>
-                <ListItemIcon>
-                  <MovieFilterIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Discover"} />
-              </ListItem>
-            </List>
-          </Link>
-          <Link to="/watchlist">
-            <List>
-              <ListItem button>
-                <ListItemIcon>
-                  <StarIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Watch list"} />
-              </ListItem>
-            </List>
-          </Link>
+          {navTabs.map((tab, index) => {
+            return (
+              <Link to={`/${tab}`} key={index}>
+                <List>
+                  <ListItem button onClick={() => handleActiveTab}>
+                    <ListItemIcon>{navTabsIcons[index]}</ListItemIcon>
+                    <ListItemText
+                      primary={tab}
+                      style={{
+                        textTransform: "capitalize",
+                        fontWeight: activeTab ? "bold" : "light",
+                      }}
+                    />
+                  </ListItem>
+                </List>
+              </Link>
+            );
+          })}
+          ;
         </Drawer>
 
         <main>
