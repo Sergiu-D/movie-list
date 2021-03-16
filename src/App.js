@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 // Pages
@@ -38,69 +38,69 @@ const useStyles = makeStyles({
 
 function App() {
   const classes = useStyles();
+  const [openNav, setOpenNav] = useState(true);
   return (
     <div className="App">
       <Router forceRefresh={false}>
-        <nav>
-          <Drawer
-            style={{ width: "240px" }}
-            variant="persistent"
-            anchor="left"
-            open={true}
-            classes={{ paper: classes.drawerPaper }}
-          >
-            <Link to="/trending">
-              <List>
-                <ListItem button>
-                  <ListItemIcon>
-                    <TrendingUpIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Trending"} />
-                </ListItem>
-              </List>
-            </Link>
-            <Link to="/newest">
-              <List>
-                <ListItem button>
-                  <ListItemIcon>
-                    <TheatersIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Newest"} />
-                </ListItem>
-              </List>
-            </Link>
-            <Link to="/upcoming">
-              <List>
-                <ListItem button>
-                  <ListItemIcon>
-                    <ArrowUpwardIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Upcoming"} />
-                </ListItem>
-              </List>
-            </Link>
-            <Link to="/discover">
-              <List>
-                <ListItem button>
-                  <ListItemIcon>
-                    <MovieFilterIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Discover"} />
-                </ListItem>
-              </List>
-            </Link>
-            <Link to="/watchlist">
-              <List>
-                <ListItem button>
-                  <ListItemIcon>
-                    <StarIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Watch list"} />
-                </ListItem>
-              </List>
-            </Link>
-          </Drawer>
-        </nav>
+        <Drawer
+          // TODO For mobile, remove width
+          style={openNav ? { width: "240px" } : { width: "0px" }}
+          variant="persistent"
+          anchor="left"
+          open={openNav}
+          classes={{ paper: classes.drawerPaper }}
+        >
+          <Link to="/trending">
+            <List>
+              <ListItem button>
+                <ListItemIcon>
+                  <TrendingUpIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Trending"} />
+              </ListItem>
+            </List>
+          </Link>
+          <Link to="/newest">
+            <List>
+              <ListItem button>
+                <ListItemIcon>
+                  <TheatersIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Newest"} />
+              </ListItem>
+            </List>
+          </Link>
+          <Link to="/upcoming">
+            <List>
+              <ListItem button>
+                <ListItemIcon>
+                  <ArrowUpwardIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Upcoming"} />
+              </ListItem>
+            </List>
+          </Link>
+          <Link to="/discover">
+            <List>
+              <ListItem button>
+                <ListItemIcon>
+                  <MovieFilterIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Discover"} />
+              </ListItem>
+            </List>
+          </Link>
+          <Link to="/watchlist">
+            <List>
+              <ListItem button>
+                <ListItemIcon>
+                  <StarIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Watch list"} />
+              </ListItem>
+            </List>
+          </Link>
+        </Drawer>
 
         <main>
           <Switch>
