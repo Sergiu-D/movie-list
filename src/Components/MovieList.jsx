@@ -44,12 +44,12 @@ export default function MovieList({ title }) {
         }}
       >
         {allMovies
-          ? movieTitle.map((title) => {
-              return <MovieCard title={title} />;
+          ? movieTitle.map((title, index) => {
+              return <MovieCard title={title} key={index} />;
             })
           : movieTitle
-              .map((title) => {
-                return <MovieCard title={title} />;
+              .map((title, index) => {
+                return <MovieCard title={title} key={index} />;
               })
               .splice(0, 5)}
       </div>
