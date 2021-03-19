@@ -19,7 +19,7 @@ function App() {
       <Router>
         <Navigation />
 
-        <main>
+        <main style={{ overflowX: "hidden" }}>
           <Switch>
             <Route exact path="/">
               <Trending />

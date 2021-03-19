@@ -75,7 +75,7 @@ export default function Navigation() {
   return (
     <Drawer
       // TODO For mobile, remove width
-      style={openNav ? { width: "240px" } : { width: "0px" }}
+      style={openNav ? { width: "300px" } : { width: "0px" }}
       variant="persistent"
       anchor="left"
       open={openNav}
