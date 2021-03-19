@@ -11,6 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+body {
+  height: 100vh;
+  background: linear-gradient(to right, #1e2830, #384c59);
+  color: #fff;
+}
 
 .App {
   width: 100%;

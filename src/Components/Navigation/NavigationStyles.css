@@ -1,0 +1,16 @@
+.list-item {
+  text-transform: capitalize !important;
+  color: #fff !important;
+}
+
+.active {
+  color: red;
+}
+
+/* .settings {
+  position: relative;
+} */
+.settingsContent {
+  position: absolute;
+  top: 0;
+}
