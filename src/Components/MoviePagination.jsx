@@ -1,31 +1,54 @@
-import React from "react";
-import { MemoryRouter, Route } from "react-router";
-import { Link } from "react-router-dom";
-import Pagination from "@material-ui/lab/Pagination";
-import PaginationItem from "@material-ui/lab/PaginationItem";
+import React, { useState } from "react";
 
-export default function PaginationLink() {
+// Utils
+import InfiniteScroll from "react-infinite-scroll-component";
+
+// Components
+import MovieCard from "./MovieCard/MovieCard";
+
+export default function MoviePagination({ data }) {
+  const copyData = [...data];
+  let slicedData = copyData.slice(0, 20);
+
+  const [newData, setNewData] = useState({
+    items: slicedData,
+    hasMore: true,
+  });
+  const [itemsPerCall, setItemsPerCall] = useState(20);
+
+  const fetchMoreData = () => {
+    console.log("Next");
+  };
+
+  // useEffect(() => {
+  //   fetchingData();
+  // }, []);
+  // const [data] = fetchingData();
   return (
-    <MemoryRouter initialEntries={["/discover"]} initialIndex={0}>
-      <Route>
-        {({ location }) => {
-          const query = new URLSearchParams(location.search);
-          const page = parseInt(query.get("page") || "1", 10);
-          return (
-            <Pagination
-              page={page}
-              count={10}
-              renderItem={(item) => (
-                <PaginationItem
-                  component={Link}
-                  to={`/discover${item.page === 1 ? "" : `?page=${item.page}`}`}
-                  {...item}
-                />
-              )}
-            />
-          );
+    <div>
+      <InfiniteScroll
+        style={{
+          display: "flex",
+          width: "1620px",
+          justifyContent: "space-around",
+          flexWrap: "wrap",
+          overflowX: "hidden",
         }}
-      </Route>
-    </MemoryRouter>
+        dataLength={newData.items.length}
+        next={fetchMoreData}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+        endMessage={<p style={{ textAlign: "center" }}>This is the end!</p>}
+        // pullDownToRefresh={true}
+        // pullDownToRefreshThreshold={20}
+        // pullDownToRefreshContent={
+        //   <h3 style={{ textAlign: "center" }}>&#8595; Pull down to refresh</h3>
+        // }
+      >
+        {newData.items.map((item) => {
+          return <MovieCard {...item} key={item.id} />;
+        })}
+      </InfiniteScroll>
+    </div>
   );
 }

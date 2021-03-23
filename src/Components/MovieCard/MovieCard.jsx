@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function MovieCard({ title }) {
+export default function MovieCard({ title, url }) {
+  const src = url ? url : "https://fakeimg.pl/270x400/";
+
   return (
     <div
       style={{
@@ -10,12 +12,7 @@ export default function MovieCard({ title }) {
         marginBottom: "50px",
       }}
     >
-      <img
-        src="https://fakeimg.pl/270x400/"
-        alt=""
-        width="270px"
-        height="400px"
-      />
+      <img src={src} alt="" width="270px" height="400px" />
       <article>
         <h2>{title}</h2>
         <h3>Genre</h3>
