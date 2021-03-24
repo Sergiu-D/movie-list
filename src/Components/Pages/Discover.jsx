@@ -19,12 +19,10 @@ export default function Discover() {
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
 
-  console.log(data);
-
   return (
     <>
       <h2>Discover Page</h2>
-      {/* <MoviePagination data={data} /> */}
+      <MoviePagination data={data} setPageIndex={setPageIndex} />
     </>
   );
 }

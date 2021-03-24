@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Utils
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -6,24 +6,23 @@ import InfiniteScroll from "react-infinite-scroll-component";
 // Components
 import MovieCard from "./MovieCard/MovieCard";
 
-export default function MoviePagination({ data }) {
-  const copyData = [...data];
-  let slicedData = copyData.slice(0, 20);
+export default function MoviePagination({ data, setPageIndex }) {
+  // TODO Fixing scroll reload
+  const { page, results } = data;
+  const [movies, setMovies] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
 
-  const [newData, setNewData] = useState({
-    items: slicedData,
-    hasMore: true,
-  });
-  const [itemsPerCall, setItemsPerCall] = useState(20);
+  useEffect(() => {
+    setMovies([...movies, ...results]);
+  }, [page]);
 
-  const fetchMoreData = () => {
-    console.log("Next");
+  const handelNextPage = () => {
+    if (page >= 5) return setHasMore(false);
+
+    setPageIndex((prev) => prev + 1);
   };
 
-  // useEffect(() => {
-  //   fetchingData();
-  // }, []);
-  // const [data] = fetchingData();
+  console.log("movies", movies);
   return (
     <div>
       <InfiniteScroll
@@ -34,19 +33,14 @@ export default function MoviePagination({ data }) {
           flexWrap: "wrap",
           overflowX: "hidden",
         }}
-        dataLength={newData.items.length}
-        next={fetchMoreData}
-        hasMore={true}
+        dataLength={movies.length}
+        next={handelNextPage}
+        hasMore={hasMore}
         loader={<h4>Loading...</h4>}
         endMessage={<p style={{ textAlign: "center" }}>This is the end!</p>}
-        // pullDownToRefresh={true}
-        // pullDownToRefreshThreshold={20}
-        // pullDownToRefreshContent={
-        //   <h3 style={{ textAlign: "center" }}>&#8595; Pull down to refresh</h3>
-        // }
       >
-        {newData.items.map((item) => {
-          return <MovieCard {...item} key={item.id} />;
+        {movies.map((movie) => {
+          return <MovieCard {...movie} key={movie.id} />;
         })}
       </InfiniteScroll>
     </div>
