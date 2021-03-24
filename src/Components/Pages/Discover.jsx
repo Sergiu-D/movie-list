@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 
 // Utils
 import useSWR from "swr";
+import fetcher from "../../Utils/fetcher";
 
 // Components
 import MoviePagination from "../MoviePagination";
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Discover() {
   const [pageIndex, setPageIndex] = useState(1);
