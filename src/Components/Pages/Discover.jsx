@@ -12,10 +12,10 @@ export default function Discover() {
   // const [allData, setAllData] = useState([]);
   // const [lastPageData, setLastPageData] = useState([]);
 
-  // const { data, error } = useSWR(
-  //   `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&&page=${pageIndex}`,
-  //   fetcher
-  // );
+  const { data, error } = useSWR(
+    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&&page=${pageIndex}`,
+    fetcher
+  );
 
   // console.log(`data:`, allData);
   // useEffect(() => {
@@ -27,14 +27,15 @@ export default function Discover() {
   //   }
   // }, [data]);
 
-  // if (error) return <div>failed to load</div>;
-  // if (!data) return <div>loading...</div>;
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
 
   return (
     <>
       <h2>Discover Page</h2>
       <MoviePagination
-      // data={allData} setPageIndex={setPageIndex}
+        data={data}
+        // setPageIndex={setPageIndex}
       />
     </>
   );
