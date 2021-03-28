@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Utils
 import useSWR from "swr";
@@ -16,12 +16,24 @@ export default function Trending() {
     `https://api.themoviedb.org/3/trending/movies/week?api_key=${process.env.REACT_APP_API_KEY}`,
     fetcher
   );
+  const movies = !data
+    ? null
+    : data.results.filter((item) => item.media_type === "movie");
+
+  const shows = !data
+    ? null
+    : data.results.filter((item) => item.media_type === "tv");
+
+  useEffect(() => {
+    if (JSON.stringify(moviesList !== JSON.stringify(shows))) {
+      setShowsList(shows);
+      console.log("FETCH OK");
+    }
+  }, [data]);
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
 
-  // data.results.filter(
-  //   (item) => item.media_type === "movie" && setShowsList([item])
-  // );
+  console.log(moviesList);
   // function filterList(item) {
   //   if (item.media_type === "movie")
   //     return setMoviesList([...moviesList, item]);
@@ -37,8 +49,8 @@ export default function Trending() {
     <div>
       <PageHeader title={"Trending"} />
       <div>
-        <MovieList title={"Movies"} />
-        <MovieList title={"Tv Shows"} />
+        <MovieList data={moviesList} />
+        <MovieList data={showsList} />
       </div>
     </div>
   );
