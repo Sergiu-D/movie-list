@@ -1,41 +1,38 @@
 import React, { useState, useEffect } from "react";
 
 // Utils
-import useSWR from "swr";
-import fetcher from "../../Utils/fetcher";
+import axios from "axios";
 
 // Components
 import MoviePagination from "../MoviePagination";
 
 export default function Discover() {
-  // const [pageIndex, setPageIndex] = useState(1);
-  // const [allData, setAllData] = useState([]);
-  // const [lastPageData, setLastPageData] = useState([]);
+  const [pageNum, setPageNum] = useState(1);
+  const [movies, setMovies] = useState([]);
+  // const movies = useRef([]);
 
-  const { data, error } = useSWR(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&&page=${pageIndex}`,
-    fetcher
-  );
+  // const { data, error } = useSWR(
+  //   `https://api.themoviedb.org/3/discover/movie?api_key=cd001a6467f4a6dd11d1fcd4ae1044a7&&page=${pageNum}`,
+  //   fetcher
+  // );
+  // if (error) return <h2>Error...</h2>;
+  // if (!data) return <h2>Loading...</h2>;
 
-  // console.log(`data:`, allData);
-  // useEffect(() => {
-  //   if (data && JSON.stringify(lastPageData) !== JSON.stringify(data.results)) {
-  //     setAllData((prev) => {
-  //       return [...prev, ...data.results];
-  //     });
-  //     setLastPageData(data.results);
-  //   }
-  // }, [data]);
-
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: `https://api.themoviedb.org/3/discover/movie?api_key=cd001a6467f4a6dd11d1fcd4ae1044a7`,
+      params: { page: pageNum },
+    }).then((res) => setMovies([...movies, ...res.data.results]));
+  }, [pageNum]);
 
   return (
     <>
       <h2>Discover Page</h2>
       <MoviePagination
-        data={data}
-        // setPageIndex={setPageIndex}
+        movies={movies}
+        setPageNum={setPageNum}
+        pageNum={pageNum}
       />
     </>
   );

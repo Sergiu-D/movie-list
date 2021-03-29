@@ -1,42 +1,38 @@
 import React, { useState, useEffect } from "react";
 
-import useInfiniteScroll from "react-infinite-scroll-hook";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 // Utils
-import InfiniteScroll from "react-infinite-scroll-component";
 
 // Components
 import MovieCard from "./MovieCard/MovieCard";
 
-export default function MoviePagination({ data }) {
-  const [items, setItems] = useState([]);
-  const [hasNextPage, setHasNextPage] = useState();
+export default function MoviePagination({ movies, pageNum, setPageNum }) {
+  const [hasMore, setHasMore] = useState(true);
 
-  // const [loading, setLoading] = useState(false);
-  // const [hasNextPage, setHasNextPage] = useState(1);
+  const handleFetchMovies = () => setPageNum((prev) => prev + 1);
 
-  function handleLoadMore() {
-    setLoading(true);
-    // Some API call to fetch the next page
-    loadNextPage(endCursor, pageSize).then((newPage) => {
-      setLoading(false);
-      setHasNextPage(newPage.hasNextPage);
-      setItems([...items, newPage.items]);
-    });
-  }
-
-  const infiniteRef = useInfiniteScroll({
-    loading,
-    hasNextPage,
-    onLoadMore: handleLoadMore,
-    scrollContainer,
-  });
-
+  // if (pageNum >= 5) return setHasMore(false);
+  console.log("Data", movies);
   return (
-    <div ref={infiniteRef}>
-      {data.results.map((movie) => (
-        <MovieCard {...movie} key={data.id} />
-      ))}
+    <div>
+      <InfiniteScroll
+        dataLength={movies.length} //This is important field to render the next data
+        next={handleFetchMovies}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{ textAlign: "center" }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        {movies.map((movie) => (
+          <ul key={movie.id}>
+            <li style={{ margin: "50px 0" }}>{movie.title}</li>
+          </ul>
+        ))}
+      </InfiniteScroll>
     </div>
   );
 }
