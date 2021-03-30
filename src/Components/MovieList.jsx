@@ -2,35 +2,7 @@ import React, { useState } from "react";
 import MovieCard from "./MovieCard/MovieCard";
 
 export default function MovieList({ data, sectionTitle }) {
-  // const movieTitle = [
-  //   "Agengers",
-  //   "The white book",
-  //   "Into the code",
-  //   "Letting go",
-  //   "Midnight sunset",
-  //   "Letting go",
-  //   "The white book",
-  //   "Into the code",
-  //   "Letting go",
-  //   "Midnight sunset",
-  //   "Agengers",
-  //   "The white book",
-  //   "Into the code",
-  //   "Letting go",
-  //   "Midnight sunset",
-  //   "Letting go",
-  //   "The white book",
-  //   "Into the code",
-  //   "Letting go",
-  //   "Midnight sunset",
-  // ];
-  console.log("trending m", data);
-
   const [allMovies, setAllMovies] = useState(false);
-
-  // const { title, poster_path } = data;
-
-  // const movieImage = `https://image.tmdb.org/t/p/w300/${poster_path}`;
 
   const handleBtn = () => {
     setAllMovies(!allMovies);
