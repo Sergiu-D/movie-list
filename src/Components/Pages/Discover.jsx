@@ -13,7 +13,7 @@ export default function Discover() {
   useEffect(() => {
     axios({
       method: "get",
-      url: `https://api.themoviedb.org/3/discover/movie?api_key=cd001a6467f4a6dd11d1fcd4ae1044a7`,
+      url: `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}`,
       params: { page: pageNum },
     }).then((res) => setMovies([...movies, ...res.data.results]));
   }, [pageNum]);

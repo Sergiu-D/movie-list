@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // Utils
-import useSWR from "swr";
-import fetcher from "../../Utils/fetcher";
+import axios from "axios";
 
 // Components
 import PageHeader from "../PageHeader";
@@ -12,28 +11,45 @@ export default function Trending() {
   const [moviesList, setMoviesList] = useState([]);
   const [showsList, setShowsList] = useState([]);
 
-  const { data, error } = useSWR(
-    `https://api.themoviedb.org/3/trending/movies/week?api_key=${process.env.REACT_APP_API_KEY}`,
-    fetcher
-  );
-  const movies = !data
-    ? null
-    : data.results.filter((item) => item.media_type === "movie");
-
-  const shows = !data
-    ? null
-    : data.results.filter((item) => item.media_type === "tv");
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.REACT_APP_API_KEY}`,
+      // params: { media_type: "movie", time_window: "week" },
+    }).then((res) => setMoviesList([...moviesList, ...res.data.results]));
+  }, []);
 
   useEffect(() => {
-    if (JSON.stringify(moviesList !== JSON.stringify(shows))) {
-      setShowsList(shows);
-      console.log("FETCH OK");
-    }
-  }, [data]);
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+    axios({
+      method: "get",
+      url: `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.REACT_APP_API_KEY}`,
+      // params: { media_type: "movie", time_window: "week" },
+    }).then((res) => setShowsList([...showsList, ...res.data.results]));
+  }, []);
 
-  console.log(moviesList);
+  // const { data, error } = useSWR(
+  //   `https://api.themoviedb.org/3/trending/movies/week?api_key=${process.env.REACT_APP_API_KEY}`,
+  //   fetcher
+  // );
+  // const movies = !data
+  //   ? null
+  //   : data.results.filter((item) => item.media_type === "movie");
+
+  // const shows = !data
+  //   ? null
+  //   : data.results.filter((item) => item.media_type === "tv");
+
+  // useEffect(() => {
+  //   if (JSON.stringify(moviesList !== JSON.stringify(shows))) {
+  //     setShowsList(shows);
+  //     console.log("FETCH OK");
+  //   }
+  // }, [data]);
+  // if (error) return <div>failed to load</div>;
+  // if (!data) return <div>loading...</div>;
+
+  // console.log("Movies", moviesList);
+  // console.log("Tv Shows", showsList);
   // function filterList(item) {
   //   if (item.media_type === "movie")
   //     return setMoviesList([...moviesList, item]);
@@ -49,8 +65,8 @@ export default function Trending() {
     <div>
       <PageHeader title={"Trending"} />
       <div>
-        <MovieList data={moviesList} />
-        <MovieList data={showsList} />
+        <MovieList data={moviesList} sectionTitle={"Movies"} />
+        <MovieList data={showsList} sectionTitle={"Tv Shows"} />
       </div>
     </div>
   );
