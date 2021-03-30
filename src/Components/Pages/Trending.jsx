@@ -15,16 +15,14 @@ export default function Trending() {
     axios({
       method: "get",
       url: `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.REACT_APP_API_KEY}`,
-      // params: { media_type: "movie", time_window: "week" },
-    }).then((res) => setMoviesList([...moviesList, ...res.data.results]));
+    }).then((res) => setMoviesList(res.data.results));
   }, []);
 
   useEffect(() => {
     axios({
       method: "get",
       url: `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.REACT_APP_API_KEY}`,
-      // params: { media_type: "movie", time_window: "week" },
-    }).then((res) => setShowsList([...showsList, ...res.data.results]));
+    }).then((res) => setShowsList(res.data.results));
   }, []);
 
   // const { data, error } = useSWR(
