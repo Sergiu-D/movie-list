@@ -15,6 +15,7 @@ import {
   Drawer,
   Divider,
   Hidden,
+  CardMedia,
   List,
   ListItem,
   ListItemText,
@@ -25,9 +26,10 @@ import {
   useTheme,
   useMediaQuery,
 } from "@material-ui/core";
+
 import PropTypes from "prop-types";
 
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+// import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 // === Icons ===
 import TheatersIcon from "@material-ui/icons/Theaters";
@@ -36,11 +38,36 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import MovieFilterIcon from "@material-ui/icons/MovieFilter";
 import StarIcon from "@material-ui/icons/Star";
 import SettingsIcon from "@material-ui/icons/Settings";
+import MenuIcon from "@material-ui/icons/Menu";
+import CloseIcon from "@material-ui/icons/Close";
+
+// Navigation style
+const drawerWidth = 250;
 
 const useStyles = makeStyles({
+  menuIcon: {
+    position: "fixed",
+    top: "25px",
+    left: "25px",
+    zIndex: 20000,
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
   drawerPaper: {
-    width: "inherit",
+    width: drawerWidth,
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
     backgroundColor: "transparent",
+  },
+  mobileDrawerPaper: {
+    width: drawerWidth,
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "#202B34",
   },
   icon: {
     fill: "#fff",
@@ -56,11 +83,19 @@ export default function Navigation() {
     <ArrowUpwardIcon className={classes.icon} />,
     <MovieFilterIcon className={classes.icon} />,
     <StarIcon className={classes.icon} />,
+    <SettingsIcon className={classes.icon} />,
   ];
 
   const [openNav, setOpenNav] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [settings, setSettings] = useState(true);
+
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleOpenMenu = () => setOpenMenu(!openMenu);
 
   const handleActiveTab = (i) => {
     setActiveTab(i);
@@ -75,36 +110,55 @@ export default function Navigation() {
   };
 
   return (
-    <Drawer
-      // TODO For mobile, remove width
-      style={openNav ? { width: "300px" } : { width: "0px" }}
-      variant="persistent"
-      anchor="left"
-      open={openNav}
-      classes={{ paper: classes.drawerPaper }}
-    >
-      <img src="../../../img/logo_transparent.png" alt="logo" />
-      <List>
-        {navTabs.map((tab, index) => {
-          const activeTabStyle = classNames("list-item", {
-            active: activeTab === index,
-          });
+    <>
+      {matches && (
+        <Fab
+          color="primary"
+          className={classes.menuIcon}
+          onClick={handleOpenMenu}
+        >
+          {openMenu ? <CloseIcon /> : <MenuIcon />}
+        </Fab>
+      )}
+      <Drawer
+        open={openMenu}
+        variant={matches ? "temporary" : "permanent"}
+        className={classes.drawer}
+        classes={{
+          paper: matches ? classes.mobileDrawerPaper : classes.drawerPaper,
+        }}
+      >
+        <CardMedia
+          // className={classes.media}
+          component="img"
+          alt="Logo"
+          image="../../img/logo_transparent.png"
+          // title={title}
+        />
 
-          return (
-            <Link to={`/${tab}`} key={index}>
-              <ListItem
-                button
-                onClick={() => handleActiveTab(index)}
-                className={activeTabStyle}
-              >
-                <ListItemIcon>{navTabsIcons[index]}</ListItemIcon>
-                <ListItemText primary={tab} />
-              </ListItem>
-            </Link>
-          );
-        })}
-        <SettingsTab />
-      </List>
-    </Drawer>
+        {/* <img src="./ " alt="logo" /> */}
+        <List>
+          {navTabs.map((tab, index) => {
+            const activeTabStyle = classNames("list-item", {
+              active: activeTab === index,
+            });
+
+            return (
+              <Link to={`/${tab}`} key={index}>
+                <ListItem
+                  button
+                  onClick={() => handleActiveTab(index)}
+                  className={activeTabStyle}
+                >
+                  <ListItemIcon>{navTabsIcons[index]}</ListItemIcon>
+                  <ListItemText primary={tab} />
+                </ListItem>
+              </Link>
+            );
+          })}
+          <SettingsTab />
+        </List>
+      </Drawer>
+    </>
   );
 }

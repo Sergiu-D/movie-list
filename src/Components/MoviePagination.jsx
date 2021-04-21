@@ -9,19 +9,16 @@ import InfiniteScroll from "react-infinite-scroll-component";
 // Components
 import MovieCard from "./MovieCard/MovieCard";
 
+// Material-Ui
+import { Grid } from "@material-ui/core";
+
 export default function MoviePagination({ movies, pageNum, setPageNum }) {
   const handleFetchMovies = () => setPageNum((prevPage) => prevPage + 1);
 
   return (
     <div>
       <InfiniteScroll
-        style={{
-          display: "flex",
-          width: "1620px",
-          justifyContent: "space-around",
-          flexWrap: "wrap",
-          overflowX: "hidden",
-        }}
+        style={{ paddingRight: ".2rem", paddingTop: "1rem" }}
         dataLength={movies.length} //This is important field to render the next data
         next={handleFetchMovies}
         hasMore={true}
@@ -32,9 +29,15 @@ export default function MoviePagination({ movies, pageNum, setPageNum }) {
           </p>
         }
       >
-        {movies.map((movie) => {
-          return <MovieCard {...movie} key={movie.id} />;
-        })}
+        <Grid container spacing={3} justify="flex-start">
+          {movies.map((movie, index) => {
+            return (
+              <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
+                <MovieCard {...movie} key={movie.id} />
+              </Grid>
+            );
+          })}
+        </Grid>
       </InfiniteScroll>
     </div>
   );
