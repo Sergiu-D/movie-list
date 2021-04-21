@@ -19,9 +19,11 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  AppBar,
-  Toolbar,
   Typography,
+  Fab,
+  makeStyles,
+  useTheme,
+  useMediaQuery,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 
@@ -90,9 +92,13 @@ export default function Navigation() {
 
           return (
             <Link to={`/${tab}`} key={index}>
-              <ListItem button onClick={() => handleActiveTab(index)}>
+              <ListItem
+                button
+                onClick={() => handleActiveTab(index)}
+                className={activeTabStyle}
+              >
                 <ListItemIcon>{navTabsIcons[index]}</ListItemIcon>
-                <ListItemText primary={tab} className={activeTabStyle} />
+                <ListItemText primary={tab} />
               </ListItem>
             </Link>
           );
