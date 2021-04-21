@@ -42,7 +42,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 
 // Navigation style
-const drawerWidth = 250;
+const drawerWidth = 300;
 
 const useStyles = makeStyles({
   menuIcon: {

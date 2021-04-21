@@ -29,8 +29,7 @@ const useStyles = makeStyles({
     transition: "all .2s ease",
     zIndex: "200",
     "&:hover": {
-      backgroundColor: "green",
-      color: "#fff",
+      backgroundColor: "rgba(255,255,255,.2)",
     },
   },
   media: {
@@ -44,9 +43,11 @@ const useStyles = makeStyles({
     padding: "0 .4rem",
   },
   title: {
+    color: "#fff",
     marginBottom: ".2rem",
   },
   paragraph: {
+    color: "#fff",
     lineHeight: "1.5rem",
   },
   btn: {
@@ -85,14 +86,23 @@ export default function MovieCard({ title, poster_path, vote_average }) {
 
   const movieImage = `https://image.tmdb.org/t/p/w300/${poster_path}`;
 
-  const handleClick = () => {
-    setActive(!active);
-  };
+  const handleClick = () => setActive(!active);
 
   function scoreBg(score) {
     if (score > 8) return "green";
     if (score > 5) return "orange";
     if (score < 5) return "red";
+  }
+
+  function shortenTitle(t) {
+    const arrTitle = t.split("");
+
+    const shortTitle =
+      arrTitle.length >= 15
+        ? `${arrTitle.slice(0, 15).join("")}...`
+        : arrTitle.join("");
+
+    return shortTitle;
   }
 
   return (
@@ -125,7 +135,9 @@ export default function MovieCard({ title, poster_path, vote_average }) {
           title={title}
         />
         <CardContent className={classes.cardContent}>
-          <Typography variant="h5">{title}</Typography>
+          <Typography variant="h5" className={classes.title}>
+            {shortenTitle(title)}
+          </Typography>
           <Typography variant="p" className={classes.paragraph}>
             Genre
           </Typography>
