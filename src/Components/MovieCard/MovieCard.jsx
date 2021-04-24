@@ -90,7 +90,7 @@ export default function MovieCard({ title, poster_path, vote_average }) {
   const handleClick = () => setActive(!active);
 
   function scoreBg(score) {
-    if (score > 8) return "green";
+    if (score >= 8) return "green";
     if (score > 5) return "orange";
     if (score <= 5) return "red";
   }

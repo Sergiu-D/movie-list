@@ -27,7 +27,7 @@ export default function Trending() {
 
   return (
     <div>
-      <PageHeader title={"Trending"} />
+      {/* <PageHeader title={"Trending"} /> */}
       <div>
         <MovieList data={moviesList} sectionTitle={"Movies"} />
         <MovieList data={showsList} sectionTitle={"Tv Shows"} />

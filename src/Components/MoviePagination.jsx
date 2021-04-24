@@ -14,12 +14,12 @@ import { Grid } from "@material-ui/core";
 
 export default function MoviePagination({ movies, pageNum, setPageNum }) {
   const handleFetchMovies = () => setPageNum((prevPage) => prevPage + 1);
-
+  console.log("Movie Data", movies);
   return (
     <div>
       <InfiniteScroll
-        style={{ paddingRight: ".2rem", paddingTop: "1rem" }}
-        dataLength={movies.length} //This is important field to render the next data
+        style={{ paddingRight: "1rem", paddingTop: "1rem" }}
+        dataLength={movies.length}
         next={handleFetchMovies}
         hasMore={true}
         loader={<h4>Loading...</h4>}
@@ -31,8 +31,9 @@ export default function MoviePagination({ movies, pageNum, setPageNum }) {
       >
         <Grid container spacing={3} justify="flex-start">
           {movies.map((movie, index) => {
+            if (!movie.release_date) return;
             return (
-              <Grid item xs={4} sm={3} md={3} lg={3} key={index}>
+              <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
                 <MovieCard {...movie} key={movie.id} />
               </Grid>
             );

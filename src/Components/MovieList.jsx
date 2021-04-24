@@ -4,25 +4,32 @@ import React, { useState } from "react";
 import MovieCard from "./MovieCard/MovieCard";
 
 // Material-Ui
-import { Grid, Button } from "@material-ui/core";
+import { makeStyles, Grid, Button } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "grid",
+    gridTemplateColumns: "repeat(15, 1fr)",
+  },
+}));
 
 export default function MovieList({ data, sectionTitle }) {
+  const classes = useStyles();
   const [allMovies, setAllMovies] = useState(false);
 
   const handleBtn = () => {
     setAllMovies(!allMovies);
-    console.log("allMovies", allMovies);
   };
 
   return (
-    <section style={{ paddingRight: ".2rem", paddingTop: "1rem" }}>
+    <section style={{ paddingRight: "1rem", paddingTop: "1rem" }}>
       <h1>{sectionTitle}</h1>
       <Grid container spacing={3} justify="flex-start">
         {allMovies
           ? data.map((title, index) => {
               const movieName = title.title || title.name;
               return (
-                <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
+                <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
                   <MovieCard
                     title={movieName}
                     poster_path={title.poster_path}
@@ -35,7 +42,7 @@ export default function MovieList({ data, sectionTitle }) {
               .map((title, index) => {
                 const movieName = title.title || title.name;
                 return (
-                  <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
+                  <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
                     <MovieCard
                       title={movieName}
                       poster_path={title.poster_path}
