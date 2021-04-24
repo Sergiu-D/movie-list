@@ -32,7 +32,7 @@ export default function MoviePagination({ movies, pageNum, setPageNum }) {
         <Grid container spacing={3} justify="flex-start">
           {movies.map((movie, index) => {
             return (
-              <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
+              <Grid item xs={4} sm={3} md={3} lg={3} key={index}>
                 <MovieCard {...movie} key={movie.id} />
               </Grid>
             );

@@ -33,6 +33,7 @@ const useStyles = makeStyles({
     },
   },
   media: {
+    aspectRatio: "4/5",
     height: "100%",
     backgroundSize: "cover",
     zIndex: "500",
@@ -91,7 +92,7 @@ export default function MovieCard({ title, poster_path, vote_average }) {
   function scoreBg(score) {
     if (score > 8) return "green";
     if (score > 5) return "orange";
-    if (score < 5) return "red";
+    if (score <= 5) return "red";
   }
 
   function shortenTitle(t) {

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import MovieCard from "./MovieCard/MovieCard";
 
 // Material-Ui
-import { Grid } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 
 export default function MovieList({ data, sectionTitle }) {
   const [allMovies, setAllMovies] = useState(false);
@@ -22,7 +22,7 @@ export default function MovieList({ data, sectionTitle }) {
           ? data.map((title, index) => {
               const movieName = title.title || title.name;
               return (
-                <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
+                <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
                   <MovieCard
                     title={movieName}
                     poster_path={title.poster_path}
@@ -35,7 +35,7 @@ export default function MovieList({ data, sectionTitle }) {
               .map((title, index) => {
                 const movieName = title.title || title.name;
                 return (
-                  <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
+                  <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
                     <MovieCard
                       title={movieName}
                       poster_path={title.poster_path}
@@ -46,9 +46,9 @@ export default function MovieList({ data, sectionTitle }) {
               })
               .splice(0, 6)}
       </Grid>
-      <button onClick={() => handleBtn()}>
+      <Button variant="outlined" color="secondary" onClick={() => handleBtn()}>
         {allMovies ? "Show Less" : "Show More"}
-      </button>
+      </Button>
     </section>
   );
 }
