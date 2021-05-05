@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 
 // Style
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
     display: "flex",
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
       backgroundColor: "rgba(255,255,255,.2)",
     },
   },
-  media: {
+  img: {
     aspectRatio: "4/5",
     height: "100%",
     backgroundSize: "cover",
@@ -44,8 +44,14 @@ const useStyles = makeStyles({
     padding: "0 .4rem",
   },
   title: {
-    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+
+    minHeight: "50px",
+
     marginBottom: ".2rem",
+    color: "#fff",
   },
   paragraph: {
     color: "#fff",
@@ -62,24 +68,53 @@ const useStyles = makeStyles({
     // padding: "5px 15px"
   },
   paper: {
-    width: "40px",
-    height: "40px",
+    width: "38px",
+    height: "38px",
+    padding: ".2rem",
 
     position: "absolute",
     top: "10px",
     right: "10px",
 
+    borderWidth: "3px",
+    borderStyle: "solid",
     borderRadius: "50%",
     color: "white",
-    fontSize: "1.2rem",
-    fontWeight: 700,
+    backgroundColor: `rgba(0,0,0, .9)`,
     boxShadow: "0 0 5px 2px rgba(0,0,0,.4)",
 
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+
+    [theme.breakpoints.down("md")]: {
+      width: "35px",
+      height: "35px",
+
+      top: "7px",
+      right: "7px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      top: "2px",
+      right: "2px",
+
+      borderWidth: "2px",
+
+      width: "30px",
+      height: "30px",
+    },
   },
-});
+  scoreFont: {
+    fontSize: ".9rem",
+    fontWeight: 700,
+    [theme.breakpoints.down("md")]: {
+      fontSize: ".8rem",
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: ".7rem",
+    },
+  },
+}));
 
 export default function MovieCard({ title, poster_path, vote_average }) {
   const classes = useStyles();
@@ -120,16 +155,17 @@ export default function MovieCard({ title, poster_path, vote_average }) {
         <Paper
           className={classes.paper}
           style={{
-            backgroundColor: `rgba(255,255,255, .8)`,
-            border: `3px solid ${scoreBg(vote_average)}`,
-            color: `${scoreBg(vote_average)}`,
+            borderColor: `${scoreBg(vote_average)}`,
           }}
         >
-          {vote_average}
+          <Typography variant="caption" className={classes.scoreFont}>
+            {" "}
+            {vote_average}{" "}
+          </Typography>
         </Paper>
 
         <CardMedia
-          className={classes.media}
+          className={classes.img}
           component="img"
           alt={title}
           image={movieImage}

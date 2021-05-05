@@ -14,13 +14,12 @@ import { Link } from "react-router-dom";
 import {
   Drawer,
   Divider,
-  Hidden,
   CardMedia,
   List,
   ListItem,
   ListItemText,
   ListItemIcon,
-  Typography,
+  Icon,
   Fab,
   makeStyles,
   useTheme,
@@ -32,14 +31,7 @@ import PropTypes from "prop-types";
 // import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 // === Icons ===
-import TheatersIcon from "@material-ui/icons/Theaters";
-import TrendingUpIcon from "@material-ui/icons/TrendingUp";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
-import MovieFilterIcon from "@material-ui/icons/MovieFilter";
-import StarIcon from "@material-ui/icons/Star";
-import SettingsIcon from "@material-ui/icons/Settings";
 import MenuIcon from "@material-ui/icons/Menu";
-import CloseIcon from "@material-ui/icons/Close";
 
 // Navigation style
 const drawerWidth = 300;
@@ -49,6 +41,7 @@ const useStyles = makeStyles({
     position: "fixed",
     top: "25px",
     left: "25px",
+    transition: "opacity .2s ease-in-out",
     zIndex: 20000,
   },
   drawer: {
@@ -63,14 +56,25 @@ const useStyles = makeStyles({
     backgroundColor: "transparent",
   },
   mobileDrawerPaper: {
-    width: drawerWidth,
+    width: "70%",
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "#202B34",
   },
+  listItem: {
+    textTransform: "capitalize",
+    color: "rgba(255, 255, 255, 0.5)",
+  },
+  activeItem: {
+    textTransform: "capitalize",
+    color: "rgba(255, 255, 255)",
+  },
   icon: {
-    fill: "#fff",
+    fill: "rgba(255, 255, 255, 0.5)",
+  },
+  activeIcon: {
+    fill: "rgba(255, 255, 255)",
   },
 });
 
@@ -78,15 +82,14 @@ export default function Navigation() {
   const classes = useStyles();
   const navTabs = ["trending", "newest", "upcoming", "discover", "watchlist"];
   const navTabsIcons = [
-    <TheatersIcon className={classes.icon} />,
-    <TrendingUpIcon className={classes.icon} />,
-    <ArrowUpwardIcon className={classes.icon} />,
-    <MovieFilterIcon className={classes.icon} />,
-    <StarIcon className={classes.icon} />,
-    <SettingsIcon className={classes.icon} />,
+    "theaters",
+    "trending_up",
+    "arrow_upward",
+    "movie_filter",
+    "star",
+    "settings",
   ];
 
-  const [openNav, setOpenNav] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [settings, setSettings] = useState(true);
 
@@ -95,33 +98,41 @@ export default function Navigation() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
 
-  const handleOpenMenu = () => setOpenMenu(!openMenu);
+  // Handle close navigation
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setOpenMenu(open);
+  };
 
   const handleActiveTab = (i) => {
     setActiveTab(i);
-  };
-
-  const handleMouseEnter = () => {
-    setSettings(true);
-  };
-
-  const handleMouseLeave = () => {
-    setSettings(false);
   };
 
   return (
     <>
       {matches && (
         <Fab
+          style={
+            openMenu
+              ? { visibility: "hidden", opacity: "0" }
+              : { visibility: "visible", opacity: "1" }
+          }
           color="primary"
-          className={classes.menuIcon}
-          onClick={handleOpenMenu}
+          onClick={toggleDrawer(true)}
         >
-          {openMenu ? <CloseIcon /> : <MenuIcon />}
+          <MenuIcon />
         </Fab>
       )}
+
       <Drawer
         open={openMenu}
+        onClose={toggleDrawer(false)}
         variant={matches ? "temporary" : "permanent"}
         className={classes.drawer}
         classes={{
@@ -132,25 +143,33 @@ export default function Navigation() {
           // className={classes.media}
           component="img"
           alt="Logo"
-          image="../../img/logo_transparent.png"
+          image="../img/logo_transparent.png"
           // title={title}
         />
 
         {/* <img src="./ " alt="logo" /> */}
-        <List>
+        <List style={{ width: "100%" }}>
           {navTabs.map((tab, index) => {
-            const activeTabStyle = classNames("list-item", {
-              active: activeTab === index,
-            });
-
             return (
-              <Link to={`/${tab}`} key={index}>
+              <Link to={`/${tab}`} key={index} onClick={toggleDrawer(false)}>
                 <ListItem
                   button
                   onClick={() => handleActiveTab(index)}
-                  className={activeTabStyle}
+                  className={
+                    activeTab === index ? classes.activeItem : classes.listItem
+                  }
+                  style={{
+                    padding: "1rem 5rem",
+                  }}
                 >
-                  <ListItemIcon>{navTabsIcons[index]}</ListItemIcon>
+                  <Icon
+                    className={
+                      activeTab === index ? classes.activeIcon : classes.icon
+                    }
+                  >
+                    {navTabsIcons[index]}
+                  </Icon>
+
                   <ListItemText primary={tab} />
                 </ListItem>
               </Link>
