@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyItems: "flex-start",
+
     border: 0,
     backgroundColor: "transparent",
     boxShadow: "3px 3px 10px 2px rgba(0,0,0, .2)",
@@ -44,11 +45,12 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 .4rem",
   },
   title: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    flexGrow: 1,
+    // display: "flex",
+    // alignItems: "center",
+    // justifyContent: "center",
 
-    minHeight: "50px",
+    // minHeight: "50px",
 
     marginBottom: ".2rem",
     color: "#fff",

@@ -20,8 +20,22 @@ import Upcoming from "./Components/Pages/Upcoming";
 import Discover from "./Components/Pages/Discover";
 import Watchlist from "./Components/Pages/Watchlist";
 
-let theme = createMuiTheme();
+let theme = createMuiTheme({
+  typography: {
+    // Tell Material-UI what's the font-size on the html element is.
+    htmlFontSize: 20,
+  },
+});
 theme = responsiveFontSizes(theme);
+
+// theme.typography.h5 = {
+//   [theme.breakpoints.down("md")]: {
+//     fontSize: "1rem",
+//   },
+//   [theme.breakpoints.down("sm")]: {
+//     fontSize: ".8rem",
+//   },
+// };
 
 function App() {
   return (

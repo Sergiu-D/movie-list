@@ -24,19 +24,23 @@ import {
   makeStyles,
   useTheme,
   useMediaQuery,
+  Typography,
 } from "@material-ui/core";
 
 import PropTypes from "prop-types";
 
 // import { makeStyles, useTheme } from "@material-ui/core/styles";
 
+// Logo
+import Logo from "../../img/logo_transparent.png";
+import TmdbLogo from "../../img/tmdb-2.svg";
 // === Icons ===
 import MenuIcon from "@material-ui/icons/Menu";
 
 // Navigation style
 const drawerWidth = 300;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   menuIcon: {
     position: "fixed",
     top: "25px",
@@ -46,14 +50,20 @@ const useStyles = makeStyles({
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
   },
   drawerPaper: {
     width: drawerWidth,
     display: "flex",
+    flexShrink: 0,
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "transparent",
+    border: "none",
+
+    [theme.breakpoints.down("sm")]: {
+      width: "70%",
+      backgroundColor: "inherit",
+    },
   },
   mobileDrawerPaper: {
     width: "70%",
@@ -63,20 +73,29 @@ const useStyles = makeStyles({
     backgroundColor: "#202B34",
   },
   listItem: {
+    padding: "1rem 5rem",
     textTransform: "capitalize",
     color: "rgba(255, 255, 255, 0.5)",
   },
   activeItem: {
+    padding: "1rem 5rem",
     textTransform: "capitalize",
     color: "rgba(255, 255, 255)",
   },
   icon: {
+    marginRight: "1rem",
+    fontSize: "1.8rem",
     fill: "rgba(255, 255, 255, 0.5)",
   },
   activeIcon: {
+    marginRight: "1rem",
+    fontSize: "1.8rem",
     fill: "rgba(255, 255, 255)",
   },
-});
+  logo: {
+    width: "9rem",
+  },
+}));
 
 export default function Navigation() {
   const classes = useStyles();
@@ -134,17 +153,16 @@ export default function Navigation() {
         open={openMenu}
         onClose={toggleDrawer(false)}
         variant={matches ? "temporary" : "permanent"}
-        className={classes.drawer}
+        className={classes.drawerPaper}
         classes={{
           paper: matches ? classes.mobileDrawerPaper : classes.drawerPaper,
         }}
       >
         <CardMedia
-          // className={classes.media}
+          className={classes.logo}
           component="img"
           alt="Logo"
-          image="../img/logo_transparent.png"
-          // title={title}
+          image={Logo}
         />
 
         {/* <img src="./ " alt="logo" /> */}
@@ -158,9 +176,6 @@ export default function Navigation() {
                   className={
                     activeTab === index ? classes.activeItem : classes.listItem
                   }
-                  style={{
-                    padding: "1rem 5rem",
-                  }}
                 >
                   <Icon
                     className={
@@ -169,14 +184,22 @@ export default function Navigation() {
                   >
                     {navTabsIcons[index]}
                   </Icon>
-
-                  <ListItemText primary={tab} />
+                  <Typography variant="h4" style={{ fontWeight: "100" }}>
+                    {tab}
+                  </Typography>
+                  {/* <ListItemText primary={tab} /> */}
                 </ListItem>
               </Link>
             );
           })}
           <SettingsTab />
         </List>
+        <CardMedia
+          className={classes.logo}
+          component="img"
+          alt="The movie data base logo"
+          image={TmdbLogo}
+        />
       </Drawer>
     </>
   );
