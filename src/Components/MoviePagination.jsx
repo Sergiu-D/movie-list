@@ -12,9 +12,15 @@ import MovieCard from "./MovieCard/MovieCard";
 // Material-Ui
 import { Grid } from "@material-ui/core";
 
+import { useParams } from "react-router-dom";
+
+// TODO add "back to top button"
+
 export default function MoviePagination({ movies, pageNum, setPageNum }) {
   const handleFetchMovies = () => setPageNum((prevPage) => prevPage + 1);
-  console.log("Movie Data", movies);
+
+  const { id } = useParams();
+  console.log(id);
   return (
     <div>
       <InfiniteScroll
