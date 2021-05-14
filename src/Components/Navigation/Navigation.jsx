@@ -3,6 +3,7 @@ import "./NavigationStyles.css";
 import classNames from "classnames/bind";
 
 // Components
+import Search from "./Search";
 import SettingsTab from "./SettingsTab";
 
 // Router
@@ -137,6 +138,7 @@ export default function Navigation() {
     <>
       {matches && (
         <Fab
+          className={classes.menuIcon}
           style={
             openMenu
               ? { visibility: "hidden", opacity: "0" }
@@ -165,7 +167,8 @@ export default function Navigation() {
           image={Logo}
         />
 
-        {/* <img src="./ " alt="logo" /> */}
+        <Search />
+
         <List style={{ width: "100%" }}>
           {navTabs.map((tab, index) => {
             return (
