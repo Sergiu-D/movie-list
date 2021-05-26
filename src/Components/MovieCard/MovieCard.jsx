@@ -45,14 +45,12 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 .4rem",
   },
   title: {
-    // flexGrow: 1,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    padding: ".8rem .5rem",
 
-    minHeight: "50px",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
 
-    marginBottom: ".2rem",
     color: "#fff",
   },
   paragraph: {
@@ -67,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "10px",
     left: "10px",
-    // padding: "5px 15px"
   },
   paper: {
     width: "38px",
@@ -132,16 +129,16 @@ export default function MovieCard({ title, poster_path, vote_average }) {
     if (score <= 5) return "red";
   }
 
-  function shortenTitle(t) {
-    const arrTitle = t.split("");
+  // function shortenTitle(t) {
+  //   const arrTitle = t.split("");
 
-    const shortTitle =
-      arrTitle.length >= 15
-        ? `${arrTitle.slice(0, 15).join("")}...`
-        : arrTitle.join("");
+  //   const shortTitle =
+  //     arrTitle.length >= 15
+  //       ? `${arrTitle.slice(0, 15).join("")}...`
+  //       : arrTitle.join("");
 
-    return shortTitle;
-  }
+  //   return shortTitle;
+  // }
 
   return (
     <Card className={classes.root}>
@@ -174,7 +171,8 @@ export default function MovieCard({ title, poster_path, vote_average }) {
         />
         <CardContent className={classes.cardContent}>
           <Typography variant="h5" className={classes.title}>
-            {shortenTitle(title)}
+            {/* {shortenTitle(title)} */}
+            {title}
           </Typography>
           <Typography variant="p" className={classes.paragraph}>
             Genre
