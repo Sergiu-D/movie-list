@@ -161,8 +161,7 @@ export default function MovieCard({ title, poster_path, vote_average }) {
           }}
         >
           <Typography variant="caption" className={classes.scoreFont}>
-            {" "}
-            {vote_average}{" "}
+            {vote_average}
           </Typography>
         </Paper>
 

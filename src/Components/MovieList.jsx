@@ -30,11 +30,7 @@ export default function MovieList({ data, sectionTitle }) {
               const movieName = title.title || title.name;
               return (
                 <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
-                  <MovieCard
-                    title={movieName}
-                    poster_path={title.poster_path}
-                    key={index}
-                  />
+                  <MovieCard title={movieName} {...title} key={index} />
                 </Grid>
               );
             })
@@ -45,7 +41,9 @@ export default function MovieList({ data, sectionTitle }) {
                   <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
                     <MovieCard
                       title={movieName}
-                      poster_path={title.poster_path}
+                      {...title}
+                      // poster_path={title.poster_path}
+                      // vote_average={title.vote_average}
                       key={index}
                     />
                   </Grid>
