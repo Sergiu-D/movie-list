@@ -22,7 +22,17 @@ export default function MovieList({ data, sectionTitle }) {
   };
 
   return (
-    <section style={{ paddingRight: "1rem", paddingTop: "1rem" }}>
+    <section
+      style={{
+        padding: "0 .5rem",
+        paddingTop: "1rem",
+        minHeight: "50vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      {/* TODO change h1 to typography */}
       <h1>{sectionTitle}</h1>
       <Grid container spacing={3} justify="flex-start">
         {allMovies
@@ -51,7 +61,14 @@ export default function MovieList({ data, sectionTitle }) {
               })
               .splice(0, 6)}
       </Grid>
-      <Button variant="outlined" color="secondary" onClick={() => handleBtn()}>
+
+      {/* TODO make btn responsive */}
+      <Button
+        variant="outlined"
+        color="secondary"
+        style={{ width: "10%", margin: "0 auto" }}
+        onClick={() => handleBtn()}
+      >
         {allMovies ? "Show Less" : "Show More"}
       </Button>
     </section>
