@@ -8,7 +8,7 @@ import SettingsTab from "./SettingsTab";
 
 // Router
 
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 //Material-Ui
 
@@ -16,6 +16,7 @@ import {
   Drawer,
   Divider,
   CardMedia,
+  Container,
   List,
   ListItem,
   ListItemText,
@@ -38,8 +39,10 @@ import TmdbLogo from "../../img/tmdb-2.svg";
 // === Icons ===
 import MenuIcon from "@material-ui/icons/Menu";
 
-// Navigation style
-const drawerWidth = 300;
+// ==== Navigation style ====
+
+// Navigation width
+const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
   menuIcon: {
@@ -49,52 +52,51 @@ const useStyles = makeStyles((theme) => ({
     transition: "opacity .2s ease-in-out",
     zIndex: 20000,
   },
-  drawer: {
-    width: drawerWidth,
-  },
+
   drawerPaper: {
     width: drawerWidth,
+
     display: "flex",
-    flexShrink: 0,
+    flexDirection: "column",
+
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "transparent",
     border: "none",
+    overflowX: "hidden",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
+      minWidth: "300px",
+      maxWidth: "40%",
+      width: "40%",
       width: "70%",
-      backgroundColor: "inherit",
+      display: "flex",
+
+      justifyContent: "space-around",
+      alignItems: "center",
+      backgroundColor: "#202B34",
     },
   },
-  mobileDrawerPaper: {
-    width: "70%",
+
+  navTabs: {
     display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#202B34",
-  },
-  listItem: {
-    padding: "1rem 5rem",
+
+    padding: "1.3rem 6rem",
     textTransform: "capitalize",
     color: "rgba(255, 255, 255, 0.5)",
   },
-  activeItem: {
-    padding: "1rem 5rem",
-    textTransform: "capitalize",
-    color: "rgba(255, 255, 255)",
+
+  typography: {
+    fontWeight: 100,
   },
   icon: {
-    marginRight: "1rem",
-    fontSize: "1.8rem",
+    marginRight: "1.3rem",
+    fontSize: "2rem",
     fill: "rgba(255, 255, 255, 0.5)",
   },
-  activeIcon: {
-    marginRight: "1rem",
-    fontSize: "1.8rem",
-    fill: "rgba(255, 255, 255)",
-  },
+
   logo: {
-    width: "9rem",
+    width: "9.5rem",
   },
 }));
 
@@ -150,60 +152,62 @@ export default function Navigation() {
           <MenuIcon />
         </Fab>
       )}
-
-      <Drawer
-        open={openMenu}
-        onClose={toggleDrawer(false)}
-        variant={matches ? "temporary" : "permanent"}
-        className={classes.drawerPaper}
-        classes={{
-          paper: matches ? classes.mobileDrawerPaper : classes.drawerPaper,
-        }}
+      <nav
+        style={
+          matches ? { minWidth: 0 } : { minWidth: drawerWidth, height: "100vh" }
+        }
       >
-        <CardMedia
-          className={classes.logo}
-          component="img"
-          alt="Logo"
-          image={Logo}
-        />
+        <Drawer
+          open={openMenu}
+          onClose={toggleDrawer(false)}
+          variant={matches ? "temporary" : "permanent"}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <CardMedia
+            className={classes.logo}
+            component="img"
+            alt="Logo"
+            image={Logo}
+          />
 
-        <Search />
+          <Search />
 
-        <List style={{ width: "100%" }}>
-          {navTabs.map((tab, index) => {
-            return (
-              <Link to={`/${tab}`} key={index} onClick={toggleDrawer(false)}>
-                <ListItem
-                  button
-                  onClick={() => handleActiveTab(index)}
-                  className={
-                    activeTab === index ? classes.activeItem : classes.listItem
-                  }
-                >
-                  <Icon
-                    className={
-                      activeTab === index ? classes.activeIcon : classes.icon
-                    }
+          <List
+            style={{
+              width: "100%",
+            }}
+          >
+            {navTabs.map((tab, index) => {
+              return (
+                <ListItem button style={{ padding: "0" }}>
+                  <NavLink
+                    to={`/${tab}`}
+                    key={index}
+                    activeStyle={{
+                      color: "white",
+                      fill: "white",
+                    }}
+                    className={classes.navTabs}
                   >
-                    {navTabsIcons[index]}
-                  </Icon>
-                  <Typography variant="h4" style={{ fontWeight: "100" }}>
-                    {tab}
-                  </Typography>
-                  {/* <ListItemText primary={tab} /> */}
+                    <Icon className={classes.icon}>{navTabsIcons[index]}</Icon>
+                    <Typography variant="h4" className={classes.typography}>
+                      {tab}
+                    </Typography>
+                  </NavLink>
                 </ListItem>
-              </Link>
-            );
-          })}
-          <SettingsTab />
-        </List>
-        <CardMedia
-          className={classes.logo}
-          component="img"
-          alt="The movie data base logo"
-          image={TmdbLogo}
-        />
-      </Drawer>
+              );
+            })}
+          </List>
+          <CardMedia
+            className={classes.logo}
+            component="img"
+            alt="The movie data base logo"
+            image={TmdbLogo}
+          />
+        </Drawer>
+      </nav>
     </>
   );
 }

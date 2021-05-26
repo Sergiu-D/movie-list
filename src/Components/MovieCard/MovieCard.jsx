@@ -45,12 +45,12 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 .4rem",
   },
   title: {
-    flexGrow: 1,
-    // display: "flex",
-    // alignItems: "center",
-    // justifyContent: "center",
+    // flexGrow: 1,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
 
-    // minHeight: "50px",
+    minHeight: "50px",
 
     marginBottom: ".2rem",
     color: "#fff",

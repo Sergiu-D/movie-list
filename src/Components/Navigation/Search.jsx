@@ -6,11 +6,11 @@ import { useParams } from "react-router-dom";
 import { TextField, Button } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
-function sleep(delay = 0) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-}
+// function sleep(delay = 0) {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, delay);
+//   });
+// }
 
 export default function Search() {
   const [searchInput, setSearchInput] = useState("");
@@ -28,7 +28,7 @@ export default function Search() {
     });
     return () => cancel();
   }
-
+  // TODO error handler
   return (
     <div style={{ display: "flex" }}>
       <TextField
