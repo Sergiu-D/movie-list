@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./NavigationStyles.css";
-import classNames from "classnames/bind";
+// import classNames from "classnames/bind";
 
 // Components
 import Search from "./Search";
-import SettingsTab from "./SettingsTab";
+// import SettingsTab from "./SettingsTab";
 
 // Router
 
@@ -14,13 +14,9 @@ import { NavLink } from "react-router-dom";
 
 import {
   Drawer,
-  Divider,
   CardMedia,
-  Container,
   List,
   ListItem,
-  ListItemText,
-  ListItemIcon,
   Icon,
   Fab,
   makeStyles,
@@ -29,7 +25,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 // import { makeStyles, useTheme } from "@material-ui/core/styles";
 
@@ -69,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
       minWidth: "300px",
       maxWidth: "40%",
       width: "40%",
-      width: "70%",
+
       display: "flex",
 
       justifyContent: "space-around",
@@ -112,8 +108,8 @@ export default function Navigation() {
     "settings",
   ];
 
-  const [activeTab, setActiveTab] = useState(0);
-  const [settings, setSettings] = useState(true);
+  // const [activeTab, setActiveTab] = useState(0);
+  // const [settings, setSettings] = useState(true);
 
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -132,9 +128,9 @@ export default function Navigation() {
     setOpenMenu(open);
   };
 
-  const handleActiveTab = (i) => {
-    setActiveTab(i);
-  };
+  // const handleActiveTab = (i) => {
+  //   setActiveTab(i);
+  // };
 
   return (
     <>

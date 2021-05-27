@@ -15,7 +15,7 @@ export default function Discover() {
       method: "get",
       url: `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}`,
       params: { page: pageNum },
-    }).then((res) => setMovies([...movies, ...res.data.results]));
+    }).then((res) => setMovies((prev) => [...prev, ...res.data.results]));
   }, [pageNum]);
 
   return (

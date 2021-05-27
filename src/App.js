@@ -7,7 +7,6 @@ import {
   createMuiTheme,
   responsiveFontSizes,
   MuiThemeProvider,
-  useMediaQuery,
 } from "@material-ui/core";
 
 // Components

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 // Components
-import PageHeader from "../PageHeader";
 import MovieList from "../MovieList";
 
 export default function Trending() {

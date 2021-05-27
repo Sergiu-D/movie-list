@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 
 // Components
 import MovieCard from "./MovieCard/MovieCard";
@@ -12,6 +11,18 @@ const useStyles = makeStyles((theme) => ({
     display: "grid",
     gridTemplateColumns: "repeat(15, 1fr)",
   },
+  container: {
+    padding: "0 .5rem",
+    paddingTop: "1rem",
+    minHeight: "50vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  btn: {
+    width: "10%",
+    margin: "0 auto",
+  },
 }));
 
 export default function MovieList({ data, sectionTitle, genres }) {
@@ -23,16 +34,7 @@ export default function MovieList({ data, sectionTitle, genres }) {
   };
 
   return (
-    <section
-      style={{
-        padding: "0 .5rem",
-        paddingTop: "1rem",
-        minHeight: "50vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
+    <section className={classes.container}>
       {/* TODO change h1 to typography */}
       <h1>{sectionTitle}</h1>
       <Grid container spacing={3} justify="flex-start">
@@ -68,7 +70,7 @@ export default function MovieList({ data, sectionTitle, genres }) {
       <Button
         variant="outlined"
         color="secondary"
-        style={{ width: "10%", margin: "0 auto" }}
+        className={classes.btn}
         onClick={() => handleBtn()}
       >
         {allMovies ? "Show Less" : "Show More"}

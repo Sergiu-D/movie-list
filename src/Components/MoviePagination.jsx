@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import useSWR from "swr";
-import fetcher from "../Utils/fetcher";
+// import useSWR from "swr";
+// import fetcher from "../Utils/fetcher";
 
 // Utils
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -12,7 +12,7 @@ import MovieCard from "./MovieCard/MovieCard";
 // Material-Ui
 import { Grid } from "@material-ui/core";
 
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 // TODO add "back to top button"
 

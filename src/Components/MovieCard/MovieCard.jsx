@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+
 import Genre from "../MovieDetails/Genre";
 
 // Material-Ui
@@ -7,7 +7,6 @@ import {
   makeStyles,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
