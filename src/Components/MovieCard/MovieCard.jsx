@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Genre from "../MovieDetails/Genre";
 
 // Material-Ui
 import {
@@ -115,7 +117,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieCard({ title, poster_path, vote_average }) {
+export default function MovieCard({
+  genre_ids,
+  genres,
+  title,
+  poster_path,
+  vote_average,
+  media_type,
+}) {
   const classes = useStyles();
   const [active, setActive] = React.useState(false);
 
@@ -129,6 +138,18 @@ export default function MovieCard({ title, poster_path, vote_average }) {
     if (score <= 5) return "red";
   }
 
+  //   const [moviesGenres, setMoviesGenres] = useState();
+
+  //   useEffect(() => {
+  //     axios({
+  //       method: "get",
+  //       url: `
+  // https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`,
+  //     }).then((res) => setMoviesGenres(res.data.genres));
+  //   }, []);
+
+  //   console.log("Movies Genres: ", moviesGenres);
+
   // function shortenTitle(t) {
   //   const arrTitle = t.split("");
 
@@ -139,7 +160,7 @@ export default function MovieCard({ title, poster_path, vote_average }) {
 
   //   return shortTitle;
   // }
-
+  // console.log("Gendres ids: ", genres);
   return (
     <Card className={classes.root}>
       <CardActionArea className={classes.cardActionArea}>
@@ -174,9 +195,8 @@ export default function MovieCard({ title, poster_path, vote_average }) {
             {/* {shortenTitle(title)} */}
             {title}
           </Typography>
-          <Typography variant="p" className={classes.paragraph}>
-            Genre
-          </Typography>
+          Genres
+          {/* <Genre genres={genres} genreIds={genre_ids} mediaType={media_type} /> */}
         </CardContent>
       </CardActionArea>
     </Card>

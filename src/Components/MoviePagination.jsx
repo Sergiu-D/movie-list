@@ -19,8 +19,6 @@ import { useParams } from "react-router-dom";
 export default function MoviePagination({ movies, pageNum, setPageNum }) {
   const handleFetchMovies = () => setPageNum((prevPage) => prevPage + 1);
 
-  const { id } = useParams();
-  console.log(id);
   return (
     <div>
       <InfiniteScroll

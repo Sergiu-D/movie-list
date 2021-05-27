@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 // Components
 import MovieCard from "./MovieCard/MovieCard";
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieList({ data, sectionTitle }) {
+export default function MovieList({ data, sectionTitle, genres }) {
   const classes = useStyles();
   const [allMovies, setAllMovies] = useState(false);
 
@@ -51,6 +52,7 @@ export default function MovieList({ data, sectionTitle }) {
                   <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
                     <MovieCard
                       title={movieName}
+                      genres={genres}
                       {...title}
                       // poster_path={title.poster_path}
                       // vote_average={title.vote_average}
