@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "10px",
     left: "10px",
+    zIndex: "1000",
   },
   paper: {
     width: "38px",
@@ -163,15 +164,15 @@ export default function MovieCard({
   // console.log("Gendres ids: ", genres);
   return (
     <Card className={classes.root}>
+      <Button
+        onClick={handleClick}
+        variant={active ? "contained" : "outlined"}
+        color="secondary"
+        className={classes.btn}
+      >
+        +
+      </Button>
       <CardActionArea className={classes.cardActionArea}>
-        <Button
-          onClick={handleClick}
-          variant={active ? "contained" : "outlined"}
-          color="secondary"
-          className={classes.btn}
-        >
-          +
-        </Button>
         <Paper
           className={classes.paper}
           style={{
@@ -195,8 +196,8 @@ export default function MovieCard({
             {/* {shortenTitle(title)} */}
             {title}
           </Typography>
-          Genres
-          {/* <Genre genres={genres} genreIds={genre_ids} mediaType={media_type} /> */}
+
+          <Genre genres={genres} genreIds={genre_ids} mediaType={media_type} />
         </CardContent>
       </CardActionArea>
     </Card>

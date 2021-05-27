@@ -19,11 +19,11 @@ export default function Genre({ genres, genreIds, mediaType }) {
       //   (genreId, index) =>
       //     genreId === moviesGenres[index].id && moviesGenres[index].name
       // );
-      return moviesGenres.forEach(
+      return moviesGenres.map(
         (genre, index) => genre.id === genreIds[index] && genre.name
       );
     if (mediaType === "tv")
-      return showsGenres.forEach(
+      return showsGenres.map(
         (genre, index) => genre.id === genreIds[index] && genre.name
       );
   }

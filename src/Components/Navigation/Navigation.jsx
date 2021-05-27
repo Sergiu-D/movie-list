@@ -181,10 +181,9 @@ export default function Navigation() {
           >
             {navTabs.map((tab, index) => {
               return (
-                <ListItem button style={{ padding: "0" }}>
+                <ListItem button style={{ padding: "0" }} key={index}>
                   <NavLink
                     to={`/${tab}`}
-                    key={index}
                     activeStyle={{
                       color: "white",
                       fill: "white",
