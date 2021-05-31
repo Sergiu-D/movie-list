@@ -6,33 +6,31 @@ import axios from "axios";
 // Components
 import MovieList from "../MovieList";
 
-export default function Trending() {
+export default function Trending({ setCurrentPath }) {
   const [moviesList, setMoviesList] = useState([]);
   const [showsList, setShowsList] = useState([]);
-  const [genres, setGenres] = useState([]);
+  // const [genres, setGenres] = useState([]);
   // const [showsGenres, setShowsGenres] = useState([]);
 
   // Genres movies API request
 
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: `
-  https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`,
-    }).then((res) => setGenres((prev) => [...prev, res.data.genres]));
-  }, []);
+  // useEffect(() => {
+  //   axios({
+  //     method: "get",
+  //     url: `
+  // https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`,
+  //   }).then((res) => setGenres((prev) => [...prev, res.data.genres]));
+  // }, []);
 
-  // Genres tv shows API request
+  // // Genres tv shows API request
 
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: `
-  https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_API_KEY}`,
-    }).then((res) => setGenres((prev) => [...prev, res.data.genres]));
-  }, []);
-
-  console.log("Genres: ", genres);
+  // useEffect(() => {
+  //   axios({
+  //     method: "get",
+  //     url: `
+  // https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_API_KEY}`,
+  //   }).then((res) => setGenres((prev) => [...prev, res.data.genres]));
+  // }, []);
 
   // Movies API request
   useEffect(() => {
@@ -54,8 +52,8 @@ export default function Trending() {
     <div>
       {/* <PageHeader title={"Trending"} /> */}
       <div>
-        <MovieList data={moviesList} genres={genres} sectionTitle={"Movies"} />
-        <MovieList data={showsList} genres={genres} sectionTitle={"Tv Shows"} />
+        <MovieList data={moviesList} sectionTitle={"Movies"} />
+        <MovieList data={showsList} sectionTitle={"Tv Shows"} />
       </div>
     </div>
   );

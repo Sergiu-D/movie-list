@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link, useRouteMatch } from "react-router-dom";
 
 import Genre from "../MovieDetails/Genre";
 
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "10px",
     left: "10px",
-    zIndex: "1000",
+    zIndex: "10000",
   },
   paper: {
     width: "38px",
@@ -117,23 +118,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieCard({
-  id,
-  genre_ids,
-  genres,
-  title,
-  poster_path,
-  backdrop_path,
-  vote_average,
-  media_type,
-}) {
+export default function MovieCard({ movies }) {
   const classes = useStyles();
   const [active, setActive] = React.useState(false);
 
+  // debugger;
+  const {
+    id,
+    genre_ids,
+    poster_path,
+    backdrop_path,
+    vote_average,
+    media_type,
+  } = movies;
+
+  const title = movies.title || movies.name;
+
   const movieImage = `https://image.tmdb.org/t/p/w300/${poster_path}`;
-  const movieBg = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
+
   // const movieBackdrop = `https://api.themoviedb.org/3/movie/${id}/images?api_key=${process.env.REACT_APP_API_KEY}`;
-  console.log("Movie card, id: ", movieBg);
+  // console.log("Movie card, id: ", movieBg);
+
+  const { url } = useRouteMatch();
+
+  //TODO remove ":" from urlTitle
+
+  const urlPath = title.replace(/\s/g, "+");
+  // console.log("urlTitle: ", title.replace(/\s/g, "-"));
 
   const handleClick = () => setActive(!active);
 
@@ -167,47 +178,59 @@ export default function MovieCard({
   // }
   // console.log("Gendres ids: ", genres);
   return (
-    <Card className={classes.root}>
-      <Button
-        onClick={handleClick}
-        variant={active ? "contained" : "outlined"}
-        color="secondary"
-        className={classes.btn}
-      >
-        +
-      </Button>
-      <CardActionArea className={classes.cardActionArea}>
-        <Paper
-          className={classes.paper}
-          style={{
-            borderColor: `${scoreBg(vote_average)}`,
+    <>
+      <Card className={classes.root}>
+        <Button
+          onClick={handleClick}
+          variant={active ? "contained" : "outlined"}
+          color="secondary"
+          className={classes.btn}
+        >
+          +
+        </Button>
+        <Link
+          to={{
+            pathname: `${url}/${urlPath}`,
+            state: {
+              id: id,
+              mediaType: media_type,
+            },
           }}
         >
-          <Typography variant="caption" className={classes.scoreFont}>
-            {vote_average}
-          </Typography>
-        </Paper>
+          <CardActionArea className={classes.cardActionArea}>
+            <Paper
+              className={classes.paper}
+              style={{
+                borderColor: `${scoreBg(vote_average)}`,
+              }}
+            >
+              <Typography variant="caption" className={classes.scoreFont}>
+                {vote_average}
+              </Typography>
+            </Paper>
 
-        <CardMedia
-          className={classes.img}
-          component="img"
-          alt={title}
-          image={movieImage}
-          title={title}
-        />
-        <CardContent className={classes.cardContent}>
-          <Typography variant="h5" className={classes.title}>
-            {/* {shortenTitle(title)} */}
-            {title}
-          </Typography>
+            <CardMedia
+              className={classes.img}
+              component="img"
+              alt={`${title} poster`}
+              image={movieImage}
+              title={title}
+            />
+            <CardContent className={classes.cardContent}>
+              <Typography variant="h5" className={classes.title}>
+                {/* {shortenTitle(title)} */}
+                {title}
+              </Typography>
 
-          <Genre
-            // genres={genres}
-            genreIds={genre_ids}
-            mediaType={media_type}
-          />
-        </CardContent>
-      </CardActionArea>
-    </Card>
+              <Genre
+                // genres={genres}
+                genreIds={genre_ids}
+                mediaType={media_type}
+              />
+            </CardContent>
+          </CardActionArea>
+        </Link>
+      </Card>
+    </>
   );
 }

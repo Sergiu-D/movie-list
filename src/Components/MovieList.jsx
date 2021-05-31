@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import MovieCard from "./MovieCard/MovieCard";
@@ -28,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
 export default function MovieList({ data, sectionTitle, genres }) {
   const classes = useStyles();
   const [allMovies, setAllMovies] = useState(false);
+  const [receivedData, setReceiveData] = useState([]);
+
+  useEffect(() => {
+    setReceiveData(data);
+  }, [data]);
 
   const handleBtn = () => {
     setAllMovies(!allMovies);
@@ -39,31 +44,29 @@ export default function MovieList({ data, sectionTitle, genres }) {
       <h1>{sectionTitle}</h1>
       <Grid container spacing={3} justify="flex-start">
         {allMovies
-          ? data.map((title, index) => {
+          ? receivedData.map((title, index) => {
               const movieName = title.title || title.name;
               return (
                 <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
-                  <MovieCard title={movieName} {...title} key={index} />
+                  <MovieCard title={movieName} titleInfo={title} key={index} />
                 </Grid>
               );
             })
-          : data
+          : receivedData
               .map((title, index) => {
                 const movieName = title.title || title.name;
                 return (
                   <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
                     <MovieCard
-                      title={movieName}
-                      genres={genres}
-                      {...title}
-                      // poster_path={title.poster_path}
-                      // vote_average={title.vote_average}
+                      // title={movieName}
+                      // genres={genres}
+                      titleInfo={title}
                       key={index}
                     />
                   </Grid>
                 );
               })
-              .splice(0, 6)}
+              .slice(0, 6)}
       </Grid>
 
       {/* TODO make btn responsive */}

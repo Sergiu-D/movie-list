@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Material-Ui
@@ -18,6 +18,7 @@ import Newest from "./Components/Pages/Newest";
 import Upcoming from "./Components/Pages/Upcoming";
 import Discover from "./Components/Pages/Discover";
 import Watchlist from "./Components/Pages/Watchlist";
+import MovieDetails from "./Components/MovieDetails/MovieDetails";
 
 let theme = createMuiTheme({
   typography: {
@@ -48,7 +49,7 @@ function App() {
               <Route exact path="/">
                 <Trending />
               </Route>
-              <Route path="/trending">
+              <Route exact path="/trending">
                 <Trending />
               </Route>
               <Route path="/newest">
@@ -57,12 +58,17 @@ function App() {
               <Route path="/upcoming">
                 <Upcoming />
               </Route>
-              <Route path="/discover">
+              <Route exact path="/discover">
                 <Discover />
               </Route>
               <Route path="/watchlist">
                 <Watchlist />
               </Route>
+              <Route
+                path={["/trending/:title", "/discover/:title"]}
+                component={MovieDetails}
+              />
+              {/* <Route path="/discover/:title" component={MovieDetails} /> */}
             </Switch>
           </main>
         </Router>
