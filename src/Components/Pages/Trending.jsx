@@ -32,6 +32,8 @@ export default function Trending() {
     }).then((res) => setGenres((prev) => [...prev, res.data.genres]));
   }, []);
 
+  console.log("Genres: ", genres);
+
   // Movies API request
   useEffect(() => {
     axios({

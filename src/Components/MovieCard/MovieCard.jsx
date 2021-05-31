@@ -118,10 +118,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MovieCard({
+  id,
   genre_ids,
   genres,
   title,
   poster_path,
+  backdrop_path,
   vote_average,
   media_type,
 }) {
@@ -129,6 +131,9 @@ export default function MovieCard({
   const [active, setActive] = React.useState(false);
 
   const movieImage = `https://image.tmdb.org/t/p/w300/${poster_path}`;
+  const movieBg = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
+  // const movieBackdrop = `https://api.themoviedb.org/3/movie/${id}/images?api_key=${process.env.REACT_APP_API_KEY}`;
+  console.log("Movie card, id: ", movieBg);
 
   const handleClick = () => setActive(!active);
 
@@ -196,7 +201,11 @@ export default function MovieCard({
             {title}
           </Typography>
 
-          <Genre genres={genres} genreIds={genre_ids} mediaType={media_type} />
+          <Genre
+            // genres={genres}
+            genreIds={genre_ids}
+            mediaType={media_type}
+          />
         </CardContent>
       </CardActionArea>
     </Card>
