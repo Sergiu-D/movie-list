@@ -39,7 +39,7 @@ export default function MoviePagination({ movies, pageNum, setPageNum }) {
 
             return (
               <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
-                <MovieCard movies={movie} key={movie.id} />
+                <MovieCard titleInfo={movie} key={movie.id} />
               </Grid>
             );
           })}

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MovieList({ data, sectionTitle, genres }) {
   const classes = useStyles();
-  const [allMovies, setAllMovies] = useState(false);
+  const [showAllMovies, setShowAllMovies] = useState(false);
   const [receivedData, setReceiveData] = useState([]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function MovieList({ data, sectionTitle, genres }) {
   }, [data]);
 
   const handleBtn = () => {
-    setAllMovies(!allMovies);
+    setShowAllMovies(!showAllMovies);
   };
 
   return (
@@ -43,18 +43,22 @@ export default function MovieList({ data, sectionTitle, genres }) {
       {/* TODO change h1 to typography */}
       <h1>{sectionTitle}</h1>
       <Grid container spacing={3} justify="flex-start">
-        {allMovies
+        {showAllMovies
           ? receivedData.map((title, index) => {
-              const movieName = title.title || title.name;
+              // const movieName = title.title || title.name;
               return (
                 <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
-                  <MovieCard title={movieName} titleInfo={title} key={index} />
+                  <MovieCard
+                    // title={movieName}
+                    titleInfo={title}
+                    key={index}
+                  />
                 </Grid>
               );
             })
           : receivedData
               .map((title, index) => {
-                const movieName = title.title || title.name;
+                // const movieName = title.title || title.name;
                 return (
                   <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
                     <MovieCard
@@ -76,7 +80,7 @@ export default function MovieList({ data, sectionTitle, genres }) {
         className={classes.btn}
         onClick={() => handleBtn()}
       >
-        {allMovies ? "Show Less" : "Show More"}
+        {showAllMovies ? "Show Less" : "Show More"}
       </Button>
     </section>
   );

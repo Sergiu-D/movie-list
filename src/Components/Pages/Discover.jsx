@@ -12,27 +12,40 @@ export default function Discover() {
 
   const [movies, setMovies] = useState([]);
 
-  // Fetching data.
+  // Fetching movies data.
   useEffect(() => {
     axios({
       method: "get",
       url: `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}`,
       params: { page: pageNum },
-    }).then((res) =>
-      setMoviesFetchData((prev) => [...prev, ...res.data.results])
-    );
+    }).then((res) => setMoviesFetchData([...res.data.results]));
   }, [pageNum]);
 
-  // Modifying fetched data, adding "media_type".
+  // Setting mutated data into state.
   useEffect(() => {
-    moviesFetchedData.forEach((movie) =>
-      setMovies((prev) => [
-        ...prev,
-        Object.assign({}, movie, { media_type: "movie" }),
-      ])
-    );
+    setMovies((prev) => [
+      ...prev,
+      ...mutateFetchedData(moviesFetchedData, "movie"),
+    ]);
   }, [moviesFetchedData]);
 
+  // Mutate data API, injecting "media type"
+  function mutateFetchedData(data, mediaType) {
+    let modifiedDataObj = [];
+
+    //Injecting property
+    data.forEach((movie) => {
+      modifiedDataObj.push(
+        Object.assign({}, movie, {
+          media_type: `${mediaType}`,
+        })
+      );
+    });
+
+    return modifiedDataObj;
+  }
+
+  console.log("moviesFetchedData: ", moviesFetchedData);
   return (
     <>
       <h2>Discover Page</h2>

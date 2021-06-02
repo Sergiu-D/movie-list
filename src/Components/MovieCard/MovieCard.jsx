@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieCard({ movies }) {
+export default function MovieCard({ titleInfo }) {
   const classes = useStyles();
   const [active, setActive] = React.useState(false);
 
@@ -130,9 +130,9 @@ export default function MovieCard({ movies }) {
     backdrop_path,
     vote_average,
     media_type,
-  } = movies;
+  } = titleInfo;
 
-  const title = movies.title || movies.name;
+  const title = titleInfo.title || titleInfo.name;
 
   const movieImage = `https://image.tmdb.org/t/p/w300/${poster_path}`;
 
