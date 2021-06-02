@@ -1,0 +1,287 @@
+[33mcommit 72e3229e29e2f832ab416ed65756eabe721b5e2f[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Sergiu <you@example.com>
+Date:   Wed Jun 2 17:39:01 2021 +0300
+
+    Imported material-ui carousel
+
+[33mcommit 7d8641a69019b1257d7266f3934142ff80e9f091[m
+Author: Sergiu <you@example.com>
+Date:   Wed Jun 2 17:38:41 2021 +0300
+
+    Imported material-ui carousel
+
+[33mcommit f831368fa2b9468587409a8fb87028dd1277e057[m
+Author: Sergiu <you@example.com>
+Date:   Wed Jun 2 17:02:53 2021 +0300
+
+    Changed card img aspect ratio
+
+[33mcommit 402852cab2991062506d7fb654c98928ee03ae6a[m
+Author: Sergiu <you@example.com>
+Date:   Wed Jun 2 16:41:04 2021 +0300
+
+    Injected new property into discover movie API.
+
+[33mcommit 03557a4cd2fcb2199fef01bc9f00f124f267edca[m
+Author: Sergiu <you@example.com>
+Date:   Mon May 31 23:30:21 2021 +0300
+
+    Created movie details component
+
+[33mcommit 3f2e2dd5431a80eea820806018981887aff389e7[m
+Author: Sergiu <you@example.com>
+Date:   Mon May 31 15:12:26 2021 +0300
+
+    Created genre component
+
+[33mcommit b60b6b627a04f17c1a78063e3535e56ebf99c689[m
+Author: Sergiu <you@example.com>
+Date:   Mon May 31 15:12:09 2021 +0300
+
+    Created genre component
+
+[33mcommit 51733a595d3a316544103744d38ba5d84e8d5421[m
+Author: Sergiu <you@example.com>
+Date:   Thu May 27 18:17:10 2021 +0300
+
+    Fixed warnings
+
+[33mcommit 0d5963ca2168a24340ac285abcd42726deee43c9[m
+Author: Sergiu <you@example.com>
+Date:   Thu May 27 17:51:18 2021 +0300
+
+    Fixed movie card button error
+
+[33mcommit 4bf83e971fe943a1277038894bbab130aa3e0ec0[m
+Author: Sergiu <you@example.com>
+Date:   Thu May 27 15:17:49 2021 +0300
+
+    Feched genres and create genre component
+
+[33mcommit 76bab2433841d75e08dadeab92df04e880d80cd1[m
+Author: Sergiu <you@example.com>
+Date:   Wed May 26 17:36:30 2021 +0300
+
+    Adjusted movie list layout
+
+[33mcommit 2b0f4968450cf1b8389d7f8a052e0d2e3691a9b7[m
+Author: Sergiu <you@example.com>
+Date:   Wed May 26 17:18:19 2021 +0300
+
+    Changed movie card title shortener
+
+[33mcommit d3e0adb824c025c84aca255a3f3e17c9aa983b21[m
+Author: Sergiu <you@example.com>
+Date:   Wed May 26 17:01:36 2021 +0300
+
+    Fixed movie card score
+
+[33mcommit e7629a8cb0dbd7f8d00cd9780b9ab668f0abee45[m
+Author: Sergiu <you@example.com>
+Date:   Wed May 26 16:55:48 2021 +0300
+
+    Fixed navigation
+
+[33mcommit cb74b1966a8f147ecda8ffb0f05ca5602add40d5[m
+Author: Sergiu <you@example.com>
+Date:   Fri May 14 12:17:47 2021 +0300
+
+    Created search component
+
+[33mcommit bd18f038ad48b3fa7e36a9e96002f8c36b138dfd[m
+Author: Sergiu <you@example.com>
+Date:   Fri May 14 12:17:10 2021 +0300
+
+    Created search component
+
+[33mcommit ccb7204fa820811b7bfb35d75d4d2d6e98e4b334[m
+Author: Sergiu <you@example.com>
+Date:   Thu May 13 13:24:41 2021 +0300
+
+    Imported logo to navigation
+
+[33mcommit 72d6ad983430f164273b587e2763edebd1a33621[m
+Author: Sergiu <you@example.com>
+Date:   Wed May 5 19:56:24 2021 +0300
+
+    Added breakpoints to score component
+
+[33mcommit adc3c671b755ee2f87acdc9c24cf3de51fdd812f[m
+Author: Sergiu <you@example.com>
+Date:   Sat Apr 24 13:50:46 2021 +0300
+
+    Filtered movies with no release date
+
+[33mcommit 3adc464efeb8b93618c0d57643b481c73bcc36df[m
+Author: Sergiu <you@example.com>
+Date:   Sat Apr 24 12:20:51 2021 +0300
+
+    Added button to movielist compononent
+
+[33mcommit 95691b0bdf91605e3bcb3a927de52cf8c1ea5303[m
+Author: Sergiu <you@example.com>
+Date:   Wed Apr 21 16:53:37 2021 +0300
+
+    shortened card title
+
+[33mcommit a4f6450a4c823113961c265064ef4a593010d203[m
+Author: Sergiu <you@example.com>
+Date:   Wed Apr 21 16:00:02 2021 +0300
+
+    made layout responsive
+
+[33mcommit f3b0e6b10d9bf82b5478ec42468fa4f87c4684d3[m
+Author: Sergiu <you@example.com>
+Date:   Wed Apr 21 15:55:49 2021 +0300
+
+    made layout responsive
+
+[33mcommit 583d6e1ab02ed6973a2312cc205966d9703d8c4c[m
+Author: Sergiu <you@example.com>
+Date:   Wed Apr 21 15:55:12 2021 +0300
+
+    made layout responsive
+
+[33mcommit 903a2237009e33410d0239c37f1125f926a80ce2[m
+Author: Sergiu <you@example.com>
+Date:   Wed Apr 21 14:52:18 2021 +0300
+
+    made navigation responsive
+
+[33mcommit a1805eb8be541c1bc2b834c84e291466a2d0e9fa[m
+Author: Sergiu <you@example.com>
+Date:   Wed Apr 21 12:58:55 2021 +0300
+
+    navigation styling
+
+[33mcommit 238b43bf4dc6bbe2c481c7e5b0537f453f291556[m
+Author: Sergiu <you@example.com>
+Date:   Fri Apr 2 14:04:06 2021 +0300
+
+    Imported font
+
+[33mcommit a60810f15c3af3eb179febbd2a35970ccece625c[m
+Author: Sergiu <you@example.com>
+Date:   Tue Mar 30 14:14:03 2021 +0300
+
+    Installed axios package
+
+[33mcommit 0826bfec3978422d58407fac38f40e7e7250854b[m
+Author: Sergiu <you@example.com>
+Date:   Tue Mar 30 12:48:27 2021 +0300
+
+    Removed comments
+
+[33mcommit c425806ff8a4a055a94de0023f64e0505356fc08[m
+Author: Sergiu <you@example.com>
+Date:   Tue Mar 30 12:47:01 2021 +0300
+
+    Feched data for newest page
+
+[33mcommit 38a84c2e86e637ef8fdf9b59a5efcbc3a3cb3150[m
+Author: Sergiu <you@example.com>
+Date:   Tue Mar 30 12:27:18 2021 +0300
+
+    Fixed trending page
+
+[33mcommit 693c5fb3caed1920ba4e3ce1b64d5e88ab9166ff[m
+Author: Sergiu <you@example.com>
+Date:   Mon Mar 29 09:27:21 2021 +0300
+
+    Fixing pagination
+
+[33mcommit e8e7d9b7221b68eaad48cce3a63a6d25201a2fce[m
+Author: Sergiu <you@example.com>
+Date:   Sun Mar 28 18:59:28 2021 +0300
+
+    Infinite scroll setting up
+
+[33mcommit 347bad7c0a4f1c4a97bd767655714a1edc27474d[m
+Author: Sergiu <you@example.com>
+Date:   Wed Mar 24 16:41:50 2021 +0200
+
+    Fetching trending API
+
+[33mcommit 65ecc9e18e794d7221af332e36a53cb8343b9997[m
+Author: Sergiu <you@example.com>
+Date:   Wed Mar 24 15:36:19 2021 +0200
+
+    Added state to moviePagination
+
+[33mcommit 0e43ba44c9165e86b25554c37c0c98c83946d061[m
+Author: Sergiu <you@example.com>
+Date:   Wed Mar 24 12:53:16 2021 +0200
+
+    Fetching discover API
+
+[33mcommit a54d949c1c2028b72fdea0c013185039b2817bbf[m
+Author: Sergiu <you@example.com>
+Date:   Tue Mar 23 22:48:21 2021 +0200
+
+    Testing infinite scroll
+
+[33mcommit eafbf9e2c0e3a41938465de2d7994ac67275188e[m
+Author: Sergiu <you@example.com>
+Date:   Fri Mar 19 23:07:54 2021 +0200
+
+    Created header component
+
+[33mcommit 021a03a30c0f741270120dd9f2c67200b60f4953[m
+Author: Sergiu <you@example.com>
+Date:   Fri Mar 19 21:35:19 2021 +0200
+
+    Added pagination component
+
+[33mcommit a5fbae5a715ab14d71cb51b04154ec200b96d488[m
+Author: Sergiu <you@example.com>
+Date:   Fri Mar 19 20:44:12 2021 +0200
+
+    Added newst page content
+
+[33mcommit 352ad6d3a2641037a21e110cffd650c1ec760a9b[m
+Author: Sergiu <you@example.com>
+Date:   Fri Mar 19 18:50:33 2021 +0200
+
+    Created cinema component
+
+[33mcommit e2533140f587ccfe557832458a007264b4a0ef37[m
+Author: Sergiu <you@example.com>
+Date:   Fri Mar 19 17:09:50 2021 +0200
+
+    Create movielist component
+
+[33mcommit 7d57d79a577ff3358434c9d6819f4a4982c056a6[m
+Author: Sergiu <you@example.com>
+Date:   Fri Mar 19 15:42:46 2021 +0200
+
+    Styling navigation and added settings btn
+
+[33mcommit a1c3824a7aff66a069d7848113788299fbccb22e[m
+Author: Sergiu <you@example.com>
+Date:   Tue Mar 16 16:44:59 2021 +0200
+
+    Handle active tab
+
+[33mcommit cfb3beff814528071abfe5800421f8e7017b656e[m
+Author: Sergiu <you@example.com>
+Date:   Tue Mar 16 15:34:56 2021 +0200
+
+    Making navigation responsive
+
+[33mcommit 291aab024024f8e7c6771b4b6626a76018e8c929[m
+Author: Sergiu <you@example.com>
+Date:   Tue Mar 16 00:28:25 2021 +0200
+
+    Added navigation
+
+[33mcommit b31cd1b11554f2b3ba1e3567cdd89d0831606448[m
+Author: Sergiu <you@example.com>
+Date:   Mon Mar 15 22:49:25 2021 +0200
+
+    Setting up
+
+[33mcommit c2dd311ce28d5c92576ffeea497b91b0ae39605a[m
+Author: Sergiu <you@example.com>
+Date:   Mon Mar 15 16:38:18 2021 +0200
+
+    Starting project

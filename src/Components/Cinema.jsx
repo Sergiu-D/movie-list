@@ -1,9 +1,7 @@
 import React from "react";
 
-import { AutoRotatingCarousel } from "material-auto-rotating-carousel";
-
-// import Carousel from "react-multi-carousel";
-// import "react-multi-carousel/lib/styles.css";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const responsive = {
   superLargeDesktop: {
