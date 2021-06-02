@@ -36,10 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   img: {
-    aspectRatio: "4/5",
-    height: "100%",
-    backgroundSize: "cover",
-    zIndex: "500",
+    aspectRatio: "2/3",
   },
   cardContent: {
     textAlign: "center",
@@ -134,7 +131,7 @@ export default function MovieCard({ titleInfo }) {
 
   const title = titleInfo.title || titleInfo.name;
 
-  const movieImage = `https://image.tmdb.org/t/p/w300/${poster_path}`;
+  const movieImage = `https://image.tmdb.org/t/p/w200/${poster_path}`;
 
   // const movieBackdrop = `https://api.themoviedb.org/3/movie/${id}/images?api_key=${process.env.REACT_APP_API_KEY}`;
   // console.log("Movie card, id: ", movieBg);
