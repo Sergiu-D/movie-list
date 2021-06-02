@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import ReactPlayer from "react-player/lazy";
 
+//Components
+import Video from "./Video";
+
+import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 //Material-ui
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Typography, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   bgContainer: {},
@@ -13,12 +17,11 @@ const useStyles = makeStyles((theme) => ({
 export default function MovieDetails({ match }) {
   const classes = useStyles();
   const [titleDetails, setTitleDetails] = useState([]);
+  const [videos, setVideos] = useState([]);
 
   const location = useLocation();
   const titleId = location.state.id;
   const mediaType = location.state.mediaType;
-
-  console.log("Details title: ", mediaType);
 
   const {
     id,
@@ -35,9 +38,6 @@ export default function MovieDetails({ match }) {
 
   const movieBg = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
 
-  //   const titleId = match.params.title;
-  console.log("title id: ", titleId);
-
   useEffect(() => {
     if (mediaType === "movie")
       return axios({
@@ -52,8 +52,25 @@ export default function MovieDetails({ match }) {
       }).then((res) => setTitleDetails(res.data));
   }, []);
 
-  console.log("Title details: ", titleDetails);
-  //   console.log("Title Bg: ", movieBg);
+  // Fetching videos
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: `https://api.themoviedb.org/3/movie/${titleId}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
+    }).then((res) => setVideos(res.data.results));
+  }, []);
+
+  // function makeVideoUrlArr() {
+  //   let videosURL = [];
+  //   videos.forEach((video) =>
+  //     videosURL.push(`https://www.youtube.com/watch?v=${video.key}`)
+  //   );
+
+  //   // console.log("Vide url: ", videosURL);
+  //   return videosURL;
+  // }
+  // console.log("Videos url: ", videos);
+
   return (
     <div>
       {/* Background container */}
@@ -94,7 +111,30 @@ export default function MovieDetails({ match }) {
       </div>
       {/* End background container */}
 
-      {title}
+      <Typography variant="h1">{title}</Typography>
+      {/* {videos.length > 1 ? (
+        videos.map((video, index) => {
+          <ReactPlayer
+            key={index}
+            url={`https://www.youtube.com/watch?v=${video.key}`}
+          />;
+        })
+      ) : (
+        <ReactPlayer url={`https://www.youtube.com/watch?v=${videos[0].key}`} />
+      )} */}
+      {videos.map((video, index) => {
+        console.log("one video: ", video.key);
+        debugger;
+        <Video
+          key={index}
+          url={`https://www.youtube.com/watch?v=${video.key}`}
+        />;
+      })}
+      {/* <ReactPlayer url={makeVideoUrlArr()} controls={true} playing={false} /> */}
     </div>
   );
 }
+// 606240cd5b0714003d9cf8e3
+// EFYEni2gsK0
+
+// https://www.youtube.com/watch?v=EFYEni2gsK0

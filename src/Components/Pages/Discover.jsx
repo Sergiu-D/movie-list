@@ -45,7 +45,6 @@ export default function Discover() {
     return modifiedDataObj;
   }
 
-  console.log("moviesFetchedData: ", moviesFetchedData);
   return (
     <>
       <h2>Discover Page</h2>
