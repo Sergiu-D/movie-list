@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-// import ReactPlayer from "react-player/lazy";
+import ReactPlayer from "react-player/lazy";
 
 //Components
 import Video from "./Video";
 
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 //Material-ui
-import { makeStyles, Typography, Grid } from "@material-ui/core";
+import { makeStyles, Typography, Grid, useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   bgContainer: {},
@@ -20,8 +20,12 @@ export default function MovieDetails({ match }) {
   const [videos, setVideos] = useState([]);
 
   const location = useLocation();
+
   const titleId = location.state.id;
   const mediaType = location.state.mediaType;
+
+  // Media query
+  const matches = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   const {
     id,
@@ -34,9 +38,11 @@ export default function MovieDetails({ match }) {
     vote_average,
   } = titleDetails;
 
-  const title = titleDetails.title || titleDetails.name;
-
-  const movieBg = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
+  // Get history URL
+  const history = useHistory();
+  const handleHistory = () => {
+    history.push(`${location.pathname}`);
+  };
 
   useEffect(() => {
     if (mediaType === "movie")
@@ -60,15 +66,19 @@ export default function MovieDetails({ match }) {
     }).then((res) => setVideos(res.data.results));
   }, []);
 
-  // function makeVideoUrlArr() {
-  //   let videosURL = [];
-  //   videos.forEach((video) =>
-  //     videosURL.push(`https://www.youtube.com/watch?v=${video.key}`)
-  //   );
+  const title = titleDetails.title || titleDetails.name;
+  const movieBg = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
 
-  //   // console.log("Vide url: ", videosURL);
-  //   return videosURL;
-  // }
+  function makeVideoUrlArr() {
+    let videosURL = [];
+    videos.forEach((video) => {
+      if (video.type === "Trailer" || video.type === "Teaser")
+        return videosURL.push([`https://www.youtube.com/watch?v=${video.key}`]);
+    });
+
+    // console.log("Vide url: ", videosURL);
+    return videosURL;
+  }
   // console.log("Videos url: ", videos);
 
   return (
@@ -111,8 +121,23 @@ export default function MovieDetails({ match }) {
       </div>
       {/* End background container */}
 
-      <Typography variant="h1">{title}</Typography>
-      {/* {videos.length > 1 ? (
+      <Grid
+        container
+        alignContent={"center"}
+        style={
+          matches
+            ? {
+                width: "100vw",
+                height: "100vh",
+                padding: "0 2.5rem",
+              }
+            : { width: "81.5vw", height: "100vh" }
+        }
+      >
+        <Grid item lg={9} md={9} sm={12}>
+          <Typography variant="h1">{title}</Typography>
+        </Grid>
+        {/* {videos.length > 1 ? (
         videos.map((video, index) => {
           <ReactPlayer
             key={index}
@@ -122,19 +147,42 @@ export default function MovieDetails({ match }) {
       ) : (
         <ReactPlayer url={`https://www.youtube.com/watch?v=${videos[0].key}`} />
       )} */}
-      {videos.map((video, index) => {
+        {/* {videos.map((video, index) => {
         console.log("one video: ", video.key);
-        debugger;
+        // debugger;
         <Video
           key={index}
           url={`https://www.youtube.com/watch?v=${video.key}`}
         />;
-      })}
-      {/* <ReactPlayer url={makeVideoUrlArr()} controls={true} playing={false} /> */}
+      })} */}
+        {/* <ReactPlayer url={makeVideoUrlArr()} controls={true} playing={false} /> */}
+
+        <Grid item lg={3} md={3} sm={12}>
+          {videos.length > 1 ? (
+            <>
+              <ReactPlayer
+                url={makeVideoUrlArr()[0]}
+                controls={true}
+                width={350}
+                height={200}
+              />
+              <ReactPlayer
+                url={makeVideoUrlArr()[1]}
+                controls={true}
+                width={350}
+                height={200}
+              />
+            </>
+          ) : (
+            <ReactPlayer
+              url={makeVideoUrlArr()[0]}
+              controls={true}
+              width={350}
+              height={200}
+            />
+          )}
+        </Grid>
+      </Grid>
     </div>
   );
 }
-// 606240cd5b0714003d9cf8e3
-// EFYEni2gsK0
-
-// https://www.youtube.com/watch?v=EFYEni2gsK0
