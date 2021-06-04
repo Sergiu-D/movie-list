@@ -158,29 +158,15 @@ export default function MovieDetails({ match }) {
         {/* <ReactPlayer url={makeVideoUrlArr()} controls={true} playing={false} /> */}
 
         <Grid item lg={3} md={3} sm={12}>
-          {videos.length > 1 ? (
-            <>
-              <ReactPlayer
-                url={makeVideoUrlArr()[0]}
-                controls={true}
-                width={350}
-                height={200}
-              />
-              <ReactPlayer
-                url={makeVideoUrlArr()[1]}
-                controls={true}
-                width={350}
-                height={200}
-              />
-            </>
-          ) : (
+          {makeVideoUrlArr().map((url, index) => (
             <ReactPlayer
-              url={makeVideoUrlArr()[0]}
               controls={true}
               width={350}
               height={200}
+              key={index}
+              url={url}
             />
-          )}
+          ))}
         </Grid>
       </Grid>
     </div>
