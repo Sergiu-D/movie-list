@@ -141,7 +141,9 @@ export default function MovieCard({ movie }) {
 
   //TODO remove ":" from urlTitle
 
-  const urlPath = title.replace(/\s/g, "+");
+  const normalizedTitle = title.replace(/\s/g, "+");
+  // e.g. /trending/:type/:id/:title
+  const urlPath = `${media_type}/${id}/${normalizedTitle}`;
   // console.log("urlTitle: ", title.replace(/\s/g, "-"));
 
   const handleClick = () => setActive(!active);
