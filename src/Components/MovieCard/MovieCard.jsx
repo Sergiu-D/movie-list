@@ -137,6 +137,7 @@ export default function MovieCard({ titleInfo }) {
   // console.log("Movie card, id: ", movieBg);
 
   const { url } = useRouteMatch();
+  console.log(`🚀 ~ MovieCard ~ url`, url);
 
   //TODO remove ":" from urlTitle
 
@@ -187,7 +188,7 @@ export default function MovieCard({ titleInfo }) {
         </Button>
         <Link
           to={{
-            pathname: `${url}/${urlPath}`,
+            pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,
             state: {
               id: id,
               mediaType: media_type,
