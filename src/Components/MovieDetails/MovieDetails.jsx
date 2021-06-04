@@ -20,6 +20,7 @@ export default function MovieDetails({ match }) {
   const [videos, setVideos] = useState([]);
 
   const location = useLocation();
+  console.log(`🚀 ~ MovieDetails ~ location`, location);
 
   const titleId = location.state.id;
   const mediaType = location.state.mediaType;
@@ -40,30 +41,37 @@ export default function MovieDetails({ match }) {
 
   // Get history URL
   const history = useHistory();
-  const handleHistory = () => {
+  /*  const handleHistory = () => {
+    //NOOP
     history.push(`${location.pathname}`);
-  };
+  }; */
 
-  useEffect(() => {
-    if (mediaType === "movie")
-      return axios({
+  useEffect(async () => {
+    let movieResults, tvResults, videoResults;
+    try {
+      if (mediaType === "movie") {
+        movieResults = await axios({
+          method: "get",
+          url: `https://api.themoviedb.org/3/movie/${titleId}?api_key=${process.env.REACT_APP_API_KEY}`,
+        });
+        setTitleDetails(movieResults.data);
+      }
+
+      if (mediaType === "tv") {
+        tvResults = await axios({
+          method: "get",
+          url: `https://api.themoviedb.org/3/tv/${titleId}?api_key=${process.env.REACT_APP_API_KEY}`,
+        });
+        setTitleDetails(tvResults.data);
+      }
+
+      videoResults = await axios({
         method: "get",
-        url: `https://api.themoviedb.org/3/movie/${titleId}?api_key=${process.env.REACT_APP_API_KEY}`,
-      }).then((res) => setTitleDetails(res.data));
-
-    if (mediaType === "tv")
-      return axios({
-        method: "get",
-        url: `https://api.themoviedb.org/3/tv/${titleId}?api_key=${process.env.REACT_APP_API_KEY}`,
-      }).then((res) => setTitleDetails(res.data));
-  }, []);
-
-  // Fetching videos
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: `https://api.themoviedb.org/3/movie/${titleId}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
-    }).then((res) => setVideos(res.data.results));
+        url: `https://api.themoviedb.org/3/movie/${titleId}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
+      });
+    } catch (error) {
+      // FIXME
+    }
   }, []);
 
   const title = titleDetails.title || titleDetails.name;
