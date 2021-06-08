@@ -14,21 +14,63 @@ const useStyles = makeStyles((theme) => ({
   bgContainer: {},
 }));
 
-export default function MovieDetails({ match }) {
+export default function MovieDetails({
+  match: {
+    params: { type: mediaType, id },
+  },
+}) {
   const classes = useStyles();
-  const [titleDetails, setTitleDetails] = useState([]);
+  const [movieInfo, setMovieInfo] = useState([]);
   const [videos, setVideos] = useState([]);
-
-  const location = useLocation();
-
-  const titleId = location.state.id;
-  const mediaType = location.state.mediaType;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(undefined);
 
   // Media query
   const matches = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
+  useEffect(() => {
+    const loader = async () => {
+      let movieResults, tvResults, videoResults;
+      try {
+        if (mediaType === "movie") {
+          movieResults = await axios({
+            method: "get",
+            url: `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`,
+          });
+          setMovieInfo(movieResults.data);
+        }
+
+        if (mediaType === "tv") {
+          tvResults = await axios({
+            method: "get",
+            url: `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_API_KEY}`,
+          });
+          setMovieInfo(tvResults.data);
+        }
+
+        videoResults = await axios({
+          method: "get",
+          url: `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
+        });
+        console.log(`🚀 ~ loader ~ videoResults`, videoResults);
+        setVideos(videoResults.data.results);
+      } catch (error) {
+        setError(error);
+      }
+      setLoading(false);
+    };
+    loader();
+  }, [mediaType, id]);
+  if (error) {
+    return <p>Please retry</p>;
+  }
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  console.log(`🚀 ~ movieInfo`, movieInfo);
+
   const {
-    id,
+    // id,
     original_title,
     overview,
     poster_path,
@@ -36,37 +78,9 @@ export default function MovieDetails({ match }) {
     release_data,
     runtime,
     vote_average,
-  } = titleDetails;
+  } = movieInfo;
 
-  // Get history URL
-  const history = useHistory();
-  const handleHistory = () => {
-    history.push(`${location.pathname}`);
-  };
-
-  useEffect(() => {
-    if (mediaType === "movie")
-      return axios({
-        method: "get",
-        url: `https://api.themoviedb.org/3/movie/${titleId}?api_key=${process.env.REACT_APP_API_KEY}`,
-      }).then((res) => setTitleDetails(res.data));
-
-    if (mediaType === "tv")
-      return axios({
-        method: "get",
-        url: `https://api.themoviedb.org/3/tv/${titleId}?api_key=${process.env.REACT_APP_API_KEY}`,
-      }).then((res) => setTitleDetails(res.data));
-  }, []);
-
-  // Fetching videos
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: `https://api.themoviedb.org/3/movie/${titleId}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
-    }).then((res) => setVideos(res.data.results));
-  }, []);
-
-  const title = titleDetails.title || titleDetails.name;
+  const title = movieInfo.title || movieInfo.name;
   const movieBg = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
 
   function makeVideoUrlArr() {
@@ -158,29 +172,15 @@ export default function MovieDetails({ match }) {
         {/* <ReactPlayer url={makeVideoUrlArr()} controls={true} playing={false} /> */}
 
         <Grid item lg={3} md={3} sm={12}>
-          {videos.length > 1 ? (
-            <>
-              <ReactPlayer
-                url={makeVideoUrlArr()[0]}
-                controls={true}
-                width={350}
-                height={200}
-              />
-              <ReactPlayer
-                url={makeVideoUrlArr()[1]}
-                controls={true}
-                width={350}
-                height={200}
-              />
-            </>
-          ) : (
+          {makeVideoUrlArr().map((url, index) => (
             <ReactPlayer
-              url={makeVideoUrlArr()[0]}
               controls={true}
               width={350}
               height={200}
+              key={index}
+              url={url}
             />
-          )}
+          ))}
         </Grid>
       </Grid>
     </div>
