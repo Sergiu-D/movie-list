@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieCard({ titleInfo }) {
+export default function MovieCard({ movie }) {
   const classes = useStyles();
   const [active, setActive] = React.useState(false);
 
@@ -127,9 +127,9 @@ export default function MovieCard({ titleInfo }) {
     backdrop_path,
     vote_average,
     media_type,
-  } = titleInfo;
+  } = movie;
 
-  const title = titleInfo.title || titleInfo.name;
+  const title = movie.title || movie.name;
 
   const movieImage = `https://image.tmdb.org/t/p/w200/${poster_path}`;
 
@@ -137,10 +137,13 @@ export default function MovieCard({ titleInfo }) {
   // console.log("Movie card, id: ", movieBg);
 
   const { url } = useRouteMatch();
+  console.log(`🚀 ~ MovieCard ~ url`, url);
 
   //TODO remove ":" from urlTitle
 
-  const urlPath = title.replace(/\s/g, "+");
+  const normalizedTitle = title.replace(/\s/g, "+");
+  // e.g. /trending/:type/:id/:title
+  const urlPath = `${media_type}/${id}/${normalizedTitle}`;
   // console.log("urlTitle: ", title.replace(/\s/g, "-"));
 
   const handleClick = () => setActive(!active);
@@ -187,7 +190,7 @@ export default function MovieCard({ titleInfo }) {
         </Button>
         <Link
           to={{
-            pathname: `${url}/${urlPath}`,
+            pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,
             state: {
               id: id,
               mediaType: media_type,
