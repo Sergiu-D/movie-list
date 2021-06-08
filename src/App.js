@@ -65,7 +65,7 @@ function App() {
                 <Watchlist />
               </Route>
               <Route
-                path={["/trending/:title", "/discover/:title"]}
+                path={["/:title", "/trending/:title", "/discover/:title"]}
                 component={MovieDetails}
               />
               {/* <Route path="/discover/:title" component={MovieDetails} /> */}

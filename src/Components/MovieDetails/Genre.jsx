@@ -15,10 +15,8 @@ const genres = [
   { id: 9648, name: "Mystery" },
   { id: 10763, name: "News" },
   { id: 10764, name: "Reality" },
-
   { id: 10766, name: "Soap" },
   { id: 10767, name: "Talk" },
-
   { id: 37, name: "Western" },
   { id: 28, name: "Action" },
   { id: 12, name: "Adventure" },
