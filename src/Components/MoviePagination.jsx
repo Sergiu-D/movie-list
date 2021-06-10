@@ -4,6 +4,7 @@ import React from "react";
 // import fetcher from "../Utils/fetcher";
 
 // Utils
+
 import InfiniteScroll from "react-infinite-scroll-component";
 
 // Components
@@ -16,8 +17,15 @@ import { Grid } from "@material-ui/core";
 
 // TODO add "back to top button"
 
-export default function MoviePagination({ movies, pageNum, setPageNum }) {
-  const handleFetchMovies = () => setPageNum((prevPage) => prevPage + 1);
+export default function MoviePagination({
+  movies,
+  pageNum,
+  setSize,
+  isValidating,
+}) {
+  const handleFetchMovies = () => setSize((prev) => prev + 1);
+  // console.log("MovPagination movies: ", movies.length);
+  // const dataLength = movies[0].results.length;
 
   return (
     <div>
@@ -39,7 +47,7 @@ export default function MoviePagination({ movies, pageNum, setPageNum }) {
 
             return (
               <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
-                <MovieCard titleInfo={movie} key={movie.id} />
+                <MovieCard movie={movie} key={movie.id} />
               </Grid>
             );
           })}

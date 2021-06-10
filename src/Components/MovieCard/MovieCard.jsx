@@ -137,7 +137,6 @@ export default function MovieCard({ movie }) {
   // console.log("Movie card, id: ", movieBg);
 
   const { url } = useRouteMatch();
-  console.log(`🚀 ~ MovieCard ~ url`, url);
 
   //TODO remove ":" from urlTitle
 

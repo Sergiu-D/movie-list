@@ -52,7 +52,7 @@ export default function MovieDetails({
           method: "get",
           url: `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
         });
-        console.log(`🚀 ~ loader ~ videoResults`, videoResults);
+
         setVideos(videoResults.data.results);
       } catch (error) {
         setError(error);
@@ -67,7 +67,6 @@ export default function MovieDetails({
   if (loading) {
     return <p>Loading...</p>;
   }
-  console.log(`🚀 ~ movieInfo`, movieInfo);
 
   const {
     // id,
@@ -85,12 +84,12 @@ export default function MovieDetails({
 
   function makeVideoUrlArr() {
     let videosURL = [];
+
     videos.forEach((video) => {
       if (video.type === "Trailer" || video.type === "Teaser")
         return videosURL.push([`https://www.youtube.com/watch?v=${video.key}`]);
     });
 
-    // console.log("Vide url: ", videosURL);
     return videosURL;
   }
   // console.log("Videos url: ", videos);
