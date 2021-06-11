@@ -1,30 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 // Util
-import axios from "axios";
+import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
+// import fetcher from "../../Utils/fetcher";
+import useSWR from "swr";
 
 // Components
 import Cinema from "../Cinema";
 import MovieList from "../MovieList";
 
+//Material-Ui
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 export default function Newest() {
-  const [newMovies, setNewMovies] = useState([]);
+  const moviesQuery = `movie/now_playing`;
+  const showsQuery = `tv/airing_today`;
 
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}`,
-      // params: { media_type: "movie", time_window: "week" },
-    }).then((res) => setNewMovies(res.data.results));
-  }, []);
+  const { data: moviesData, error: moviesError } = useSWR(
+    fetchingQuery(moviesQuery),
+    fetcher
+  );
+  const { data: showsData, error: showsError } = useSWR(
+    fetchingQuery(showsQuery),
+    fetcher
+  );
 
-  console.log("Newest", newMovies);
+  if (!moviesData || !showsData) return <CircularProgress color="secondary" />;
+  if (moviesError || showsError) return <h1>Error!</h1>;
 
   return (
     <div>
       <h2>Newest Page</h2>
       <Cinema />
-      <MovieList data={newMovies} sectionTitle={"Now playing"} />
+      <MovieList data={moviesData.results} sectionTitle={"New Movies"} />
+      <MovieList data={showsData.results} sectionTitle={"Tv Airing Today"} />
     </div>
   );
 }

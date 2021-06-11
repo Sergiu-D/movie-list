@@ -1,60 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 // Utils
-import axios from "axios";
+import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
+import useSWR from "swr";
 
 // Components
 import MovieList from "../MovieList";
 
-export default function Trending({ setCurrentPath }) {
-  const [moviesList, setMoviesList] = useState([]);
-  const [showsList, setShowsList] = useState([]);
-  // const [genres, setGenres] = useState([]);
-  // const [showsGenres, setShowsGenres] = useState([]);
+//Material-Ui
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-  // Genres movies API request
+export default function Trending() {
+  const moviesQuery = `trending/movie/day`;
+  const showsQuery = `trending/tv/day`;
 
-  // useEffect(() => {
-  //   axios({
-  //     method: "get",
-  //     url: `
-  // https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`,
-  //   }).then((res) => setGenres((prev) => [...prev, res.data.genres]));
-  // }, []);
+  const { data: moviesData, error: moviesError } = useSWR(
+    fetchingQuery(moviesQuery),
+    fetcher
+  );
+  const { data: showsData, error: showsError } = useSWR(
+    fetchingQuery(showsQuery),
+    fetcher
+  );
 
-  // // Genres tv shows API request
+  if (!moviesData || !showsData) return <CircularProgress color="secondary" />;
+  if (moviesError || showsError) return <h1>Error!</h1>;
 
-  // useEffect(() => {
-  //   axios({
-  //     method: "get",
-  //     url: `
-  // https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.REACT_APP_API_KEY}`,
-  //   }).then((res) => setGenres((prev) => [...prev, res.data.genres]));
-  // }, []);
-
-  // Movies API request
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.REACT_APP_API_KEY}`,
-    }).then((res) => setMoviesList(res.data.results));
-  }, []);
-
-  // Tv shows API request
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.REACT_APP_API_KEY}`,
-    }).then((res) => setShowsList(res.data.results));
-  }, []);
-
+  console.log(
+    "🚀 ~ file: Trending.jsx ~ line 22 ~ Trending ~ showsData",
+    showsData.results
+  );
   return (
-    <div>
+    <div style={{ minWidth: "82.5vw" }}>
       {/* <PageHeader title={"Trending"} /> */}
-      <div>
-        <MovieList data={moviesList} sectionTitle={"Movies"} />
-        <MovieList data={showsList} sectionTitle={"Tv Shows"} />
-      </div>
+
+      <MovieList data={moviesData.results} sectionTitle={"Movies"} />
+      <MovieList data={showsData.results} sectionTitle={"Tv Shows"} />
     </div>
   );
 }

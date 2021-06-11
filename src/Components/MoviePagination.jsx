@@ -11,7 +11,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import MovieCard from "./MovieCard/MovieCard";
 
 // Material-Ui
-import { Grid } from "@material-ui/core";
+import { Grid, CircularProgress } from "@material-ui/core";
 
 // import { useParams } from "react-router-dom";
 
@@ -23,7 +23,7 @@ export default function MoviePagination({
   setSize,
   isValidating,
 }) {
-  const handleFetchMovies = () => setSize((prev) => prev + 1);
+  const handleFetchMovies = () => setSize((prev) => prev + 2);
   // console.log("MovPagination movies: ", movies.length);
   // const dataLength = movies[0].results.length;
 
@@ -34,9 +34,11 @@ export default function MoviePagination({
         dataLength={movies.length}
         next={handleFetchMovies}
         hasMore={true}
-        loader={<h4>Loading...</h4>}
+        loader={
+          <h3 style={{ textAlign: "center", padding: "2rem 0" }}>Loading...</h3>
+        }
         endMessage={
-          <p style={{ textAlign: "center" }}>
+          <p style={{ textAlign: "center", padding: "2rem 0" }}>
             <b>Yay! You have seen it all</b>
           </p>
         }

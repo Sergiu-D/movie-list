@@ -131,7 +131,9 @@ export default function MovieCard({ movie }) {
 
   const title = movie.title || movie.name;
 
-  const movieImage = `https://image.tmdb.org/t/p/w200/${poster_path}`;
+  const movieImage = poster_path
+    ? `https://image.tmdb.org/t/p/w200/${poster_path}`
+    : `https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg`;
 
   // const movieBackdrop = `https://api.themoviedb.org/3/movie/${id}/images?api_key=${process.env.REACT_APP_API_KEY}`;
   // console.log("Movie card, id: ", movieBg);
@@ -148,6 +150,7 @@ export default function MovieCard({ movie }) {
   const handleClick = () => setActive(!active);
 
   function scoreBg(score) {
+    if (score < 1) return "white";
     if (score >= 8) return "green";
     if (score > 5) return "orange";
     if (score <= 5) return "red";
@@ -204,7 +207,7 @@ export default function MovieCard({ movie }) {
               }}
             >
               <Typography variant="caption" className={classes.scoreFont}>
-                {vote_average}
+                {vote_average < 1 ? "N/A" : vote_average}
               </Typography>
             </Paper>
 
