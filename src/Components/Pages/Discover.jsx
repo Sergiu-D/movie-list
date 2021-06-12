@@ -12,6 +12,9 @@ import MoviePagination from "../MoviePagination";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Discover() {
+  // Change document title
+  document.title = "Discover";
+
   // Fetching data
   const moviesQuery = `discover/movie`;
 

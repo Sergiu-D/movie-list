@@ -13,6 +13,9 @@ import MovieList from "../MovieList";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Newest() {
+  // Change document title
+  document.title = "Newest";
+
   // Fetching data
   const moviesQuery = `movie/now_playing`;
   const showsQuery = `tv/airing_today`;

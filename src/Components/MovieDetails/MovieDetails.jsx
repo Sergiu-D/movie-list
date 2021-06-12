@@ -72,6 +72,9 @@ export default function MovieDetails({
     return videosURL;
   }
 
+  // Change document title
+  document.title = title;
+
   return (
     <div>
       {/* Background container */}

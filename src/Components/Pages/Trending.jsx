@@ -11,6 +11,9 @@ import MovieList from "../MovieList";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Trending() {
+  // Change document title
+  document.title = "Trending";
+
   // Fetching data
   const moviesQuery = `trending/movie/day`;
   const showsQuery = `trending/tv/day`;
