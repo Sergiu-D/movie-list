@@ -12,7 +12,7 @@ import MoviePagination from "../MoviePagination";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Discover() {
-  // const [movies, setMovies] = useState([]);
+  // Fetching data
   const moviesQuery = `discover/movie`;
 
   const {
@@ -27,6 +27,7 @@ export default function Discover() {
     fetcher
   );
 
+  // Error handle
   if (!moviesData) return <CircularProgress color="secondary" />;
   if (moviesError) return <h1>Error!</h1>;
 

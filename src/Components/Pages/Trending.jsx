@@ -11,6 +11,7 @@ import MovieList from "../MovieList";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Trending() {
+  // Fetching data
   const moviesQuery = `trending/movie/day`;
   const showsQuery = `trending/tv/day`;
 
@@ -23,13 +24,10 @@ export default function Trending() {
     fetcher
   );
 
+  // Error handle
   if (!moviesData || !showsData) return <CircularProgress color="secondary" />;
   if (moviesError || showsError) return <h1>Error!</h1>;
 
-  console.log(
-    "🚀 ~ file: Trending.jsx ~ line 22 ~ Trending ~ showsData",
-    showsData.results
-  );
   return (
     <div style={{ minWidth: "82.5vw" }}>
       {/* <PageHeader title={"Trending"} /> */}

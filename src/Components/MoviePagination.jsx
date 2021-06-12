@@ -1,19 +1,11 @@
 import React from "react";
 
-// import useSWR from "swr";
-// import fetcher from "../Utils/fetcher";
-
-// Utils
-
-import InfiniteScroll from "react-infinite-scroll-component";
-
 // Components
+import InfiniteScroll from "react-infinite-scroll-component";
 import MovieCard from "./MovieCard/MovieCard";
 
 // Material-Ui
 import { Grid, CircularProgress } from "@material-ui/core";
-
-// import { useParams } from "react-router-dom";
 
 // TODO add "back to top button"
 
@@ -24,8 +16,6 @@ export default function MoviePagination({
   isValidating,
 }) {
   const handleFetchMovies = () => setSize((prev) => prev + 2);
-  // console.log("MovPagination movies: ", movies.length);
-  // const dataLength = movies[0].results.length;
 
   return (
     <div>

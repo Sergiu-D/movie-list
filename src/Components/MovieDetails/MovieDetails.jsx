@@ -1,27 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactPlayer from "react-player/lazy";
 
 //Components
 import useSWR from "swr";
 import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 
-// import axios from "axios";
-// import { useLocation, useHistory } from "react-router-dom";
-
 //Material-ui
 import { makeStyles, Typography, Grid, useMediaQuery } from "@material-ui/core";
-
-// const useStyles = makeStyles((theme) => ({
-//   bgContainer: {},
-// }));
 
 export default function MovieDetails({
   match: {
     params: { type: mediaType, id },
   },
 }) {
-  console.log("🚀 ~ file: MovieDetails.jsx ~ line 23 ~ id", id);
-  console.log("🚀 ~ file: MovieDetails.jsx ~ line 23 ~ mediaType", mediaType);
   // Media query
   const matches = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
@@ -31,6 +22,7 @@ export default function MovieDetails({
       return fetchingQuery(
         `movie/${id}${callType === "videos" ? `/${callType}` : null}`
       );
+
     if (mediaType === "tv")
       return fetchingQuery(
         `tv/${id}${callType === "videos" ? `/${callType}` : null}`
@@ -53,8 +45,6 @@ export default function MovieDetails({
 
   if (!videosData) return <h1>Loading...</h1>;
   if (videosError) return;
-
-  console.log("🚀 ~ file: MovieDetails.jsx ~ line 55 ~ videosData", videosData);
 
   const {
     original_title,

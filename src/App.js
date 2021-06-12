@@ -52,16 +52,16 @@ function App() {
               <Route exact path="/trending">
                 <Trending />
               </Route>
-              <Route path="/newest">
+              <Route exact path="/newest">
                 <Newest />
               </Route>
-              <Route path="/upcoming">
+              <Route exact path="/upcoming">
                 <Upcoming />
               </Route>
               <Route exact path="/discover">
                 <Discover />
               </Route>
-              <Route path="/watchlist">
+              <Route exact path="/watchlist">
                 <Watchlist />
               </Route>
               <Route

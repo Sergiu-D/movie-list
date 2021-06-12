@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
+// Components
 import Genre from "../MovieDetails/Genre";
 
 // Material-Ui
@@ -117,9 +118,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MovieCard({ movie }) {
   const classes = useStyles();
-  const [active, setActive] = React.useState(false);
+  const [active, setActive] = useState(false);
 
-  // debugger;
   const {
     id,
     genre_ids,
@@ -135,20 +135,18 @@ export default function MovieCard({ movie }) {
     ? `https://image.tmdb.org/t/p/w200/${poster_path}`
     : `https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg`;
 
-  // const movieBackdrop = `https://api.themoviedb.org/3/movie/${id}/images?api_key=${process.env.REACT_APP_API_KEY}`;
-  // console.log("Movie card, id: ", movieBg);
-
   const { url } = useRouteMatch();
 
   //TODO remove ":" from urlTitle
 
+  // Creating URL path
   const normalizedTitle = title.replace(/\s/g, "+");
-  // e.g. /trending/:type/:id/:title
   const urlPath = `${media_type}/${id}/${normalizedTitle}`;
-  // console.log("urlTitle: ", title.replace(/\s/g, "-"));
 
+  // Handle if all movies are shown
   const handleClick = () => setActive(!active);
 
+  // Adding color to score
   function scoreBg(score) {
     if (score < 1) return "white";
     if (score >= 8) return "green";
@@ -201,11 +199,7 @@ export default function MovieCard({ movie }) {
                 {title}
               </Typography>
 
-              <Genre
-                // genres={genres}
-                genreIds={genre_ids}
-                mediaType={media_type}
-              />
+              <Genre genreIds={genre_ids} mediaType={media_type} />
             </CardContent>
           </CardActionArea>
         </Link>

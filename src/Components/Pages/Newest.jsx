@@ -13,6 +13,7 @@ import MovieList from "../MovieList";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Newest() {
+  // Fetching data
   const moviesQuery = `movie/now_playing`;
   const showsQuery = `tv/airing_today`;
 
@@ -25,9 +26,11 @@ export default function Newest() {
     fetcher
   );
 
+  // Error handle
   if (!moviesData || !showsData) return <CircularProgress color="secondary" />;
   if (moviesError || showsError) return <h1>Error!</h1>;
 
+  // Creating new object and adding media type
   const modifiedMovieData = addingMediaType(moviesData.results, "movie");
   const modifiedShowsData = addingMediaType(showsData.results, "tv");
 

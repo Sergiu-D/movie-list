@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import "./NavigationStyles.css";
-// import classNames from "classnames/bind";
 
 // Components
 import Search from "./Search";
-// import SettingsTab from "./SettingsTab";
 
 // Router
-
 import { NavLink } from "react-router-dom";
 
 //Material-Ui
@@ -24,10 +20,6 @@ import {
   useMediaQuery,
   Typography,
 } from "@material-ui/core";
-
-// import PropTypes from "prop-types";
-
-// import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 // Logo
 import Logo from "../../img/logo_transparent.png";
@@ -108,9 +100,6 @@ export default function Navigation() {
     "settings",
   ];
 
-  // const [activeTab, setActiveTab] = useState(0);
-  // const [settings, setSettings] = useState(true);
-
   const [openMenu, setOpenMenu] = useState(false);
 
   const theme = useTheme();
@@ -127,10 +116,6 @@ export default function Navigation() {
 
     setOpenMenu(open);
   };
-
-  // const handleActiveTab = (i) => {
-  //   setActiveTab(i);
-  // };
 
   return (
     <>

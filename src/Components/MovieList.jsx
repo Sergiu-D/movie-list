@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // Components
 import MovieCard from "./MovieCard/MovieCard";
@@ -40,29 +40,17 @@ export default function MovieList({ data, sectionTitle, genres }) {
       <Grid container spacing={3} justify="flex-start">
         {showAllMovies
           ? data.map((movie, index) => {
-              // const movieName = movie.movie || movie.name;
               return (
                 <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
-                  <MovieCard
-                    // movie={movieName}
-                    movie={movie}
-                    key={index}
-                  />
+                  <MovieCard movie={movie} key={index} />
                 </Grid>
               );
             })
           : data
               .map((movie, index) => {
-                // const movieName = movie.movie || movie.name;
-                // trending/:type/:id/:movie
                 return (
                   <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
-                    <MovieCard
-                      // movie={movieName}
-                      // genres={genres}
-                      movie={movie}
-                      key={index}
-                    />
+                    <MovieCard movie={movie} key={index} />
                   </Grid>
                 );
               })
