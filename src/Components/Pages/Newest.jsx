@@ -1,9 +1,9 @@
 import React from "react";
 
 // Util
-import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
-// import fetcher from "../../Utils/fetcher";
 import useSWR from "swr";
+import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
+import addingMediaType from "../../Utils/addingMediaType";
 
 // Components
 import Cinema from "../Cinema";
@@ -28,12 +28,15 @@ export default function Newest() {
   if (!moviesData || !showsData) return <CircularProgress color="secondary" />;
   if (moviesError || showsError) return <h1>Error!</h1>;
 
+  const modifiedMovieData = addingMediaType(moviesData.results, "movie");
+  const modifiedShowsData = addingMediaType(showsData.results, "tv");
+
   return (
     <div>
       <h2>Newest Page</h2>
       <Cinema />
-      <MovieList data={moviesData.results} sectionTitle={"New Movies"} />
-      <MovieList data={showsData.results} sectionTitle={"Tv Airing Today"} />
+      <MovieList data={modifiedMovieData} sectionTitle={"New Movies"} />
+      <MovieList data={modifiedShowsData} sectionTitle={"Tv Airing Today"} />
     </div>
   );
 }

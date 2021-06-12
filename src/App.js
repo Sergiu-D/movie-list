@@ -67,6 +67,7 @@ function App() {
               <Route
                 path={[
                   "/trending/:type/:id/:title",
+                  "/newest/:type/:id/:title",
                   "/discover/:type/:id/:title",
                 ]}
                 component={MovieDetails}

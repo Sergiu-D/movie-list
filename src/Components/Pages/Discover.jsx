@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 // Utils
 import { useSWRInfinite } from "swr";
 import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
+import addingMediaType from "../../Utils/addingMediaType";
 
 // Components
 import MoviePagination from "../MoviePagination";
@@ -29,28 +30,12 @@ export default function Discover() {
   if (!moviesData) return <CircularProgress color="secondary" />;
   if (moviesError) return <h1>Error!</h1>;
 
+  // Mutate data API, injecting "media type"
   const movies = [];
 
-  [...moviesData].forEach((element, index) => {
-    movies.push(...mutateFetchedData(element.results, "movie"));
+  [...moviesData].forEach((element) => {
+    movies.push(...addingMediaType(element.results, "movie"));
   });
-
-  console.log("🚀 ~ file: Discover.jsx ~ line 35 ~ Discover ~ movies", movies);
-  // Mutate data API, injecting "media type"
-  function mutateFetchedData(data, mediaType) {
-    let modifiedDataObj = [];
-
-    //Injecting property
-    data.forEach((movie) => {
-      modifiedDataObj.push(
-        Object.assign({}, movie, {
-          media_type: `${mediaType}`,
-        })
-      );
-    });
-
-    return modifiedDataObj;
-  }
 
   return (
     <>

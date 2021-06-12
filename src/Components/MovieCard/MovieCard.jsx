@@ -156,29 +156,6 @@ export default function MovieCard({ movie }) {
     if (score <= 5) return "red";
   }
 
-  //   const [moviesGenres, setMoviesGenres] = useState();
-
-  //   useEffect(() => {
-  //     axios({
-  //       method: "get",
-  //       url: `
-  // https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`,
-  //     }).then((res) => setMoviesGenres(res.data.genres));
-  //   }, []);
-
-  //   console.log("Movies Genres: ", moviesGenres);
-
-  // function shortenTitle(t) {
-  //   const arrTitle = t.split("");
-
-  //   const shortTitle =
-  //     arrTitle.length >= 15
-  //       ? `${arrTitle.slice(0, 15).join("")}...`
-  //       : arrTitle.join("");
-
-  //   return shortTitle;
-  // }
-  // console.log("Gendres ids: ", genres);
   return (
     <>
       <Card className={classes.root}>
@@ -193,6 +170,7 @@ export default function MovieCard({ movie }) {
         <Link
           to={{
             pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,
+
             state: {
               id: id,
               mediaType: media_type,
@@ -220,7 +198,6 @@ export default function MovieCard({ movie }) {
             />
             <CardContent className={classes.cardContent}>
               <Typography variant="h5" className={classes.title}>
-                {/* {shortenTitle(title)} */}
                 {title}
               </Typography>
 
