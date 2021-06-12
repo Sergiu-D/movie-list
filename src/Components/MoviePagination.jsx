@@ -15,7 +15,7 @@ export default function MoviePagination({
   setSize,
   isValidating,
 }) {
-  const handleFetchMovies = () => setSize((prev) => prev + 2);
+  const handleFetchMovies = () => setSize((prev) => prev + 3);
 
   return (
     <div>

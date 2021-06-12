@@ -1,8 +1,8 @@
 import React from "react";
 
 // Utils
-import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 import useSWR from "swr";
+import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 
 // Components
 import MovieList from "../MovieList";
