@@ -2,7 +2,7 @@ import React from "react";
 
 // Components
 import MoviePagination from "../MoviePagination";
-import MovieCard from "../MovieCard/MovieCard";
+import addingMediaType from "../../Utils/addingMediaType";
 
 // Utils
 import { useSWRInfinite } from "swr";
@@ -72,19 +72,14 @@ export default function Upcoming() {
 
     return newMovies;
   }
-  console.log("Seize: ", size);
-  // const maximMovies =
-  //   filteringDates().length !== 20 && setSize((prev) => prev + 3);
+
+  // const modifiedMovieData = addingMediaType(filteringDates(), "movie");
   // console.log(
-  //   "🚀 ~ file: Upcoming.jsx ~ line 73 ~ Upcoming ~ maximMovies",
-  //   maximMovies
+  //   "🚀 ~ file: Upcoming.jsx ~ line 77 ~ Upcoming ~ modifiedMovieData",
+  //   modifiedMovieData
   // );
-  // if (filteringDates().length < filteringDates().length + 20)
-  //   return setSize((prev) => prev + 1);
-  console.log(
-    "🚀 ~ file: Upcoming.jsx ~ line 82 ~ Upcoming ~ filteringDates()",
-    filteringDates()
-  );
+
+  // console.log("filteringDates(): ", filteringDates());
   return (
     <div>
       <h2>Upcoming Page</h2>

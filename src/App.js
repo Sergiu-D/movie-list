@@ -68,6 +68,7 @@ function App() {
                 path={[
                   "/trending/:type/:id/:title",
                   "/newest/:type/:id/:title",
+                  "/upcoming/:id/:title",
                   "/discover/:type/:id/:title",
                 ]}
                 component={MovieDetails}
