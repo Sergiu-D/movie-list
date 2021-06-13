@@ -17,16 +17,14 @@ export default function Discover() {
 
   // Fetching data
   const moviesQuery = `discover/movie`;
+  const filterQuery = `sort_by=release_date.desc&include_adult=false&year=2015&primary_release_year=2010&with_genres=`;
 
   const {
     data: moviesData,
     error: moviesError,
-    isValidating,
-    mutate,
-    size,
     setSize,
   } = useSWRInfinite(
-    (index) => `${fetchingQuery(moviesQuery)}&page=${index + 1}`,
+    (index) => `${fetchingQuery(moviesQuery)}&${filterQuery}&page=${index + 1}`,
     fetcher
   );
 
@@ -47,7 +45,7 @@ export default function Discover() {
       <MoviePagination
         movies={movies}
         setSize={setSize}
-        isValidating={isValidating}
+        totalResults={moviesData[0].total_results}
       />
     </>
   );

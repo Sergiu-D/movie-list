@@ -13,9 +13,15 @@ export default function MoviePagination({
   movies,
   pageNum,
   setSize,
-  isValidating,
+  totalResults,
 }) {
-  const handleFetchMovies = () => setSize((prev) => prev + 3);
+  const handleFetchMovies = () => setSize((prev) => prev + 2);
+
+  const handleHasMore = (tr, ml) => {
+    const hasMore = tr === ml ? false : true;
+
+    return hasMore;
+  };
 
   return (
     <div>
@@ -23,13 +29,13 @@ export default function MoviePagination({
         style={{ paddingRight: "1rem", paddingTop: "1rem" }}
         dataLength={movies.length}
         next={handleFetchMovies}
-        hasMore={true}
+        hasMore={handleHasMore(totalResults, movies.length)}
         loader={
           <h3 style={{ textAlign: "center", padding: "2rem 0" }}>Loading...</h3>
         }
         endMessage={
           <p style={{ textAlign: "center", padding: "2rem 0" }}>
-            <b>Yay! You have seen it all</b>
+            <b>You have seen it all</b>
           </p>
         }
       >

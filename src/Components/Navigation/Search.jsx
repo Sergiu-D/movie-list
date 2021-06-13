@@ -3,18 +3,21 @@ import React, { useState } from "react";
 // import { useParams } from "react-router-dom";
 
 // Material-Ui
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, makeStyles } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+// import blue from "@material-ui/core/colors/blue";
 
-// function sleep(delay = 0) {
-//   return new Promise((resolve) => {
-//     setTimeout(resolve, delay);
-//   });
-// }
+// Styles
+
+const useStyles = makeStyles((theme) => ({
+  searchInput: {},
+}));
 
 export default function Search() {
   const [searchInput, setSearchInput] = useState("");
   const [searchData, setSearchData] = useState([]);
+
+  const classes = useStyles();
 
   function handleSearchBtn() {
     let cancel;
@@ -34,13 +37,11 @@ export default function Search() {
       <TextField
         label="search"
         variant="filled"
+        color="blue[50]"
+        // className={classes.searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
       />
-      <Button
-        variant="outlined"
-        color="default"
-        onClick={() => handleSearchBtn()}
-      >
+      <Button variant="outlined" onClick={() => handleSearchBtn()}>
         <SearchIcon />
       </Button>
     </div>

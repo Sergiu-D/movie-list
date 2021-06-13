@@ -6,9 +6,6 @@ import formatRuntime from "../../Utils/formatRuntime";
 import useSWR from "swr";
 import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 
-//Components
-import Genre from "./Genre";
-
 //Material-ui
 import {
   makeStyles,
@@ -145,6 +142,7 @@ export default function MovieDetails({
       <Grid
         container
         alignContent={"center"}
+        spacing={3}
         style={
           mediumBp
             ? {
