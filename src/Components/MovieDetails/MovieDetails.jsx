@@ -155,7 +155,6 @@ export default function MovieDetails({
       >
         <Grid
           item
-          direction="column"
           lg={9}
           md={9}
           sm={12}
@@ -187,8 +186,9 @@ export default function MovieDetails({
                   }
             }
           >
-            {genres.map((genre) => (
+            {genres.map((genre, index) => (
               <Typography
+                key={index}
                 variant="overline"
                 style={{
                   fontSize: "15px",
@@ -236,7 +236,8 @@ export default function MovieDetails({
                 Total Episodes: {mediaData.number_of_episodes}
               </Typography>
               <Typography variant="h5" paragraph={true}>
-                Runtime per episode: {formatRuntime(mediaData.episode_run_time)}
+                Runtime per episode:{" "}
+                {formatRuntime(mediaData.episode_run_time[0])}
               </Typography>
             </Box>
           )}
@@ -246,7 +247,7 @@ export default function MovieDetails({
         {makeVideoUrlArr(videos).length === 0 ? (
           ""
         ) : (
-          <Grid item spacing="3" align="center" lg={3} md={3} sm={12}>
+          <Grid item align="center" lg={3} md={3} sm={12}>
             <Typography variant="h2">Trailers</Typography>
             {makeVideoUrlArr(videos)
               .splice(0, 2)

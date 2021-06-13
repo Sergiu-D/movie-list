@@ -9,12 +9,8 @@ import { Grid, CircularProgress } from "@material-ui/core";
 
 // TODO add "back to top button"
 
-export default function MoviePagination({
-  movies,
-  pageNum,
-  setSize,
-  totalResults,
-}) {
+export default function MoviePagination({ media, setSize, totalResults }) {
+  console.log("🚀 ~ file: MoviePagination.jsx ~ line 17 ~ media", media);
   const handleFetchMovies = () => setSize((prev) => prev + 2);
 
   const handleHasMore = (tr, ml) => {
@@ -27,9 +23,9 @@ export default function MoviePagination({
     <div>
       <InfiniteScroll
         style={{ paddingRight: "1rem", paddingTop: "1rem" }}
-        dataLength={movies.length}
+        dataLength={media.length}
         next={handleFetchMovies}
-        hasMore={handleHasMore(totalResults, movies.length)}
+        hasMore={handleHasMore(totalResults, media.length)}
         loader={
           <h3 style={{ textAlign: "center", padding: "2rem 0" }}>Loading...</h3>
         }
@@ -40,9 +36,7 @@ export default function MoviePagination({
         }
       >
         <Grid container spacing={3} justify="flex-start">
-          {movies.map((movie, index) => {
-            if (!movie.release_date) return;
-
+          {media.map((movie, index) => {
             return (
               <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
                 <MovieCard movie={movie} key={movie.id} />

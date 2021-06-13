@@ -84,7 +84,7 @@ export default function Upcoming() {
     <div>
       <h2>Upcoming Page</h2>
       <MoviePagination
-        movies={filteringDates()}
+        media={filteringDates()}
         setSize={setSize}
         isValidating={isValidating}
       />

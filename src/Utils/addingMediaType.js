@@ -2,9 +2,9 @@ export default function addingMediaType(data, mediaType) {
   let modifiedDataObj = [];
 
   //Injecting property
-  data.forEach((movie) => {
+  data.forEach((obj) => {
     modifiedDataObj.push(
-      Object.assign({}, movie, {
+      Object.assign({}, obj, {
         media_type: `${mediaType}`,
       })
     );

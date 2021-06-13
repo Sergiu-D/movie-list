@@ -16,7 +16,7 @@ import Navigation from "./Components/Navigation/Navigation";
 import Trending from "./Components/Pages/Trending";
 import Newest from "./Components/Pages/Newest";
 import Upcoming from "./Components/Pages/Upcoming";
-import Discover from "./Components/Pages/Discover";
+import Discover from "./Components/Pages/Discover/Discover";
 import Watchlist from "./Components/Pages/Watchlist";
 import MovieDetails from "./Components/MovieDetails/MovieDetails";
 
