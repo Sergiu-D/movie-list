@@ -18,19 +18,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Filters({ filters, setFilters, sorting, setSorting }) {
+export default function Filters({
+  isMovies,
+  setIsMovies,
+  sorting,
+  setSorting,
+  voteAverage,
+  setVoteAverage,
+}) {
   const classes = useStyles();
 
-  const { isMovies } = filters;
-  const { sort_by } = sorting;
+  function createVoteCount() {
+    const count = [];
 
-  // const handleChange = (event) => {
-  //   console.log(
-  //     "🚀 ~ file: Filters.jsx ~ line 28 ~ handleChange ~ event.target.value",
-  //     event
-  //   );
-  //   setFilters({ isMovie: event.target.value });
-  // };
+    for (let i = 1; i <= 10; i++) {
+      count.push(i);
+    }
+    return count;
+  }
   return (
     <div>
       <FormControl className={classes.formControl}>
@@ -40,7 +45,7 @@ export default function Filters({ filters, setFilters, sorting, setSorting }) {
           id="media-type-select"
           variant="standard"
           value={isMovies}
-          onChange={(event) => setFilters({ isMovies: event.target.value })}
+          onChange={(event) => setIsMovies(event.target.value)}
         >
           <MenuItem value={true}>Movies</MenuItem>
           <MenuItem value={false}>Tv Shows</MenuItem>
@@ -52,8 +57,8 @@ export default function Filters({ filters, setFilters, sorting, setSorting }) {
           labelId="sort-by"
           id="sort-by-select"
           variant="standard"
-          value={sort_by}
-          onChange={(event) => setSorting({ sort_by: event.target.value })}
+          value={sorting}
+          onChange={(event) => setSorting(event.target.value)}
         >
           <MenuItem value={"popularity.desc"}>Popularity High</MenuItem>
           <MenuItem value={"popularity.asc"}>Popularity Low</MenuItem>
@@ -61,6 +66,23 @@ export default function Filters({ filters, setFilters, sorting, setSorting }) {
           <MenuItem value={"release_date.asc"}>Release Date Older</MenuItem>
           <MenuItem value={"vote_average.desc"}>Vote Average High</MenuItem>
           <MenuItem value={"vote_average.asc"}>Vote Average Low</MenuItem>
+          <MenuItem value={"vote_count.desc"}>Vote Count High</MenuItem>
+          <MenuItem value={"vote_count.asc"}>Vote Count Low</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl className={classes.formControl}>
+        <InputLabel id="sort-by">Vote Average</InputLabel>
+        <Select
+          labelId="sort-by"
+          id="sort-by-select"
+          variant="standard"
+          value={voteAverage}
+          onChange={(event) => setVoteAverage(event.target.value)}
+        >
+          {createVoteCount().map((number) => (
+            <MenuItem value={number}>{number}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </div>

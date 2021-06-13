@@ -16,11 +16,9 @@ export default function Discover() {
   // Change document title
   document.title = "Discover";
 
-  const [filters, setFilters] = useState({ isMovies: true });
-  const [sorting, setSorting] = useState({ sort_by: "popularity.desc" });
-
-  const { isMovies } = filters;
-  const { sort_by } = sorting;
+  const [isMovies, setIsMovies] = useState(true);
+  const [sorting, setSorting] = useState("popularity.desc");
+  const [voteAverage, setVoteAverage] = useState(10);
 
   // Fetching data
 
@@ -28,12 +26,12 @@ export default function Discover() {
 
   if (isMovies) {
     mediaQuery = `discover/movie`;
-    filterQuery = `sort_by=${sort_by}&include_adult=false&year=&primary_release_year=&with_genres=`;
+    filterQuery = `sort_by=${sorting}&vote_average.lte=${voteAverage}&include_adult=false&year=&primary_release_year=&with_genres=`;
   }
 
   if (!isMovies) {
     mediaQuery = `discover/tv`;
-    filterQuery = `sort_by=${sort_by}&include_adult=false&year=&primary_release_year=&with_genres=`;
+    filterQuery = `sort_by=${sorting}&vote_average.lte=${voteAverage}&include_adult=false&year=&primary_release_year=&with_genres=`;
   }
 
   const { data, error, setSize } = useSWRInfinite(
@@ -67,10 +65,12 @@ export default function Discover() {
     <>
       <h2>Discover Page</h2>
       <Filters
-        filters={filters}
-        setFilters={setFilters}
+        isMovies={isMovies}
+        setIsMovies={setIsMovies}
         sorting={sorting}
         setSorting={setSorting}
+        voteAverage={voteAverage}
+        setVoteAverage={setVoteAverage}
       />
       <MoviePagination
         media={isMovies ? movies : tvShows}
