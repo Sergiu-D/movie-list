@@ -37,7 +37,7 @@ export default function Search() {
       <TextField
         label="search"
         variant="filled"
-        color="blue[50]"
+        // color="blue[50]"
         // className={classes.searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
       />

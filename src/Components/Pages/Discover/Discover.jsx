@@ -16,12 +16,11 @@ export default function Discover() {
   // Change document title
   document.title = "Discover";
 
-  const [filters, setFilters] = useState({
-    isMovies: true,
-    sort_by: "popularity.desc",
-  });
+  const [filters, setFilters] = useState({ isMovies: true });
+  const [sorting, setSorting] = useState({ sort_by: "popularity.desc" });
 
-  const { isMovies, sort_by } = filters;
+  const { isMovies } = filters;
+  const { sort_by } = sorting;
 
   // Fetching data
 
@@ -29,12 +28,12 @@ export default function Discover() {
 
   if (isMovies) {
     mediaQuery = `discover/movie`;
-    filterQuery = `sort_by=popularity.desc&include_adult=false&year=&primary_release_year=&with_genres=`;
+    filterQuery = `sort_by=${sort_by}&include_adult=false&year=&primary_release_year=&with_genres=`;
   }
 
   if (!isMovies) {
     mediaQuery = `discover/tv`;
-    filterQuery = `sort_by=popularity.desc&include_adult=false&year=&primary_release_year=&with_genres=`;
+    filterQuery = `sort_by=${sort_by}&include_adult=false&year=&primary_release_year=&with_genres=`;
   }
 
   const { data, error, setSize } = useSWRInfinite(
@@ -64,16 +63,15 @@ export default function Discover() {
     });
   }
 
-  console.log("🚀 ~ file: Discover.jsx ~ line 46 ~ Discover ~ data", data);
-  console.log(
-    "🚀 ~ file: Discover.jsx ~ line 56 ~ Discover ~ tvShows",
-    tvShows
-  );
-
   return (
     <>
       <h2>Discover Page</h2>
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters
+        filters={filters}
+        setFilters={setFilters}
+        sorting={sorting}
+        setSorting={setSorting}
+      />
       <MoviePagination
         media={isMovies ? movies : tvShows}
         setSize={setSize}

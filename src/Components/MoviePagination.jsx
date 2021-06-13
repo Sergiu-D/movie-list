@@ -10,7 +10,6 @@ import { Grid, CircularProgress } from "@material-ui/core";
 // TODO add "back to top button"
 
 export default function MoviePagination({ media, setSize, totalResults }) {
-  console.log("🚀 ~ file: MoviePagination.jsx ~ line 17 ~ media", media);
   const handleFetchMovies = () => setSize((prev) => prev + 2);
 
   const handleHasMore = (tr, ml) => {
