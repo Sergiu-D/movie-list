@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 // Material-Ui
 
@@ -47,7 +52,7 @@ function App() {
           <main style={{ overflowX: "hidden" }}>
             <Switch>
               <Route exact path="/">
-                <Trending />
+                <Redirect exact to="/trending" />
               </Route>
               <Route exact path="/trending">
                 <Trending />
