@@ -6,18 +6,15 @@ export default function formatRuntime(rt) {
     if (h === 0) return ``;
     if (h === 1) return `0${h} hour`;
     if (h < 10) return `0${h} hours`;
-
-    return `${hour} hours and`;
+    if (h > 10) return `${h} hours`;
   };
 
-  const formatMinutes = (n) => {
-    if (n === 0) return ``;
-    if (n === 1) return `0${n} minute`;
-    if (n < 10) return `0${n} minutes`;
-
-    return `${n} minutes`;
+  const formatMinutes = (m) => {
+    if (m === 0) return ``;
+    if (m === 1) return `0${m} minute`;
+    if (m < 10) return `0${m} minutes`;
+    if (m > 10) return `${m} minutes`;
   };
-  // console.log("ora: " + hour)
 
   return !hour && !minutes
     ? `No info`

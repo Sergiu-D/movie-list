@@ -15,12 +15,66 @@ import {
   Box,
 } from "@material-ui/core";
 
+const useStyles = makeStyles((theme) => ({
+  gridItem: {
+    display: "flex",
+    flexDirection: "column",
+
+    width: "100%",
+
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      textAlign: "center",
+      margin: "3rem 0",
+    },
+  },
+  gridItemDetails: {
+    minHeight: "550px",
+  },
+  title: {
+    fontWeight: 800,
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+    },
+  },
+
+  genres: {
+    fontSize: "1.5rem",
+    lineHeight: "1.7",
+    margin: "1.5rem 0",
+
+    fontWeight: 100,
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+    },
+  },
+  overview: {
+    marginTop: "auto",
+    lineHeight: 1.8,
+    columnCount: 2,
+    columnRule: "1px inset white",
+    columnGap: "10ch",
+
+    [theme.breakpoints.down("md")]: {
+      columnCount: 1,
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "2.5rem",
+    },
+  },
+}));
+
 export default function MovieDetails({
   match: {
     params: { type: mediaType, id },
   },
 }) {
   const [isMovie, setIsMovie] = useState(false);
+
+  const classes = useStyles();
+
   // Media query
   const mediumBp = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const smallBp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -99,12 +153,27 @@ export default function MovieDetails({
     return reversedDate;
   };
 
+  const getGenres = (g) => {
+    const genresArr = [];
+
+    g.forEach((genre) => genresArr.push(genre.name));
+
+    return genresArr.join(" ");
+  };
+
   return (
-    <div>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       {/* Background container */}
       <div
         style={{
-          position: "absolute",
+          position: "fixed",
           top: 0,
           left: 0,
           width: "100%",
@@ -115,7 +184,7 @@ export default function MovieDetails({
         {/* Background image */}
         <img
           src={movieBg}
-          // alt={`${title} poster`}
+          alt={`${title} poster`}
           style={{
             width: "100%",
             height: "100vh",
@@ -139,87 +208,45 @@ export default function MovieDetails({
       </div>
       {/* End background container */}
 
-      <Grid
-        container
-        alignContent={"center"}
-        spacing={3}
-        style={
-          mediumBp
-            ? {
-                width: "100vw",
-                height: "100vh",
-                padding: "0 2.5rem",
-              }
-            : { width: "81.5vw", height: "100vh" }
-        }
-      >
+      <Grid container>
         <Grid
           item
           lg={9}
-          md={9}
+          md={8}
           sm={12}
-          // align={mediumBp ? "center" : "inherit"}
+          className={classes.gridItem}
+          style={{ minHeight: "550px" }}
         >
-          <Typography
-            variant="h1"
-            paragraph={true}
-            style={{ fontWeight: 800 }}
-            align={smallBp ? "center" : "inherit"}
-          >
+          <Typography variant="h1" paragraph={true} className={classes.title}>
             {title}
           </Typography>
 
-          <div
-            style={
-              smallBp
-                ? {
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: "15px",
-                    fontWeight: 100,
-                  }
-                : {
-                    display: "flex",
-
-                    gap: "15px",
-                    fontWeight: 100,
-                  }
-            }
+          <Typography
+            variant="overline"
+            // paragraph={true}
+            className={classes.genres}
           >
-            {genres.map((genre, index) => (
-              <Typography
-                key={index}
-                variant="overline"
-                style={{
-                  fontSize: "15px",
-                  borderBottom: "2px solid white",
-                  marginBottom: "2rem",
-                  // borderTop: "2px solid white",
-                  // borderRadius: "10px",
-                  // padding: "0 .5rem",
-                }}
-              >
-                {genre.name}
-              </Typography>
-            ))}
-          </div>
+            {genres.map((genre) => `${genre.name}  `)}
+          </Typography>
 
           {isMovie ? (
-            <Box align={smallBp ? "center" : "inherit"}>
+            <>
               <Typography variant="h5" paragraph={true}>
-                {/* Release Date:{" "} */}
-
                 {reverseReleaseDate(release_date)}
               </Typography>
               <Typography variant="h5" paragraph={true}>
-                Runtime:{" "}
-                <span style={{ fontWeight: 100 }}>
-                  {formatRuntime(runtime)}
-                </span>
+                {formatRuntime(runtime)}
               </Typography>
-            </Box>
+              <Typography
+                variant="p"
+                paragraph={true}
+                className={classes.overview}
+              >
+                {overview}
+              </Typography>
+            </>
           ) : (
-            <Box align={smallBp ? "center" : "inherit"}>
+            <>
               <Typography variant="h5" paragraph={true}>
                 {mediaData.first_air_date.slice(0, 4)} ~{" "}
                 {mediaData.next_episode_to_air
@@ -239,21 +266,35 @@ export default function MovieDetails({
                 Runtime per episode:{" "}
                 {formatRuntime(mediaData.episode_run_time[0])}
               </Typography>
-            </Box>
+              <Typography
+                variant="p"
+                paragraph={true}
+                className={classes.overview}
+              >
+                {overview}
+              </Typography>
+            </>
           )}
-
-          {/* <Genre genreIds={genre_ids} mediaType={media_type} /> */}
         </Grid>
-        {makeVideoUrlArr(videos).length === 0 ? (
+        {!makeVideoUrlArr(videos).length ? (
           ""
         ) : (
-          <Grid item align="center" lg={3} md={3} sm={12}>
-            <Typography variant="h2">Trailers</Typography>
+          <Grid
+            item
+            lg={3}
+            md={4}
+            sm={12}
+            className={classes.gridItem}
+            style={{ minWidth: "360px" }}
+          >
+            <Typography variant="h2" style={{ textAlign: "center" }}>
+              Trailers
+            </Typography>
             {makeVideoUrlArr(videos)
               .splice(0, 2)
               .map((url, index) => (
                 <ReactPlayer
-                  style={{ margin: "1.5rem 0" }}
+                  style={{ margin: "1.5rem auto" }}
                   controls={true}
                   width={350}
                   height={200}
@@ -263,9 +304,6 @@ export default function MovieDetails({
               ))}
           </Grid>
         )}
-        <Grid item lg={8} md={8} sm={12}>
-          {overview}
-        </Grid>
       </Grid>
     </div>
   );

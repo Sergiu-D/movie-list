@@ -32,7 +32,7 @@ export default function Trending() {
   if (moviesError || showsError) return <h1>Error!</h1>;
 
   return (
-    <div style={{ minWidth: "80vw" }}>
+    <div>
       {/* <PageHeader title={"Trending"} /> */}
 
       <MovieList data={moviesData.results} sectionTitle={"Movies"} />

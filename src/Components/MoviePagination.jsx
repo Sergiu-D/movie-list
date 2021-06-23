@@ -19,9 +19,9 @@ export default function MoviePagination({ media, setSize, totalResults }) {
   };
 
   return (
-    <div>
+    <>
       <InfiniteScroll
-        style={{ paddingRight: "1rem", paddingTop: "1rem" }}
+        style={{ paddingTop: "1rem" }}
         dataLength={media.length}
         next={handleFetchMovies}
         hasMore={handleHasMore(totalResults, media.length)}
@@ -44,6 +44,6 @@ export default function MoviePagination({ media, setSize, totalResults }) {
           })}
         </Grid>
       </InfiniteScroll>
-    </div>
+    </>
   );
 }

@@ -85,7 +85,7 @@ export default function Discover() {
   }
 
   return (
-    <>
+    <div>
       <h2>Discover Page</h2>
       <Filters
         isMovies={isMovies}
@@ -105,6 +105,6 @@ export default function Discover() {
         setSize={setSize}
         totalResults={data[0].total_results}
       />
-    </>
+    </div>
   );
 }

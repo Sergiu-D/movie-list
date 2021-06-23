@@ -12,6 +12,7 @@ import {
   createMuiTheme,
   responsiveFontSizes,
   MuiThemeProvider,
+  useMediaQuery,
 } from "@material-ui/core";
 
 // Components
@@ -44,12 +45,21 @@ theme = responsiveFontSizes(theme);
 
 function App() {
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{
+        maxWidth: "100vw",
+        display: "flex",
+        overflowX: "hidden",
+      }}
+    >
       <MuiThemeProvider theme={theme}>
         <Router>
           <Navigation />
 
-          <main style={{ overflowX: "hidden" }}>
+          <main
+            style={{ flexGrow: "2", maxWidth: "100vw", padding: "0 .5rem" }}
+          >
             <Switch>
               <Route exact path="/">
                 <Redirect exact to="/trending" />

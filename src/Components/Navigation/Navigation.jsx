@@ -29,20 +29,24 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 // ==== Navigation style ====
 
-// Navigation width
-const drawerWidth = 350;
-
 const useStyles = makeStyles((theme) => ({
   menuIcon: {
     position: "fixed",
-    top: "25px",
+    top: "75px",
     left: "25px",
+
     transition: "opacity .2s ease-in-out",
+
     zIndex: 20000,
+    [theme.breakpoints.down("sm")]: {
+      top: "50%",
+      left: "-15px",
+      borderRadius: "15px 15px",
+    },
   },
 
   drawerPaper: {
-    width: drawerWidth,
+    width: "357px",
 
     display: "flex",
     flexDirection: "column",
@@ -57,21 +61,28 @@ const useStyles = makeStyles((theme) => ({
       minWidth: "300px",
       maxWidth: "40%",
       width: "40%",
-
-      display: "flex",
-
-      justifyContent: "space-around",
-      alignItems: "center",
       backgroundColor: "#202B34",
     },
   },
 
-  navTabs: {
-    display: "flex",
+  navLink: {
+    width: "100%",
 
-    padding: "1.3rem 6rem",
     textTransform: "capitalize",
     color: "rgba(255, 255, 255, 0.5)",
+  },
+  list: {
+    width: "100%",
+  },
+  listItem: {
+    display: "flex",
+    padding: "1.5rem 25%",
+    [theme.breakpoints.down("md")]: {
+      padding: ".8rem 25%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      padding: ".5rem 25%",
+    },
   },
 
   typography: {
@@ -84,7 +95,11 @@ const useStyles = makeStyles((theme) => ({
   },
 
   logo: {
-    width: "9.5rem",
+    width: "9rem",
+
+    [theme.breakpoints.down("md")]: {
+      width: "10rem",
+    },
   },
 }));
 
@@ -103,23 +118,11 @@ export default function Navigation() {
   const [openMenu, setOpenMenu] = useState(false);
 
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
-
-  // Handle close navigation
-  const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setOpenMenu(open);
-  };
+  const mediumBp = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <>
-      {matches && (
+      {mediumBp && (
         <Fab
           className={classes.menuIcon}
           style={
@@ -128,20 +131,20 @@ export default function Navigation() {
               : { visibility: "visible", opacity: "1" }
           }
           color="primary"
-          onClick={toggleDrawer(true)}
+          onClick={() => setOpenMenu(true)}
         >
           <MenuIcon />
         </Fab>
       )}
       <nav
         style={
-          matches ? { minWidth: 0 } : { minWidth: drawerWidth, height: "100vh" }
+          mediumBp ? { minWidth: 0 } : { height: "100vh", flex: "0 0 350px" }
         }
       >
         <Drawer
           open={openMenu}
-          onClose={toggleDrawer(false)}
-          variant={matches ? "temporary" : "permanent"}
+          onClose={() => setOpenMenu(false)}
+          variant={mediumBp ? "temporary" : "permanent"}
           classes={{
             paper: classes.drawerPaper,
           }}
@@ -155,28 +158,25 @@ export default function Navigation() {
 
           <Search />
 
-          <List
-            style={{
-              width: "100%",
-            }}
-          >
+          <List className={classes.list}>
             {navTabs.map((tab, index) => {
               return (
-                <ListItem button style={{ padding: "0" }} key={index}>
-                  <NavLink
-                    to={`/${tab}`}
-                    activeStyle={{
-                      color: "white",
-                      fill: "white",
-                    }}
-                    className={classes.navTabs}
-                  >
+                <NavLink
+                  to={`/${tab}`}
+                  activeStyle={{
+                    color: "white",
+                    fill: "white",
+                  }}
+                  className={classes.navLink}
+                  onClick={() => setOpenMenu(false)}
+                >
+                  <ListItem button className={classes.listItem} key={index}>
                     <Icon className={classes.icon}>{navTabsIcons[index]}</Icon>
                     <Typography variant="h4" className={classes.typography}>
                       {tab}
                     </Typography>
-                  </NavLink>
-                </ListItem>
+                  </ListItem>
+                </NavLink>
               );
             })}
           </List>
