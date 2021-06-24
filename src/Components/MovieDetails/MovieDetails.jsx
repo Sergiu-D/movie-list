@@ -60,8 +60,15 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       columnCount: 1,
     },
+  },
+
+  videPlayer: {
+    minWidth: "300px",
+    margin: "1.5rem auto",
+
+    aspectRatio: "16/9",
     [theme.breakpoints.down("sm")]: {
-      marginTop: "2.5rem",
+      aspectRatio: "1/1",
     },
   },
 }));
@@ -279,14 +286,7 @@ export default function MovieDetails({
         {!makeVideoUrlArr(videos).length ? (
           ""
         ) : (
-          <Grid
-            item
-            lg={3}
-            md={4}
-            sm={12}
-            className={classes.gridItem}
-            style={{ minWidth: "360px" }}
-          >
+          <Grid item lg={3} md={4} sm={12} className={classes.gridItem}>
             <Typography variant="h2" style={{ textAlign: "center" }}>
               Trailers
             </Typography>
@@ -294,10 +294,11 @@ export default function MovieDetails({
               .splice(0, 2)
               .map((url, index) => (
                 <ReactPlayer
-                  style={{ margin: "1.5rem auto" }}
-                  controls={true}
-                  width={350}
-                  height={200}
+                  className={classes.videPlayer}
+                  controls
+                  light
+                  width="90%"
+                  height="40%"
                   key={index}
                   url={url}
                 />

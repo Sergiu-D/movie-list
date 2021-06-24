@@ -58,7 +58,7 @@ export default function Discover() {
     )}`;
   }
 
-  const { data, error, setSize } = useSWRInfinite(
+  const { data, error, mutate, setSize } = useSWRInfinite(
     (index) => `${fetchingQuery(mediaQuery)}&${filterQuery}&page=${index + 1}`,
     fetcher
   );
