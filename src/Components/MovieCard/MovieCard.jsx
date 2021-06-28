@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
 // Components
 import Genre from "../MovieDetails/Genre";
+
+// Context
+import { WatchListContext } from "../../Context/WatchListContext";
 
 // Material-Ui
 import {
@@ -15,6 +18,8 @@ import {
   Button,
   Paper,
 } from "@material-ui/core";
+
+import orange from "@material-ui/core/colors/orange";
 
 // Style
 const useStyles = makeStyles((theme) => ({
@@ -130,6 +135,8 @@ export default function MovieCard({ movie }) {
     media_type,
   } = movie;
 
+  const { list, addItem, removeItem } = useContext(WatchListContext);
+
   const title = movie.title || movie.name;
 
   const movieImage = poster_path
@@ -145,7 +152,10 @@ export default function MovieCard({ movie }) {
   const urlPath = `${media_type}/${id}/${normalizedTitle}`;
 
   // Handle if all movies are shown
-  const handleClick = () => setActive(!active);
+  const handleClick = () => {
+    addItem(movie);
+    setActive(!active);
+  };
 
   // Adding color to score
   function scoreBg(score) {
@@ -155,17 +165,38 @@ export default function MovieCard({ movie }) {
     if (score <= 5) return "red";
   }
 
-  return (
-    <>
-      <Card className={classes.root}>
+  const addButton = (l, m) => {
+    const checkId = l.some((item) => item.id === m.id);
+
+    if (checkId)
+      return (
         <Button
-          onClick={handleClick}
-          variant={active ? "contained" : "outlined"}
+          onClick={() => removeItem(movie)}
+          variant="contained"
+          color="primary"
+          className={classes.btn}
+        >
+          -
+        </Button>
+      );
+
+    if (!checkId)
+      return (
+        <Button
+          onClick={() => addItem(movie)}
+          variant="contained"
           color="secondary"
           className={classes.btn}
         >
           +
         </Button>
+      );
+  };
+
+  return (
+    <>
+      <Card className={classes.root}>
+        {addButton(list, movie)}
         <Link
           to={{
             pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,

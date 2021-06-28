@@ -109,13 +109,6 @@ export default function Genre({ genreIds }) {
     const sortedGenresArr = [];
     filteredGenres.forEach((g) => sortedGenresArr.push(g.name));
 
-    // sortedGenresArr.splice(0, 3).sort();
-    // shortGenres.join(", ");
-    // console.log(shortGenres.join(", "));
-    console.log(
-      "🚀 ~ file: Genre.jsx ~ line 71 ~ getGenres ~ sortedGenresArr",
-      typeof sortedGenresArr.join(" ")
-    );
     return sortedGenresArr.sort().join(" ");
   }
 
