@@ -83,17 +83,17 @@ function App() {
                 <Route exact path="/watchlist">
                   <Watchlist />
                 </Route>
+                <Route
+                  path={[
+                    "/trending/:type/:id/:title",
+                    "/newest/:type/:id/:title",
+                    "/upcoming/:id/:title",
+                    "/discover/:type/:id/:title",
+                    "/watchlist/:type/:id/:title",
+                  ]}
+                  component={MovieDetails}
+                />
               </WatchListContextProvider>
-              <Route
-                path={[
-                  "/trending/:type/:id/:title",
-                  "/newest/:type/:id/:title",
-                  "/upcoming/:id/:title",
-                  "/discover/:type/:id/:title",
-                  "/watchlist/:type/:id/:title",
-                ]}
-                component={MovieDetails}
-              />
               {/* <Route path="/discover/:title" component={MovieDetails} /> */}
             </Switch>
           </main>

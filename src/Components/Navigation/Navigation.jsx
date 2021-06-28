@@ -162,6 +162,7 @@ export default function Navigation() {
             {navTabs.map((tab, index) => {
               return (
                 <NavLink
+                  key={index}
                   to={`/${tab}`}
                   activeStyle={{
                     color: "white",
@@ -170,7 +171,7 @@ export default function Navigation() {
                   className={classes.navLink}
                   onClick={() => setOpenMenu(false)}
                 >
-                  <ListItem button className={classes.listItem} key={index}>
+                  <ListItem button className={classes.listItem}>
                     <Icon className={classes.icon}>{navTabsIcons[index]}</Icon>
                     <Typography variant="h4" className={classes.typography}>
                       {tab}
