@@ -24,16 +24,7 @@ export default function Discover() {
 
   const refContainer = useRef([]);
 
-  console.log(
-    "🚀 ~ file: Discover.jsx ~ line 26 ~ Discover ~ refContainer",
-    refContainer
-  );
-
   const selectGenres = (genres) => {
-    console.log(
-      "🚀 ~ file: Discover.jsx ~ line 32 ~ selectGenres ~ genres",
-      genres
-    );
     const gen = [];
     genres.map((genre) => gen.push(genre.id));
 
@@ -64,7 +55,13 @@ export default function Discover() {
   );
 
   // Error handle
-  if (!data) return <CircularProgress color="secondary" />;
+  if (!data)
+    return (
+      <CircularProgress
+        color="secondary"
+        style={{ margin: "0 auto", verticalAlign: "middle" }}
+      />
+    );
   if (error) return <h1>Error!</h1>;
 
   // Mutate data API, injecting "media type"

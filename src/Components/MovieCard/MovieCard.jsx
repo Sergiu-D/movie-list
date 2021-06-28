@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     aspectRatio: "2/3",
   },
   cardContent: {
+    minHeight: "76px",
     textAlign: "center",
     margin: ".2rem 0",
     padding: "0 .4rem",
