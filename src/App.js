@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
@@ -57,7 +57,7 @@ function App() {
       }}
     >
       <MuiThemeProvider theme={theme}>
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <Navigation />
 
           <main

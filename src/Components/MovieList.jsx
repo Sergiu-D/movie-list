@@ -20,8 +20,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   btn: {
-    width: "10%",
-    margin: "0 auto",
+    width: "15%",
+    margin: "1.5rem auto",
+
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      padding: ".5rem 0",
+    },
   },
 }));
 
