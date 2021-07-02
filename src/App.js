@@ -15,6 +15,10 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 
+// React toastify
+
+import { ToastContainer } from "react-toastify";
+
 // Components
 import Navigation from "./Components/Navigation/Navigation";
 
@@ -56,6 +60,18 @@ function App() {
         overflowX: "hidden",
       }}
     >
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        limit={3}
+      />
       <MuiThemeProvider theme={theme}>
         <Router basename={process.env.PUBLIC_URL}>
           <Navigation />
