@@ -4,6 +4,8 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import MovieCard from "./MovieCard/MovieCard";
 
+import { BackToTopBtn } from "./Buttons";
+
 // Material-Ui
 import { Grid, CircularProgress } from "@material-ui/core";
 
@@ -17,6 +19,8 @@ export default function MoviePagination({ media, setSize, totalResults }) {
 
     return hasMore;
   };
+
+  console.log("Discover height", window.pageYOffset);
 
   return (
     <>
@@ -44,6 +48,7 @@ export default function MoviePagination({ media, setSize, totalResults }) {
           })}
         </Grid>
       </InfiniteScroll>
+      <BackToTopBtn />
     </>
   );
 }
