@@ -8,6 +8,7 @@ import addingMediaType from "../../Utils/addingMediaType";
 // Components
 import Cinema from "../Cinema";
 import MovieList from "../MovieList";
+import PageTitle from "../PageTitle";
 
 //Material-Ui
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -39,8 +40,8 @@ export default function Newest() {
 
   return (
     <div>
-      <h2>Newest Page</h2>
-      <Cinema />
+      <PageTitle pageTitle={Newest} />
+      {/* <Cinema /> */}
       <MovieList data={modifiedMovieData} sectionTitle={"New Movies"} />
       <MovieList data={modifiedShowsData} sectionTitle={"Tv Airing Today"} />
     </div>

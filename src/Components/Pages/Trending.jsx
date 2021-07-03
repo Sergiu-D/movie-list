@@ -6,6 +6,7 @@ import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 
 // Components
 import MovieList from "../MovieList";
+import PageTitle from "../PageTitle";
 
 //Material-Ui
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -34,6 +35,7 @@ export default function Trending() {
   return (
     <div>
       {/* <PageHeader title={"Trending"} /> */}
+      <PageTitle pageTitle="Trending" />
 
       <MovieList data={moviesData.results} sectionTitle={"Movies"} />
       <MovieList data={showsData.results} sectionTitle={"Tv Shows"} />

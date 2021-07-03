@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 // Components
 import MovieCard from "../MovieCard/MovieCard";
+import PageTitle from "../PageTitle";
 
 // Context
 import { WatchListContext } from "../../Context/WatchListContext";
@@ -36,9 +37,9 @@ const Watchlist = () => {
 
   const { list } = useContext(WatchListContext);
 
-  console.log(list);
   return (
     <section className={classes.container}>
+      <PageTitle pageTitle="Watch list" />
       <Grid container spacing={3} justify="flex-start">
         {!list ? (
           <h2>Watchlist is empty</h2>

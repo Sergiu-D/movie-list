@@ -32,17 +32,17 @@ import MenuIcon from "@material-ui/icons/Menu";
 const useStyles = makeStyles((theme) => ({
   menuIcon: {
     position: "fixed",
-    top: "75px",
-    left: "25px",
+    top: "2rem",
+    left: "2rem",
 
     transition: "opacity .2s ease-in-out",
 
     zIndex: 20000,
-    [theme.breakpoints.down("sm")]: {
-      top: "50%",
-      left: "-15px",
-      borderRadius: "15px 15px",
-    },
+    // [theme.breakpoints.down("sm")]: {
+    //   top: "50%",
+    //   left: "-15px",
+    //   borderRadius: "15px 15px",
+    // },
   },
 
   drawerPaper: {

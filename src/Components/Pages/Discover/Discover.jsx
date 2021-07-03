@@ -8,6 +8,7 @@ import addingMediaType from "../../../Utils/addingMediaType";
 // Components
 import MoviePagination from "../../MoviePagination";
 import Filters from "./Filters";
+import PageTitle from "../../PageTitle";
 
 //Material-Ui
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -83,7 +84,7 @@ export default function Discover() {
 
   return (
     <div>
-      <h2>Discover Page</h2>
+      <PageTitle pageTitle="Discover" />
       <Filters
         isMovies={isMovies}
         setIsMovies={setIsMovies}

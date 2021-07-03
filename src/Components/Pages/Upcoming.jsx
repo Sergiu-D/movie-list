@@ -3,6 +3,7 @@ import React from "react";
 // Components
 import MoviePagination from "../MoviePagination";
 import addingMediaType from "../../Utils/addingMediaType";
+import PageTitle from "../PageTitle";
 
 // Utils
 import { useSWRInfinite } from "swr";
@@ -82,7 +83,7 @@ export default function Upcoming() {
   // console.log("filteringDates(): ", filteringDates());
   return (
     <div>
-      <h2>Upcoming Page</h2>
+      <PageTitle pageTitle="Upcoming" />
       <MoviePagination
         media={filteringDates()}
         setSize={setSize}
