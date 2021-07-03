@@ -3,6 +3,7 @@ import { Link, useRouteMatch } from "react-router-dom";
 
 // Components
 import Genre from "../MovieDetails/Genre";
+import { WatchListBtn } from "../Buttons";
 
 // Context
 import { WatchListContext } from "../../Context/WatchListContext";
@@ -63,16 +64,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     lineHeight: "1.5rem",
   },
-  btn: {
-    minWidth: "5%",
-    minHeight: "5%",
-    width: "15%",
-    height: "7.2%",
-    position: "absolute",
-    top: "10px",
-    left: "10px",
-    zIndex: "1000",
-  },
+
   paper: {
     width: "38px",
     height: "38px",
@@ -124,7 +116,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MovieCard({ movie }) {
   const classes = useStyles();
-  const [active, setActive] = useState(false);
 
   const {
     id,
@@ -134,8 +125,6 @@ export default function MovieCard({ movie }) {
     vote_average,
     media_type,
   } = movie;
-
-  const { list, addItem, removeItem } = useContext(WatchListContext);
 
   const title = movie.title || movie.name;
 
@@ -151,12 +140,6 @@ export default function MovieCard({ movie }) {
   const normalizedTitle = title.replace(/\s/g, "+");
   const urlPath = `${media_type}/${id}/${normalizedTitle}`;
 
-  // Handle if all movies are shown
-  const handleClick = () => {
-    addItem(movie);
-    setActive(!active);
-  };
-
   // Adding color to score
   function scoreBg(score) {
     if (score < 1) return "white";
@@ -165,38 +148,10 @@ export default function MovieCard({ movie }) {
     if (score <= 5) return "red";
   }
 
-  const addButton = (l, m) => {
-    const checkId = l.some((item) => item.id === m.id);
-
-    if (checkId)
-      return (
-        <Button
-          onClick={() => removeItem(movie)}
-          variant="contained"
-          color="primary"
-          className={classes.btn}
-        >
-          -
-        </Button>
-      );
-
-    if (!checkId)
-      return (
-        <Button
-          onClick={() => addItem(movie)}
-          variant="contained"
-          color="secondary"
-          className={classes.btn}
-        >
-          +
-        </Button>
-      );
-  };
-
   return (
     <>
       <Card className={classes.root}>
-        {addButton(list, movie)}
+        <WatchListBtn movie={movie} />
         <Link
           to={{
             pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,
