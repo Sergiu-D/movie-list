@@ -125,8 +125,10 @@ export default function MovieCard({ movie }) {
     vote_average,
     media_type,
   } = movie;
+  console.log("🚀 ~ file: MovieCard.jsx ~ line 128 ~ MovieCard ~ movie", movie);
 
   const title = movie.title || movie.name;
+  const genreIds = movie.genre_ids || movie.genres;
 
   const movieImage = poster_path
     ? `https://image.tmdb.org/t/p/w200/${poster_path}`
@@ -139,6 +141,10 @@ export default function MovieCard({ movie }) {
   // Creating URL path
   const normalizedTitle = title.replace(/\s/g, "+");
   const urlPath = `${media_type}/${id}/${normalizedTitle}`;
+  console.log(
+    "🚀 ~ file: MovieCard.jsx ~ line 144 ~ MovieCard ~ urlPath",
+    urlPath
+  );
 
   // Adding color to score
   function scoreBg(score) {
@@ -151,7 +157,7 @@ export default function MovieCard({ movie }) {
   return (
     <>
       <Card className={classes.root}>
-        <WatchListBtn movie={movie} />
+        <WatchListBtn movie={movie} type="small" />
         <Link
           to={{
             pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,
@@ -186,7 +192,7 @@ export default function MovieCard({ movie }) {
                 {title}
               </Typography>
 
-              <Genre genreIds={genre_ids} mediaType={media_type} />
+              <Genre genreIds={genreIds} mediaType={media_type} />
             </CardContent>
           </CardActionArea>
         </Link>

@@ -5,15 +5,13 @@ import ReactPlayer from "react-player/lazy";
 import formatRuntime from "../../Utils/formatRuntime";
 import useSWR from "swr";
 import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
+import addingMediaType from "../../Utils/addingMediaType";
+
+// Components
+import { WatchListBtn } from "../Buttons";
 
 //Material-ui
-import {
-  makeStyles,
-  useMediaQuery,
-  Typography,
-  Grid,
-  Box,
-} from "@material-ui/core";
+import { makeStyles, useMediaQuery, Typography, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -133,7 +131,13 @@ export default function MovieDetails({
     vote_average,
     genres,
   } = mediaData;
-  console.log("🚀 ~ file: MovieDetails.jsx ~ line 64 ~ mediaData", mediaData);
+
+  const modifiedMediaData = addingMediaType([mediaData], mediaType);
+  console.log(
+    "🚀 ~ file: MovieDetails.jsx ~ line 136 ~ modifiedMediaData",
+    modifiedMediaData
+  );
+  // console.log("🚀 ~ file: MovieDetails.jsx ~ line 64 ~ mediaData", mediaData);
 
   const title = mediaData.title || mediaData.name;
 
@@ -227,6 +231,7 @@ export default function MovieDetails({
           <Typography variant="h1" paragraph={true} className={classes.title}>
             {title}
           </Typography>
+          <WatchListBtn movie={modifiedMediaData[0]} type="large" />
 
           <Typography
             variant="overline"
@@ -296,7 +301,6 @@ export default function MovieDetails({
                 <ReactPlayer
                   className={classes.videPlayer}
                   controls
-                  light
                   width="90%"
                   height="40%"
                   key={index}

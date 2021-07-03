@@ -72,7 +72,10 @@ const genres = [
 // ];
 
 export default function Genre({ genreIds }) {
+  // console.log("🚀 ~ file: Genre.jsx ~ line 75 ~ Genre ~ genreIds", genreIds);
   const [filteredGenres, setFilteredGenres] = useState([]);
+
+  const checkedGenreIds = genreIds || genreIds.id;
   // const [arrGen, setArrGen] = useState([]);
 
   // const [moviesGenres, showsGenres] = genres;
@@ -93,7 +96,10 @@ export default function Genre({ genreIds }) {
     //   return
     setFilteredGenres(
       genres.filter((allGenres) =>
-        genreIds.some((titleGenres) => allGenres.id === titleGenres)
+        genreIds.some(
+          (titleGenres) =>
+            allGenres.id === titleGenres || allGenres.id === titleGenres.id
+        )
       )
     );
 
@@ -144,8 +150,8 @@ export default function Genre({ genreIds }) {
           color: "#adb5bd",
           fontSize: "12px",
           lineHeight: "25px",
-
-          fontStyle: "italic",
+          wordSpacing: ".5ch",
+          // fontStyle: "italic",
           fontWeight: 100,
         }}
       >

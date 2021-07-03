@@ -13,6 +13,7 @@ import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 
 const useStyles = makeStyles((theme) => ({
+  // Back to top button styles
   backToTopBtn: {
     minWidth: "70px",
     minHeight: "70px",
@@ -46,7 +47,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  watchListBtn: {
+  // Add to watch list button styles
+
+  watchListSmallBtn: {
     minWidth: "5%",
     minHeight: "5%",
     width: "15%",
@@ -54,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "10px",
     left: "10px",
-    zIndex: "1000",
+    zIndex: "500",
 
     [theme.breakpoints.down("sm")]: {
       top: "5px",
@@ -73,6 +76,28 @@ const useStyles = makeStyles((theme) => ({
 
     [theme.breakpoints.down("sm")]: {
       fontSize: "2.3rem",
+    },
+  },
+
+  watchListLargeInactiveBtn: {
+    width: "fit-content",
+    borderColor: "rgb(255,147,79)",
+    color: "rgb(255,147,79)",
+    "&:hover": {
+      backgroundColor: "rgb(255,147,79)",
+      borderColor: "rgb(255,147,79)",
+      color: "rgb(255,255,255)",
+    },
+  },
+  watchListLargeActiveBtn: {
+    width: "fit-content",
+    backgroundColor: "rgb(255,147,79)",
+    borderColor: "rgb(255,147,79)",
+    color: "rgb(255,255,255)",
+    "&:hover": {
+      backgroundColor: "rgb(247, 108, 20)",
+      borderColor: "rgb(247, 108, 20)",
+      color: "rgb(255,255,255)",
     },
   },
 }));
@@ -103,39 +128,56 @@ const BackToTopBtn = () => {
   );
 };
 
-const WatchListBtn = ({ movie }) => {
+const WatchListBtn = ({ movie, type }) => {
   const classes = useStyles();
   const { list, addItem, removeItem } = useContext(WatchListContext);
 
   const checkId = list.some((item) => item.id === movie.id);
 
-  return (
-    <IconButton
-      onClick={checkId ? () => removeItem(movie) : () => addItem(movie)}
-      // variant="contained"
-      // color={checkId ? "primary" : "secondary"}
-      className={classes.watchListBtn}
-    >
-      <BookmarkIcon
-        className={classes.watchListIcon}
-        style={
+  if (type === "large")
+    return (
+      <Button
+        onClick={checkId ? () => removeItem(movie) : () => addItem(movie)}
+        variant={checkId ? "contained" : "outlined"}
+        // color="rgb(255,147,79)"
+        className={
           checkId
-            ? {
-                // textShadow: "5px 10px #ff0000",
-                fill: "rgb(255,147,79)",
-
-                opacity: "1",
-              }
-            : {
-                stroke: "rgb(255,147,79)",
-                strokeWidth: "1.5px",
-                fill: "transparent",
-              }
+            ? classes.watchListLargeActiveBtn
+            : classes.watchListLargeInactiveBtn
         }
-      />
-      {/* <BookmarkBorderIcon style={{ fontSize: "3rem" }} /> */}
-    </IconButton>
-  );
+      >
+        {checkId ? "Remove from watch list" : "Add to watch list"}
+      </Button>
+    );
+
+  if (type === "small")
+    return (
+      <IconButton
+        onClick={checkId ? () => removeItem(movie) : () => addItem(movie)}
+        // variant="contained"
+        // color={checkId ? "primary" : "secondary"}
+        className={classes.watchListSmallBtn}
+      >
+        <BookmarkIcon
+          className={classes.watchListIcon}
+          style={
+            checkId
+              ? {
+                  // textShadow: "5px 10px #ff0000",
+                  fill: "rgb(255,147,79)",
+
+                  opacity: "1",
+                }
+              : {
+                  stroke: "rgb(255,147,79)",
+                  strokeWidth: "1.5px",
+                  fill: "transparent",
+                }
+          }
+        />
+        {/* <BookmarkBorderIcon style={{ fontSize: "3rem" }} /> */}
+      </IconButton>
+    );
 };
 
 export { BackToTopBtn };
