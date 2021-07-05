@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 // Components
-import MovieCard from "./MovieCard/MovieCard";
+import MovieCard from "../MovieCard/MovieCard";
+import { GridContainer, GridItem } from "./Grid";
 
 // Material-Ui
-import { makeStyles, Grid, Button } from "@material-ui/core";
+import { makeStyles, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,25 +43,25 @@ export default function MovieList({ data, sectionTitle, genres }) {
     <section className={classes.container}>
       {/* TODO change h1 to typography */}
       <h1>{sectionTitle}</h1>
-      <Grid container spacing={3} justify="flex-start">
+      <GridContainer>
         {showAllMovies
           ? data.map((movie, index) => {
               return (
-                <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
-                  <MovieCard movie={movie} key={index} />
-                </Grid>
+                <GridItem>
+                  <MovieCard movie={movie} />
+                </GridItem>
               );
             })
           : data
               .map((movie, index) => {
                 return (
-                  <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
-                    <MovieCard movie={movie} key={index} />
-                  </Grid>
+                  <GridItem index={index}>
+                    <MovieCard movie={movie} />
+                  </GridItem>
                 );
               })
               .slice(0, 6)}
-      </Grid>
+      </GridContainer>
 
       {/* TODO make btn responsive */}
       <Button

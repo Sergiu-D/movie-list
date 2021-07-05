@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import MoviePagination from "../MoviePagination";
+import MoviePagination from "../Layout/MoviePagination";
 import addingMediaType from "../../Utils/addingMediaType";
 import PageTitle from "../PageTitle";
 

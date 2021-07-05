@@ -57,7 +57,7 @@ function App() {
       style={{
         maxWidth: "100vw",
         display: "flex",
-        overflowX: "hidden",
+        // overflowX: "hidden",
       }}
     >
       <ToastContainer
@@ -77,7 +77,11 @@ function App() {
           <Navigation />
 
           <main
-            style={{ flexGrow: "2", maxWidth: "100vw", padding: "0 .5rem" }}
+            style={{
+              flexGrow: "2",
+              maxWidth: "100vw",
+              padding: "0 .5rem",
+            }}
           >
             <Switch>
               <WatchListContextProvider>

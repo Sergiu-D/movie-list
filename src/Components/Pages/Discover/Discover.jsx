@@ -6,7 +6,7 @@ import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 import addingMediaType from "../../../Utils/addingMediaType";
 
 // Components
-import MoviePagination from "../../MoviePagination";
+import MoviePagination from "../../Layout/MoviePagination";
 import Filters from "./Filters";
 import PageTitle from "../../PageTitle";
 
@@ -83,7 +83,7 @@ export default function Discover() {
   }
 
   return (
-    <div>
+    <>
       <PageTitle pageTitle="Discover" />
       <Filters
         isMovies={isMovies}
@@ -103,6 +103,6 @@ export default function Discover() {
         setSize={setSize}
         totalResults={data[0].total_results}
       />
-    </div>
+    </>
   );
 }

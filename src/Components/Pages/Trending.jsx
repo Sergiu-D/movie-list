@@ -5,7 +5,7 @@ import useSWR from "swr";
 import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 
 // Components
-import MovieList from "../MovieList";
+import MovieList from "../Layout/MovieList";
 import PageTitle from "../PageTitle";
 
 //Material-Ui
@@ -33,12 +33,11 @@ export default function Trending() {
   if (moviesError || showsError) return <h1>Error!</h1>;
 
   return (
-    <div>
-      {/* <PageHeader title={"Trending"} /> */}
+    <>
       <PageTitle pageTitle="Trending" />
 
       <MovieList data={moviesData.results} sectionTitle={"Movies"} />
       <MovieList data={showsData.results} sectionTitle={"Tv Shows"} />
-    </div>
+    </>
   );
 }

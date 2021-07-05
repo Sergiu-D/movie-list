@@ -2,9 +2,10 @@ import React from "react";
 
 // Components
 import InfiniteScroll from "react-infinite-scroll-component";
-import MovieCard from "./MovieCard/MovieCard";
+import MovieCard from "../MovieCard/MovieCard";
+import { GridContainer, GridItem } from "./Grid";
 
-import { BackToTopBtn } from "./Buttons";
+import { BackToTopBtn } from "../Buttons";
 
 // Material-Ui
 import { Grid, CircularProgress } from "@material-ui/core";
@@ -36,15 +37,15 @@ export default function MoviePagination({ media, setSize, totalResults }) {
           </p>
         }
       >
-        <Grid container spacing={3} justify="flex-start">
+        <GridContainer>
           {media.map((movie, index) => {
             return (
-              <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
+              <GridItem index={index}>
                 <MovieCard movie={movie} key={movie.id} />
-              </Grid>
+              </GridItem>
             );
           })}
-        </Grid>
+        </GridContainer>
       </InfiniteScroll>
       <BackToTopBtn />
     </>

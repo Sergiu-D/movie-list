@@ -46,26 +46,33 @@ const useStyles = makeStyles((theme) => ({
     aspectRatio: "2/3",
   },
   cardContent: {
-    minHeight: "76px",
+    minHeight: "70px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+
     textAlign: "center",
     margin: ".2rem 0",
     padding: "0 .4rem",
   },
   title: {
-    padding: ".8rem .5rem",
+    padding: "0 .5rem",
 
     textOverflow: "ellipsis",
     overflow: "hidden",
     whiteSpace: "nowrap",
 
     color: "#fff",
+    [theme.breakpoints.down("sm")]: {
+      padding: ".5rem .2rem",
+    },
   },
   paragraph: {
     color: "#fff",
     lineHeight: "1.5rem",
   },
 
-  paper: {
+  score: {
     width: "38px",
     height: "38px",
     padding: ".2rem",
@@ -170,7 +177,7 @@ export default function MovieCard({ movie }) {
         >
           <CardActionArea className={classes.cardActionArea}>
             <Paper
-              className={classes.paper}
+              className={classes.score}
               style={{
                 borderColor: `${scoreBg(vote_average)}`,
               }}

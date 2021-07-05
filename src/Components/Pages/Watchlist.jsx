@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 // Components
 import MovieCard from "../MovieCard/MovieCard";
 import PageTitle from "../PageTitle";
+import { GridContainer, GridItem } from "../Layout/Grid";
 
 // Context
 import { WatchListContext } from "../../Context/WatchListContext";
@@ -18,10 +19,12 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: "0 .5rem",
     paddingTop: "1rem",
-    minHeight: "50vh",
+    minHeight: "100vh",
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
+    // flexDirection: "column",
+    // justifyContent: "space-between",
+    alignItems: "center",
+    justifyContent: "center",
   },
   btn: {
     width: "10%",
@@ -38,22 +41,32 @@ const Watchlist = () => {
   const { list } = useContext(WatchListContext);
 
   return (
-    <section className={classes.container}>
+    <>
       <PageTitle pageTitle="Watch list" />
-      <Grid container spacing={3} justify="flex-start">
-        {!list ? (
-          <h2>Watchlist is empty</h2>
-        ) : (
-          list.map((movie, index) => {
+      {list.length === 0 ? (
+        <div
+          style={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            opacity: ".5",
+          }}
+        >
+          <h2>Nothing here yet</h2>
+        </div>
+      ) : (
+        <GridContainer>
+          {list.map((movie, index) => {
             return (
-              <Grid item xs={4} sm={3} md={3} lg={2} key={index}>
+              <GridItem index={index}>
                 <MovieCard movie={movie} key={index} />
-              </Grid>
+              </GridItem>
             );
-          })
-        )}
-      </Grid>
-    </section>
+          })}
+        </GridContainer>
+      )}
+    </>
   );
 };
 

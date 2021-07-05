@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // Material-Ui Icons
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,8 +50,6 @@ const useStyles = makeStyles((theme) => ({
   // Add to watch list button styles
 
   watchListSmallBtn: {
-    minWidth: "5%",
-    minHeight: "5%",
     width: "15%",
     height: "7.2%",
     position: "absolute",
@@ -139,7 +137,6 @@ const WatchListBtn = ({ movie, type }) => {
       <Button
         onClick={checkId ? () => removeItem(movie) : () => addItem(movie)}
         variant={checkId ? "contained" : "outlined"}
-        // color="rgb(255,147,79)"
         className={
           checkId
             ? classes.watchListLargeActiveBtn
@@ -154,8 +151,6 @@ const WatchListBtn = ({ movie, type }) => {
     return (
       <IconButton
         onClick={checkId ? () => removeItem(movie) : () => addItem(movie)}
-        // variant="contained"
-        // color={checkId ? "primary" : "secondary"}
         className={classes.watchListSmallBtn}
       >
         <BookmarkIcon
@@ -163,7 +158,6 @@ const WatchListBtn = ({ movie, type }) => {
           style={
             checkId
               ? {
-                  // textShadow: "5px 10px #ff0000",
                   fill: "rgb(255,147,79)",
 
                   opacity: "1",
@@ -175,10 +169,8 @@ const WatchListBtn = ({ movie, type }) => {
                 }
           }
         />
-        {/* <BookmarkBorderIcon style={{ fontSize: "3rem" }} /> */}
       </IconButton>
     );
 };
 
-export { BackToTopBtn };
-export { WatchListBtn };
+export { BackToTopBtn, WatchListBtn };

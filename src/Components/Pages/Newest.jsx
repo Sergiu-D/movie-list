@@ -7,7 +7,7 @@ import addingMediaType from "../../Utils/addingMediaType";
 
 // Components
 import Cinema from "../Cinema";
-import MovieList from "../MovieList";
+import MovieList from "../Layout/MovieList";
 import PageTitle from "../PageTitle";
 
 //Material-Ui
@@ -39,11 +39,11 @@ export default function Newest() {
   const modifiedShowsData = addingMediaType(showsData.results, "tv");
 
   return (
-    <div>
+    <>
       <PageTitle pageTitle={Newest} />
       {/* <Cinema /> */}
       <MovieList data={modifiedMovieData} sectionTitle={"New Movies"} />
       <MovieList data={modifiedShowsData} sectionTitle={"Tv Airing Today"} />
-    </div>
+    </>
   );
 }
