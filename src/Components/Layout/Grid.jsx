@@ -1,11 +1,12 @@
 import React from "react";
 
 // Material-Ui
-import { Grid } from "@material-ui/core";
+import { Grid, useMediaQuery } from "@material-ui/core";
 
 const GridContainer = ({ children }) => {
+  const smallBp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   return (
-    <Grid container spacing={1} justify="flex-start">
+    <Grid container spacing={smallBp ? 1 : 3} justify="flex-start">
       {children}
     </Grid>
   );

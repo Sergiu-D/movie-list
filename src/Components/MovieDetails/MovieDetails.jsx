@@ -285,8 +285,8 @@ export default function MovieDetails({
                 <ReactPlayer
                   className={classes.videPlayer}
                   controls
-                  width="90%"
-                  height="40%"
+                  width="100%"
+                  height={smallBp ? "13rem" : "40%"}
                   key={index}
                   url={url}
                 />
