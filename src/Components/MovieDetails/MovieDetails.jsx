@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontWeight: 800,
     [theme.breakpoints.down("sm")]: {
+      margin: "2.5rem",
       textAlign: "center",
     },
   },
@@ -76,19 +77,11 @@ export default function MovieDetails({
     params: { type: mediaType, id },
   },
 }) {
-  const [isMovie, setIsMovie] = useState(false);
-
   const classes = useStyles();
 
   // Media query
   const mediumBp = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const smallBp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-
-  // Filter incoming media
-  useEffect(() => {
-    if (mediaType === "movie") setIsMovie(true);
-    if (mediaType === "tv") setIsMovie(false);
-  }, []);
 
   const filterMediaType = (callType) => {
     if (mediaType === "movie") {
@@ -133,11 +126,6 @@ export default function MovieDetails({
   } = mediaData;
 
   const modifiedMediaData = addingMediaType([mediaData], mediaType);
-  console.log(
-    "🚀 ~ file: MovieDetails.jsx ~ line 136 ~ modifiedMediaData",
-    modifiedMediaData
-  );
-  // console.log("🚀 ~ file: MovieDetails.jsx ~ line 64 ~ mediaData", mediaData);
 
   const title = mediaData.title || mediaData.name;
 
@@ -233,15 +221,11 @@ export default function MovieDetails({
           </Typography>
           <WatchListBtn movie={modifiedMediaData[0]} type="large" />
 
-          <Typography
-            variant="overline"
-            // paragraph={true}
-            className={classes.genres}
-          >
+          <Typography variant="overline" className={classes.genres}>
             {genres.map((genre) => `${genre.name}  `)}
           </Typography>
 
-          {isMovie ? (
+          {mediaType === "movie" ? (
             <>
               <Typography variant="h5" paragraph={true}>
                 {reverseReleaseDate(release_date)}

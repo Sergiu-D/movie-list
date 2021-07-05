@@ -125,7 +125,7 @@ export default function MovieCard({ movie }) {
     vote_average,
     media_type,
   } = movie;
-  console.log("🚀 ~ file: MovieCard.jsx ~ line 128 ~ MovieCard ~ movie", movie);
+  // console.log("🚀 ~ file: MovieCard.jsx ~ line 128 ~ MovieCard ~ movie", movie);
 
   const title = movie.title || movie.name;
   const genreIds = movie.genre_ids || movie.genres;
@@ -141,10 +141,10 @@ export default function MovieCard({ movie }) {
   // Creating URL path
   const normalizedTitle = title.replace(/\s/g, "+");
   const urlPath = `${media_type}/${id}/${normalizedTitle}`;
-  console.log(
-    "🚀 ~ file: MovieCard.jsx ~ line 144 ~ MovieCard ~ urlPath",
-    urlPath
-  );
+  // console.log(
+  //   "🚀 ~ file: MovieCard.jsx ~ line 144 ~ MovieCard ~ urlPath",
+  //   urlPath
+  // );
 
   // Adding color to score
   function scoreBg(score) {

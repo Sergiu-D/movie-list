@@ -20,8 +20,6 @@ export default function MoviePagination({ media, setSize, totalResults }) {
     return hasMore;
   };
 
-  console.log("Discover height", window.pageYOffset);
-
   return (
     <>
       <InfiniteScroll
