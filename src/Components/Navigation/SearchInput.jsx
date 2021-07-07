@@ -46,7 +46,7 @@ export default function Search() {
 
     history.location.pathname = "/";
 
-    let inputValue = event.target[0].value;
+    const inputValue = event.target[0].value;
 
     const url = new URLSearchParams({
       query: inputValue,
@@ -54,7 +54,7 @@ export default function Search() {
     });
     history.push(`search?${url}`);
 
-    inputValue = "";
+    event.target[0].value = "";
   };
 
   // TODO error handler
@@ -67,7 +67,7 @@ export default function Search() {
           style={{
             borderBottom: "1px solid #e2e2e1",
             color: "#e2e2e1",
-            overflow: "hidden",
+            paddingLeft: ".5rem",
           }}
           placeholder="Search"
 

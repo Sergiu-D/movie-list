@@ -10,10 +10,12 @@ import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 import addingMediaType from "../../Utils/addingMediaType";
 
 // Material-Ui
-import { Button } from "@material-ui/core";
+import { Button, Tabs, Tab } from "@material-ui/core";
+import TabPanel from "@material-ui/lab/TabPanel";
 
 export default function Search() {
   const history = useHistory();
+  const [tabsValue, setTabsValue] = React.useState(0);
 
   const searchedQuery = new URLSearchParams(history.location.search);
   const query = searchedQuery.get("query");
@@ -51,23 +53,15 @@ export default function Search() {
 
   const totalMoviesResults = movies[0].total_results;
   const totalTvShowsResult = tvShows[0].total_results;
-  console.log(
-    "🚀 ~ file: Search.jsx ~ line 50 ~ Search ~ totalTvShowsResult",
-    totalTvShowsResult
-  );
-  console.log(
-    "🚀 ~ file: Search.jsx ~ line 49 ~ Search ~ totalMoviesResults",
-    totalMoviesResults
-  );
 
   const searchedMovieData = [];
   const searchedTvShowsData = [];
 
   movies.forEach((element) =>
-    element.results.forEach((el) => searchedMovieData.push(el))
+    searchedMovieData.push(...addingMediaType(element.results, "movie"))
   );
   tvShows.forEach((element) =>
-    element.results.forEach((el) => searchedTvShowsData.push(el))
+    searchedTvShowsData.push(...addingMediaType(element.results, "tv"))
   );
 
   const handleClick = (mt) => {
@@ -77,6 +71,39 @@ export default function Search() {
   };
 
   const mediaType = searchedQuery.get("media_type");
+
+  const tabComp = (tabName, totalResults) => {
+    return (
+      <h4
+        style={{
+          fontWeight: "400",
+          fontSize: "1.5rem",
+          textTransform: "capitalize",
+          color: "white",
+        }}
+      >
+        {tabName}{" "}
+        <span
+          style={{
+            fontSize: "1.5rem",
+            padding: ".2rem",
+            borderRadius: "50%",
+            backgroundColor: "white",
+            color: "grey",
+          }}
+        >
+          {totalResults}
+        </span>
+      </h4>
+    );
+  };
+
+  const handleTabs = (event, tab) => {
+    setTabsValue(tab);
+    searchedQuery.set("media_type", !tab ? "movie" : "tv");
+
+    history.push(`search?${searchedQuery.toString()}`);
+  };
 
   return (
     <div>
@@ -88,7 +115,18 @@ export default function Search() {
           margin: "2rem 0",
         }}
       >
-        <Button
+        <Tabs
+          value={tabsValue}
+          onChange={handleTabs}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+        >
+          <Tab label={tabComp("Movies", totalMoviesResults)} />
+
+          <Tab label={tabComp("Tv Shows", totalTvShowsResult)} />
+        </Tabs>
+        {/* <Button
           variant={mediaType === "movie" ? "contained" : "outlined"}
           color="secondary"
           onClick={() => handleClick("movie")}
@@ -100,7 +138,6 @@ export default function Search() {
               backgroundColor: "white",
               color: "#1F2931",
               borderRadius: "50%",
-              marginLeft: "2rem",
             }}
           >
             {totalMoviesResults}
@@ -118,12 +155,11 @@ export default function Search() {
               backgroundColor: "white",
               color: "#1F2931",
               borderRadius: "50%",
-              marginLeft: "2rem",
             }}
           >
             {totalTvShowsResult}
           </span>
-        </Button>
+        </Button> */}
       </div>
       {mediaType === "movie" ? (
         <MoviePagination
