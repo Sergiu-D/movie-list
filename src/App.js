@@ -28,6 +28,7 @@ import Newest from "./Components/Pages/Newest";
 import Upcoming from "./Components/Pages/Upcoming";
 import Discover from "./Components/Pages/Discover/Discover";
 import Watchlist from "./Components/Pages/Watchlist";
+import Search from "./Components/Pages/Search";
 import MovieDetails from "./Components/MovieDetails/MovieDetails";
 
 // Context
@@ -88,21 +89,12 @@ function App() {
                 <Route exact path="/">
                   <Redirect exact to="/trending" />
                 </Route>
-                <Route exact path="/trending">
-                  <Trending />
-                </Route>
-                <Route exact path="/newest">
-                  <Newest />
-                </Route>
-                <Route exact path="/upcoming">
-                  <Upcoming />
-                </Route>
-                <Route exact path="/discover">
-                  <Discover />
-                </Route>
-                <Route exact path="/watchlist">
-                  <Watchlist />
-                </Route>
+                <Route exact path="/trending" component={Trending} />
+                <Route exact path="/newest" component={Newest} />
+                <Route exact path="/upcoming" component={Upcoming} />
+                <Route exact path="/discover" component={Discover} />
+                <Route exact path="/watchlist" component={Watchlist} />
+                <Route exact path="/search" component={Search} />
                 <Route
                   path={[
                     "/trending/:type/:id/:title",
@@ -114,7 +106,6 @@ function App() {
                   component={MovieDetails}
                 />
               </WatchListContextProvider>
-              {/* <Route path="/discover/:title" component={MovieDetails} /> */}
             </Switch>
           </main>
         </Router>

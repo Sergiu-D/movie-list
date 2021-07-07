@@ -47,7 +47,7 @@ export default function MovieList({ data, sectionTitle, genres }) {
         {showAllMovies
           ? data.map((movie, index) => {
               return (
-                <GridItem>
+                <GridItem index={index}>
                   <MovieCard movie={movie} />
                 </GridItem>
               );

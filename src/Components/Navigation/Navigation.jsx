@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Components
-import Search from "./Search";
+import SearchInput from "./SearchInput";
 
 // Router
 import { NavLink } from "react-router-dom";
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
   drawerPaper: {
     width: "357px",
-
+    // minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
 
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     backgroundColor: "transparent",
     border: "none",
-    overflowX: "hidden",
+    // overflowX: "hidden",
 
     [theme.breakpoints.down("md")]: {
       minWidth: "300px",
@@ -107,8 +107,8 @@ export default function Navigation() {
   const classes = useStyles();
   const navTabs = ["trending", "newest", "upcoming", "discover", "watchlist"];
   const navTabsIcons = [
-    "theaters",
     "trending_up",
+    "theaters",
     "arrow_upward",
     "movie_filter",
     "star",
@@ -156,7 +156,7 @@ export default function Navigation() {
             image={Logo}
           />
 
-          <Search />
+          <SearchInput />
 
           <List className={classes.list}>
             {navTabs.map((tab, index) => {
