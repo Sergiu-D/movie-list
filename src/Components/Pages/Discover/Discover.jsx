@@ -71,13 +71,13 @@ export default function Discover() {
   const tvShows = [];
 
   if (isMovies) {
-    [...data].forEach((element) => {
+    data.forEach((element) => {
       movies.push(...addingMediaType(element.results, "movie"));
     });
   }
 
   if (!isMovies) {
-    [...data].forEach((element) => {
+    data.forEach((element) => {
       tvShows.push(...addingMediaType(element.results, "tv"));
     });
   }

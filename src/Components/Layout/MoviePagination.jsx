@@ -24,7 +24,7 @@ export default function MoviePagination({ media, setSize, totalResults }) {
   return (
     <>
       <InfiniteScroll
-        style={{ paddingTop: "1rem" }}
+        style={{ paddingTop: "1rem", overflowX: "hidden" }}
         dataLength={media.length}
         next={handleFetchMovies}
         hasMore={handleHasMore(totalResults, media.length)}
@@ -32,7 +32,9 @@ export default function MoviePagination({ media, setSize, totalResults }) {
           <h3 style={{ textAlign: "center", padding: "2rem 0" }}>Loading...</h3>
         }
         endMessage={
-          <p style={{ textAlign: "center", padding: "2rem 0" }}>
+          <p
+            style={{ display: "block", textAlign: "center", padding: "2rem 0" }}
+          >
             <b>You have seen it all</b>
           </p>
         }

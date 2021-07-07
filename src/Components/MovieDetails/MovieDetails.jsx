@@ -50,14 +50,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   overview: {
+    minHeight: "7rem",
     marginTop: "auto",
+    marginRight: "2rem",
     lineHeight: 1.8,
+    // columnWidth: "30rem",
     columnCount: 2,
-    columnRule: "1px inset white",
-    columnGap: "10ch",
+    columnFill: "auto",
+    // columnRule: "1px inset white",
+    columnGap: "5ch",
 
     [theme.breakpoints.down("md")]: {
       columnCount: 1,
+      marginRight: 0,
     },
   },
 
@@ -124,6 +129,7 @@ export default function MovieDetails({
     vote_average,
     genres,
   } = mediaData;
+  console.log("🚀 ~ file: MovieDetails.jsx ~ line 127 ~  mediaData", mediaData);
 
   const modifiedMediaData = addingMediaType([mediaData], mediaType);
 
@@ -262,11 +268,7 @@ export default function MovieDetails({
                 Runtime per episode:{" "}
                 {formatRuntime(mediaData.episode_run_time[0])}
               </Typography>
-              <Typography
-                variant="p"
-                paragraph={true}
-                className={classes.overview}
-              >
+              <Typography variant="p" className={classes.overview}>
                 {overview}
               </Typography>
             </>
