@@ -197,6 +197,7 @@ const MovieCard = ({ movie }) => {
               image={movieImage}
               title={title}
             />
+
             <CardContent className={classes.cardContent}>
               <Typography variant="h5" className={classes.title}>
                 {title}

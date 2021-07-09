@@ -65,7 +65,7 @@ export default function MovieList({ data, sectionTitle, genres }) {
 
       {/* TODO make btn responsive */}
       <Button
-        variant="outlined"
+        variant="contained"
         color="secondary"
         className={classes.btn}
         onClick={() => handleBtn()}

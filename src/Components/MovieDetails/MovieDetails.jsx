@@ -13,6 +13,15 @@ import { WatchListBtn } from "../Buttons";
 //Material-ui
 import { makeStyles, useMediaQuery, Typography, Grid } from "@material-ui/core";
 
+// Spinner
+import PuffLoader from "react-spinners/PuffLoader";
+import { css } from "@emotion/react";
+
+const override = css`
+  color: white;
+  margin: auto;
+`;
+
 const useStyles = makeStyles((theme) => ({
   gridItem: {
     display: "flex",
@@ -114,7 +123,8 @@ export default function MovieDetails({
     fetcher
   );
 
-  if (!mediaData) return <h1>Loading...</h1>;
+  if (!mediaData)
+    return <PuffLoader color="RGB(240, 5, 75)" css={override} size={100} />;
   if (mediaError) return console.log(mediaError);
 
   if (!videosData) return <h1>Loading...</h1>;

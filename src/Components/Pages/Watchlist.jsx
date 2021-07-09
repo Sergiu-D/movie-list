@@ -21,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "1rem",
     minHeight: "100vh",
     display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "space-between",
+
     alignItems: "center",
     justifyContent: "center",
   },

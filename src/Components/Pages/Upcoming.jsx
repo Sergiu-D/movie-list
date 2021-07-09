@@ -9,8 +9,14 @@ import PageTitle from "../PageTitle";
 import { useSWRInfinite } from "swr";
 import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 
-// Material-Ui
-import { Grid } from "@material-ui/core";
+// Spinner
+import PuffLoader from "react-spinners/PuffLoader";
+import { css } from "@emotion/react";
+
+const override = css`
+  color: white;
+  margin: auto;
+`;
 
 export default function Upcoming() {
   // Change document title
@@ -31,30 +37,10 @@ export default function Upcoming() {
     fetcher
   );
 
-  // function allPages() {
-  //   let allPageUrl = [];
-  //   for (let i = 1; i <= 15; i++) {
-  //     allPageUrl.push(`${fetchingQuery(moviesQuery)}&page=${i}`);
-  //   }
-  //   console.log(
-  //     "🚀 ~ file: Upcoming.jsx ~ line 22 ~ allPages ~ allPageUrl",
-  //     allPageUrl
-  //   );
-  //   return allPageUrl;
-  // }
-
-  // allPages().forEach((url) => {
-  //   const { data: moviesData, error: moviesError } = useSWR(url, fetcher);
-  //   return moviesData, moviesError;
-  // });
-
-  // const { data: moviesData, error: moviesError } = useSWR(
-  //   allPages().forEach((url) => `${url}`),
-  //   fetcher
-  // );
-
-  if (!moviesData) return <h1>Loading...</h1>;
-  if (moviesError) return <h1 style={{ color: "red" }}>Error!</h1>;
+  if (!moviesData)
+    return <PuffLoader color="RGB(240, 5, 75)" css={override} size={100} />;
+  if (moviesError)
+    return <h1 style={{ margin: "auto", color: "red" }}>Error!</h1>;
 
   function filteringDates() {
     const newMovies = [];
@@ -74,13 +60,6 @@ export default function Upcoming() {
     return newMovies;
   }
 
-  // const modifiedMovieData = addingMediaType(filteringDates(), "movie");
-  // console.log(
-  //   "🚀 ~ file: Upcoming.jsx ~ line 77 ~ Upcoming ~ modifiedMovieData",
-  //   modifiedMovieData
-  // );
-
-  // console.log("filteringDates(): ", filteringDates());
   return (
     <div>
       <PageTitle pageTitle="Upcoming" />
@@ -89,11 +68,6 @@ export default function Upcoming() {
         setSize={setSize}
         isValidating={isValidating}
       />
-      {/* <Grid container>
-        {filteringDates().map((movie, index) =>
-          movie[index].map((mov) => <MovieCard movie={mov} key={movie.id} />)
-        )}
-      </Grid> */}
     </div>
   );
 }

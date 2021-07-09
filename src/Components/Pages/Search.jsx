@@ -10,8 +10,16 @@ import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 import addingMediaType from "../../Utils/addingMediaType";
 
 // Material-Ui
-import { Button, Tabs, Tab } from "@material-ui/core";
-import TabPanel from "@material-ui/lab/TabPanel";
+import { Tabs, Tab } from "@material-ui/core";
+
+// Spinner
+import PuffLoader from "react-spinners/PuffLoader";
+import { css } from "@emotion/react";
+
+const override = css`
+  color: white;
+  margin: auto;
+`;
 
 export default function Search() {
   const history = useHistory();
@@ -19,10 +27,6 @@ export default function Search() {
 
   const searchedQuery = new URLSearchParams(history.location.search);
   const query = searchedQuery.get("query");
-
-  // const urlFetcher = ;
-
-  // const { data, error } = useSWR(urlFetcher, fetcher);
 
   const {
     data: movies,
@@ -48,7 +52,8 @@ export default function Search() {
     fetcher
   );
 
-  if (!movies || !tvShows) return <h1>Loading...</h1>;
+  if (!movies || !tvShows)
+    return <PuffLoader color="RGB(240, 5, 75)" css={override} size={100} />;
   if (errorMovies || errorTvShows) return <h1>Error!</h1>;
 
   const totalMoviesResults = movies[0].total_results;

@@ -10,8 +10,14 @@ import MoviePagination from "../../Layout/MoviePagination";
 import Filters from "./Filters";
 import PageTitle from "../../PageTitle";
 
-//Material-Ui
-import CircularProgress from "@material-ui/core/CircularProgress";
+// Spinner
+import PuffLoader from "react-spinners/PuffLoader";
+import { css } from "@emotion/react";
+
+const override = css`
+  color: white;
+  margin: auto;
+`;
 
 export default function Discover() {
   // Change document title
@@ -57,8 +63,8 @@ export default function Discover() {
 
   // Error handle
   if (!data)
-    return <CircularProgress color="secondary" style={{ margin: "auto" }} />;
-  if (error) return <h1 style={{ margin: "auto" }}>Error!</h1>;
+    return <PuffLoader color="RGB(240, 5, 75)" css={override} size={100} />;
+  if (error) return <h1 style={{ margin: "auto", color: "red" }}>Error!</h1>;
 
   // Mutate data API, injecting "media type"
 

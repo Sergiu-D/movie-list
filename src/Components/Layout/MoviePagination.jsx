@@ -7,8 +7,8 @@ import { GridContainer, GridItem } from "./Grid";
 
 import { BackToTopBtn } from "../Buttons";
 
-// Material-Ui
-import { Grid, CircularProgress } from "@material-ui/core";
+// Spinner
+import PulseLoader from "react-spinners/PulseLoader";
 
 // TODO add "back to top button"
 
@@ -29,7 +29,14 @@ export default function MoviePagination({ media, setSize, totalResults }) {
         next={handleFetchMovies}
         hasMore={handleHasMore(totalResults, media.length)}
         loader={
-          <h3 style={{ textAlign: "center", padding: "2rem 0" }}>Loading...</h3>
+          <div style={{ display: "flex" }}>
+            {" "}
+            <PulseLoader
+              color="RGB(240, 5, 75)"
+              css={"margin: 1rem auto;"}
+              size={10}
+            />{" "}
+          </div>
         }
         endMessage={
           <p

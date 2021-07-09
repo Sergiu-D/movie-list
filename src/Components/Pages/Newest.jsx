@@ -14,8 +14,16 @@ import PageTitle from "../PageTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // React toastify
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+
+// Spinner
+import PuffLoader from "react-spinners/PuffLoader";
+import { css } from "@emotion/react";
+
+const override = css`
+  color: white;
+  margin: auto;
+`;
 
 export default function Newest() {
   // Change document title
@@ -36,7 +44,7 @@ export default function Newest() {
 
   // Error handle
   if (!moviesData || !showsData)
-    return <CircularProgress color="secondary" style={{ margin: "auto" }} />;
+    return <PuffLoader color="RGB(240, 5, 75)" css={override} size={100} />;
   if (moviesError || showsError)
     return <h1 style={{ margin: "auto" }}>Error!</h1>;
 
@@ -49,6 +57,7 @@ export default function Newest() {
       <PageTitle pageTitle={Newest} />
       {/* <Cinema /> */}
       <MovieList data={modifiedMovieData} sectionTitle={"New Movies"} />
+
       <MovieList data={modifiedShowsData} sectionTitle={"Tv Airing Today"} />
     </>
   );

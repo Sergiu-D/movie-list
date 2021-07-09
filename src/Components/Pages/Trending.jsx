@@ -11,6 +11,15 @@ import PageTitle from "../PageTitle";
 //Material-Ui
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+// Spinner
+import PuffLoader from "react-spinners/PuffLoader";
+import { css } from "@emotion/react";
+
+const override = css`
+  color: white;
+  margin: auto;
+`;
+
 export default function Trending() {
   // Change document title
   document.title = "Trending";
@@ -30,7 +39,7 @@ export default function Trending() {
 
   // Error handle
   if (!moviesData || !showsData)
-    return <CircularProgress color="secondary" style={{ margin: "auto" }} />;
+    return <PuffLoader color="RGB(240, 5, 75)" css={override} size={100} />;
   if (moviesError || showsError)
     return <h1 style={{ margin: "auto" }}>Error!</h1>;
 
