@@ -5,10 +5,12 @@ import { Link, useRouteMatch } from "react-router-dom";
 import Genre from "../MovieDetails/Genre";
 import { WatchListBtn } from "../Buttons";
 
-// Context
-// import WatchListContextProvider, {
-//   WatchListContext,
-// } from "../../Context/WatchListContext";
+// Lazy img load
+import {
+  LazyLoadImage,
+  LazyLoadComponent,
+} from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 // Material-Ui
 import {
@@ -95,6 +97,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
 
+    zIndex: "100",
+
     [theme.breakpoints.down("md")]: {
       width: "35px",
       height: "35px",
@@ -166,48 +170,60 @@ const MovieCard = ({ movie }) => {
 
   return (
     <>
-      <Card className={classes.root}>
-        <WatchListBtn movie={movie} type="small" />
-        <Link
-          to={{
-            pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,
+      <LazyLoadComponent placeholder={<Card className={classes.img}></Card>}>
+        <Card className={classes.root}>
+          <WatchListBtn movie={movie} type="small" />
+          <Link
+            to={{
+              pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,
 
-            state: {
-              id: id,
-              mediaType: media_type,
-            },
-          }}
-        >
-          <CardActionArea className={classes.cardActionArea}>
-            <Paper
-              className={classes.score}
-              style={{
-                borderColor: `${scoreBg(vote_average)}`,
-              }}
-            >
-              <Typography variant="caption" className={classes.scoreFont}>
-                {vote_average < 1 ? "N/A" : vote_average}
-              </Typography>
-            </Paper>
+              state: {
+                id: id,
+                mediaType: media_type,
+              },
+            }}
+          >
+            <CardActionArea className={classes.cardActionArea}>
+              <Paper
+                className={classes.score}
+                style={{
+                  borderColor: `${scoreBg(vote_average)}`,
+                }}
+              >
+                <Typography variant="caption" className={classes.scoreFont}>
+                  {vote_average < 1 ? "N/A" : vote_average}
+                </Typography>
+              </Paper>
 
-            <CardMedia
-              className={classes.img}
-              component="img"
-              alt={`${title} poster`}
-              image={movieImage}
-              title={title}
-            />
+              {/* <CardMedia
+                className={classes.img}
+                component="img"
+                alt={`${title} poster`}
+                image={movieImage}
+                title={title}
+              /> */}
+              <LazyLoadImage
+                className={classes.img}
+                height="100%"
+                width="100%"
+                effect="blur"
+                delayTime={1000}
+                alt={`${title} poster`}
+                src={movieImage}
+                threshold="300"
+              />
 
-            <CardContent className={classes.cardContent}>
-              <Typography variant="h5" className={classes.title}>
-                {title}
-              </Typography>
+              <CardContent className={classes.cardContent}>
+                <Typography variant="h5" className={classes.title}>
+                  {title}
+                </Typography>
 
-              <Genre genreIds={genreIds} mediaType={media_type} />
-            </CardContent>
-          </CardActionArea>
-        </Link>
-      </Card>
+                <Genre genreIds={genreIds} mediaType={media_type} />
+              </CardContent>
+            </CardActionArea>
+          </Link>
+        </Card>
+      </LazyLoadComponent>
     </>
   );
 };
