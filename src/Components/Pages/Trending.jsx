@@ -29,8 +29,10 @@ export default function Trending() {
   );
 
   // Error handle
-  if (!moviesData || !showsData) return <CircularProgress color="secondary" />;
-  if (moviesError || showsError) return <h1>Error!</h1>;
+  if (!moviesData || !showsData)
+    return <CircularProgress color="secondary" style={{ margin: "auto" }} />;
+  if (moviesError || showsError)
+    return <h1 style={{ margin: "auto" }}>Error!</h1>;
 
   return (
     <>

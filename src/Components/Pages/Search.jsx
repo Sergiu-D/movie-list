@@ -126,40 +126,6 @@ export default function Search() {
 
           <Tab label={tabComp("Tv Shows", totalTvShowsResult)} />
         </Tabs>
-        {/* <Button
-          variant={mediaType === "movie" ? "contained" : "outlined"}
-          color="secondary"
-          onClick={() => handleClick("movie")}
-        >
-          Movies{" "}
-          <span
-            style={{
-              padding: ".5rem .9rem",
-              backgroundColor: "white",
-              color: "#1F2931",
-              borderRadius: "50%",
-            }}
-          >
-            {totalMoviesResults}
-          </span>
-        </Button>
-        <Button
-          variant={mediaType === "tv" ? "contained" : "outlined"}
-          color="secondary"
-          onClick={() => handleClick("tv")}
-        >
-          Tv Shows{" "}
-          <span
-            style={{
-              padding: ".5rem .9rem",
-              backgroundColor: "white",
-              color: "#1F2931",
-              borderRadius: "50%",
-            }}
-          >
-            {totalTvShowsResult}
-          </span>
-        </Button> */}
       </div>
       {mediaType === "movie" ? (
         <MoviePagination

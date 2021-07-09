@@ -13,6 +13,10 @@ import PageTitle from "../PageTitle";
 //Material-Ui
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+// React toastify
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+
 export default function Newest() {
   // Change document title
   document.title = "Newest";
@@ -31,8 +35,10 @@ export default function Newest() {
   );
 
   // Error handle
-  if (!moviesData || !showsData) return <CircularProgress color="secondary" />;
-  if (moviesError || showsError) return <h1>Error!</h1>;
+  if (!moviesData || !showsData)
+    return <CircularProgress color="secondary" style={{ margin: "auto" }} />;
+  if (moviesError || showsError)
+    return <h1 style={{ margin: "auto" }}>Error!</h1>;
 
   // Creating new object and adding media type
   const modifiedMovieData = addingMediaType(moviesData.results, "movie");

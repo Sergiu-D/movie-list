@@ -57,13 +57,8 @@ export default function Discover() {
 
   // Error handle
   if (!data)
-    return (
-      <CircularProgress
-        color="secondary"
-        style={{ margin: "0 auto", verticalAlign: "middle" }}
-      />
-    );
-  if (error) return <h1>Error!</h1>;
+    return <CircularProgress color="secondary" style={{ margin: "auto" }} />;
+  if (error) return <h1 style={{ margin: "auto" }}>Error!</h1>;
 
   // Mutate data API, injecting "media type"
 

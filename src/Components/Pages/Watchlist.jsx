@@ -44,17 +44,15 @@ const Watchlist = () => {
     <>
       <PageTitle pageTitle="Watch list" />
       {list.length === 0 ? (
-        <div
+        <h2
           style={{
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            fontWeight: "300",
+            margin: "auto",
             opacity: ".5",
           }}
         >
-          <h2>Nothing here yet</h2>
-        </div>
+          Nothing here yet
+        </h2>
       ) : (
         <GridContainer>
           {list.map((movie, index) => {

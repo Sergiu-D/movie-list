@@ -79,8 +79,11 @@ function App() {
 
           <main
             style={{
-              flexGrow: "2",
               maxWidth: "100vw",
+              minHeight: "100vh",
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: "2",
               padding: "0 .5rem",
             }}
           >
@@ -94,7 +97,9 @@ function App() {
                 <Route exact path="/upcoming" component={Upcoming} />
                 <Route exact path="/discover" component={Discover} />
                 <Route exact path="/watchlist" component={Watchlist} />
+
                 <Route exact path="/search" component={Search} />
+
                 <Route
                   path={[
                     "/search/:type/:id/:title",

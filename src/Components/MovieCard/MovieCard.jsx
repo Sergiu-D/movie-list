@@ -6,7 +6,9 @@ import Genre from "../MovieDetails/Genre";
 import { WatchListBtn } from "../Buttons";
 
 // Context
-import { WatchListContext } from "../../Context/WatchListContext";
+// import WatchListContextProvider, {
+//   WatchListContext,
+// } from "../../Context/WatchListContext";
 
 // Material-Ui
 import {
@@ -20,7 +22,8 @@ import {
   Paper,
 } from "@material-ui/core";
 
-import orange from "@material-ui/core/colors/orange";
+// Context
+import WatchListContextProvider from "../../Context/WatchListContext";
 
 // Style
 const useStyles = makeStyles((theme) => ({
@@ -121,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieCard({ movie }) {
+const MovieCard = ({ movie }) => {
   const classes = useStyles();
 
   const {
@@ -206,4 +209,6 @@ export default function MovieCard({ movie }) {
       </Card>
     </>
   );
-}
+};
+
+export default MovieCard;

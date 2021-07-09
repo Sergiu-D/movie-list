@@ -91,13 +91,13 @@ export default function MovieDetails({
   const filterMediaType = (callType) => {
     if (mediaType === "movie") {
       return fetchingQuery(
-        `movie/${id}${callType === "videos" ? `/${callType}` : null}`
+        `movie/${id}${callType === "videos" && `/${callType}`}`
       );
     }
 
     if (mediaType === "tv") {
       return fetchingQuery(
-        `tv/${id}${callType === "videos" ? `/${callType}` : null}`
+        `tv/${id}${callType === "videos" && `/${callType}`}`
       );
     }
   };
@@ -115,6 +115,7 @@ export default function MovieDetails({
   );
 
   if (!mediaData) return <h1>Loading...</h1>;
+  if (mediaError) return console.log(mediaError);
 
   if (!videosData) return <h1>Loading...</h1>;
   if (videosError) return <h2>Error!</h2>;
