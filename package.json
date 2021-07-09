@@ -22,6 +22,7 @@
     "react-player": "^2.9.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-spinners": "^0.11.0",
     "react-swipeable-views": "^0.13.9",
     "react-toastify": "^7.0.4",
     "swr": "^0.5.6",
