@@ -34,20 +34,16 @@ const genres = [
 ];
 
 export default function Genre({ genreIds }) {
-  // console.log("🚀 ~ file: Genre.jsx ~ line 39 ~ Genre ~ genreIds", genreIds);
   const [filteredGenres, setFilteredGenres] = useState([]);
 
   useEffect(() => {
-    if (genreIds === undefined) return;
-    // if (mediaType === "movie")
-    //   return
     setFilteredGenres(
-      genres.filter((allGenres) => {
+      genres.filter((genre) =>
         genreIds.some(
           (titleGenres) =>
-            allGenres.id === titleGenres || allGenres.id === titleGenres.id
-        );
-      })
+            genre.id === titleGenres || genre.id === titleGenres.id
+        )
+      )
     );
   }, [genreIds]);
 
@@ -65,23 +61,6 @@ export default function Genre({ genreIds }) {
         justifyContent: "center",
       }}
     >
-      {/* {getGenres().map((g, index) => (
-        <Typography
-          key={index}
-          variant="subtitle2"
-          style={{
-            color: "#adb5bd",
-            fontSize: "12px",
-            lineHeight: "25px",
-
-            fontStyle: "italic",
-            fontWeight: 100,
-          }}
-        >
-          {" "}
-          {g}&nbsp;&nbsp;
-        </Typography>
-      ))} */}
       <Typography
         style={{
           textOverflow: "ellipsis",
@@ -91,7 +70,7 @@ export default function Genre({ genreIds }) {
           fontSize: "12px",
           lineHeight: "25px",
           wordSpacing: ".5ch",
-          // fontStyle: "italic",
+
           fontWeight: 100,
         }}
       >

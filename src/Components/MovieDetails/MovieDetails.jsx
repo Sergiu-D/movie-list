@@ -117,7 +117,7 @@ export default function MovieDetails({
   if (!mediaData) return <h1>Loading...</h1>;
 
   if (!videosData) return <h1>Loading...</h1>;
-  if (videosError) return;
+  if (videosError) return <h2>Error!</h2>;
 
   const {
     original_title,
@@ -129,7 +129,6 @@ export default function MovieDetails({
     vote_average,
     genres,
   } = mediaData;
-  console.log("🚀 ~ file: MovieDetails.jsx ~ line 127 ~  mediaData", mediaData);
 
   const modifiedMediaData = addingMediaType([mediaData], mediaType);
 
