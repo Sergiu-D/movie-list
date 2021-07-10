@@ -15,13 +15,13 @@ const useStyles = makeStyles((theme) => ({
   searchInput: {
     maxWidth: "10rem",
 
-    borderBottom: "2px solid",
+    borderBottom: "1px solid",
     backgroundColor: "transparent",
     borderStyle: "none",
 
     fontFamily: "inherit",
     fontSize: "1rem",
-    color: "grey",
+    color: "white",
 
     padding: ".5rem .2rem",
 
@@ -45,14 +45,6 @@ const useStyles = makeStyles((theme) => ({
       borderColor: "white",
     },
   },
-  searchActiveBtn: {
-    minWidth: "45px",
-    minHeight: "35px",
-    border: "2px solid white",
-    backgroundColor: "transparent",
-    borderRadius: "0 5px 5px 0",
-    padding: 0,
-  },
 
   searchIconBtn: {
     fontSize: "2rem",
@@ -61,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Search() {
+export default function SearchInput({ setOpenMenu }) {
   const classes = useStyles();
 
   const history = useHistory();
@@ -87,6 +79,9 @@ export default function Search() {
     });
     history.push(`search?${url}`);
 
+    // Closing navigation
+    setOpenMenu(false);
+
     // Reset input value
     if (regex.test(inputValue)) {
       setIsError(false);
@@ -101,22 +96,23 @@ export default function Search() {
           type="text"
           placeholder="Search"
           style={
-            isError ? { borderColor: "orangered" } : { borderColor: "white" }
+            isError ? { borderColor: "#900603" } : { borderColor: "white" }
           }
           className={classes.searchInput}
         />
 
         <Button
           style={
-            isError ? { borderColor: "orangered" } : { borderColor: "white" }
+            isError ? { borderColor: "#900603" } : { borderColor: "white" }
           }
           className={classes.searchBtn}
           variant="outlined"
           type="submit"
           color="secondary"
+          disableRipple
         >
           <SearchIcon
-            style={isError ? { fill: "orangered" } : { fill: "white" }}
+            style={isError ? { fill: "#900603" } : { fill: "white" }}
             className={classes.searchIconBtn}
           />
         </Button>

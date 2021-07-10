@@ -156,7 +156,7 @@ export default function Navigation() {
             image={Logo}
           />
 
-          <SearchInput />
+          <SearchInput setOpenMenu={setOpenMenu} />
 
           <List className={classes.list}>
             {navTabs.map((tab, index) => {
