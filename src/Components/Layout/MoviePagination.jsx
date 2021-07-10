@@ -26,6 +26,7 @@ export default function MoviePagination({ media, setSize, totalResults }) {
       <InfiniteScroll
         style={{ paddingTop: "1rem", overflowX: "hidden" }}
         dataLength={media.length}
+        // scrollThreshold={0.6}
         next={handleFetchMovies}
         hasMore={handleHasMore(totalResults, media.length)}
         loader={
@@ -49,8 +50,8 @@ export default function MoviePagination({ media, setSize, totalResults }) {
         <GridContainer>
           {media.map((movie, index) => {
             return (
-              <GridItem index={index}>
-                <MovieCard movie={movie} key={movie.id} />
+              <GridItem key={movie.id}>
+                <MovieCard movie={movie} />
               </GridItem>
             );
           })}

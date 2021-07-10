@@ -278,7 +278,7 @@ export default function MovieDetails({
                 Runtime per episode:{" "}
                 {formatRuntime(mediaData.episode_run_time[0])}
               </Typography>
-              <Typography variant="p" className={classes.overview}>
+              <Typography variant="h6" className={classes.overview}>
                 {overview}
               </Typography>
             </>

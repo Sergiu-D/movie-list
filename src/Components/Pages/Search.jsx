@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 
 // Components
@@ -10,23 +10,25 @@ import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 import addingMediaType from "../../Utils/addingMediaType";
 
 // Material-Ui
-import { Tabs, Tab } from "@material-ui/core";
+import { Typography, Tabs, Tab, useMediaQuery } from "@material-ui/core";
 
 // Spinner
 import PuffLoader from "react-spinners/PuffLoader";
-import { css } from "@emotion/react";
-
-const override = css`
-  color: white;
-  margin: auto;
-`;
 
 export default function Search() {
   const history = useHistory();
-  const [tabsValue, setTabsValue] = React.useState(0);
+
+  const mediumBp = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   const searchedQuery = new URLSearchParams(history.location.search);
   const query = searchedQuery.get("query");
+  const mediaType = searchedQuery.get("media_type");
+
+  const [tabsValue, setTabsValue] = React.useState(mediaType);
+
+  useEffect(() => {
+    setTabsValue(mediaType);
+  }, [mediaType]);
 
   const {
     data: movies,
@@ -53,7 +55,9 @@ export default function Search() {
   );
 
   if (!movies || !tvShows)
-    return <PuffLoader color="RGB(240, 5, 75)" css={override} size={100} />;
+    return (
+      <PuffLoader color="RGB(240, 5, 75)" css="margin: auto;" size={100} />
+    );
   if (errorMovies || errorTvShows) return <h1>Error!</h1>;
 
   const totalMoviesResults = movies[0].total_results;
@@ -69,32 +73,22 @@ export default function Search() {
     searchedTvShowsData.push(...addingMediaType(element.results, "tv"))
   );
 
-  const handleClick = (mt) => {
-    searchedQuery.set("media_type", mt);
-
-    history.push(`search?${searchedQuery.toString()}`);
-  };
-
-  const mediaType = searchedQuery.get("media_type");
-
   const tabComp = (tabName, totalResults) => {
     return (
       <h4
         style={{
-          fontWeight: "400",
+          display: "flex",
+          gap: 10,
+          fontWeight: 300,
           fontSize: "1.5rem",
           textTransform: "capitalize",
           color: "white",
         }}
       >
-        {tabName}{" "}
+        {tabName}:
         <span
           style={{
-            fontSize: "1.5rem",
-            padding: ".2rem",
-            borderRadius: "50%",
-            backgroundColor: "white",
-            color: "grey",
+            fontWeight: 500,
           }}
         >
           {totalResults}
@@ -104,34 +98,37 @@ export default function Search() {
   };
 
   const handleTabs = (event, tab) => {
-    setTabsValue(tab);
-    searchedQuery.set("media_type", !tab ? "movie" : "tv");
+    const checkMediaType = !tab ? "movie" : "tv";
+    searchedQuery.set("media_type", checkMediaType);
 
     history.push(`search?${searchedQuery.toString()}`);
   };
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "4rem",
-          margin: "2rem 0",
-        }}
-      >
-        <Tabs
-          value={tabsValue}
-          onChange={handleTabs}
-          indicatorColor="primary"
-          textColor="primary"
-          centered
+    <>
+      {mediumBp && (
+        <Typography
+          variant="h1"
+          style={{ textAlign: "center", margin: "2rem 0" }}
         >
-          <Tab label={tabComp("Movies", totalMoviesResults)} />
+          Results for: <br />
+          {query.toUpperCase()}
+        </Typography>
+      )}
 
-          <Tab label={tabComp("Tv Shows", totalTvShowsResult)} />
-        </Tabs>
-      </div>
+      <Tabs
+        style={{ margin: "2rem auto" }}
+        value={tabsValue === "movie" ? 0 : 1}
+        onChange={handleTabs}
+        indicatorColor="primary"
+        textColor="primary"
+        centered
+      >
+        <Tab label={tabComp("Movies", totalMoviesResults)} />
+
+        <Tab label={tabComp("Tv Shows", totalTvShowsResult)} />
+      </Tabs>
+      {/* </div> */}
       {mediaType === "movie" ? (
         <MoviePagination
           media={searchedMovieData}
@@ -145,6 +142,6 @@ export default function Search() {
           totalResults={totalTvShowsResult}
         />
       )}
-    </div>
+    </>
   );
 }

@@ -6,10 +6,7 @@ import Genre from "../MovieDetails/Genre";
 import { WatchListBtn } from "../Buttons";
 
 // Lazy img load
-import {
-  LazyLoadImage,
-  LazyLoadComponent,
-} from "react-lazy-load-image-component";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 // Material-Ui
@@ -18,14 +15,9 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   Typography,
-  Button,
   Paper,
 } from "@material-ui/core";
-
-// Context
-import WatchListContextProvider from "../../Context/WatchListContext";
 
 // Style
 const useStyles = makeStyles((theme) => ({
@@ -131,15 +123,7 @@ const useStyles = makeStyles((theme) => ({
 const MovieCard = ({ movie }) => {
   const classes = useStyles();
 
-  const {
-    id,
-    genre_ids,
-    poster_path,
-    backdrop_path,
-    vote_average,
-    media_type,
-  } = movie;
-  // console.log("🚀 ~ file: MovieCard.jsx ~ line 128 ~ MovieCard ~ movie", movie);
+  const { id, poster_path, vote_average, media_type } = movie;
 
   const title = movie.title || movie.name;
   const genreIds = movie.genre_ids || movie.genres;
@@ -150,15 +134,9 @@ const MovieCard = ({ movie }) => {
 
   const { url } = useRouteMatch();
 
-  //TODO remove ":" from urlTitle
-
   // Creating URL path
   const normalizedTitle = title.replace(/\s/g, "+");
   const urlPath = `${media_type}/${id}/${normalizedTitle}`;
-  // console.log(
-  //   "🚀 ~ file: MovieCard.jsx ~ line 144 ~ MovieCard ~ urlPath",
-  //   urlPath
-  // );
 
   // Adding color to score
   function scoreBg(score) {
@@ -170,60 +148,49 @@ const MovieCard = ({ movie }) => {
 
   return (
     <>
-      <LazyLoadComponent placeholder={<Card className={classes.img}></Card>}>
-        <Card className={classes.root}>
-          <WatchListBtn movie={movie} type="small" />
-          <Link
-            to={{
-              pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,
+      <Card className={classes.root}>
+        <WatchListBtn movie={movie} type="small" />
+        <Link
+          to={{
+            pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,
 
-              state: {
-                id: id,
-                mediaType: media_type,
-              },
-            }}
-          >
-            <CardActionArea className={classes.cardActionArea}>
-              <Paper
-                className={classes.score}
-                style={{
-                  borderColor: `${scoreBg(vote_average)}`,
-                }}
-              >
-                <Typography variant="caption" className={classes.scoreFont}>
-                  {vote_average < 1 ? "N/A" : vote_average}
-                </Typography>
-              </Paper>
+            state: {
+              id: id,
+              mediaType: media_type,
+            },
+          }}
+        >
+          <CardActionArea className={classes.cardActionArea}>
+            <Paper
+              className={classes.score}
+              style={{
+                borderColor: `${scoreBg(vote_average)}`,
+              }}
+            >
+              <Typography variant="caption" className={classes.scoreFont}>
+                {vote_average < 1 ? "N/A" : vote_average}
+              </Typography>
+            </Paper>
+            <LazyLoadImage
+              className={classes.img}
+              height="100%"
+              width="100%"
+              effect="blur"
+              alt={`${title} poster`}
+              src={movieImage}
+              threshold={400}
+            />
 
-              {/* <CardMedia
-                className={classes.img}
-                component="img"
-                alt={`${title} poster`}
-                image={movieImage}
-                title={title}
-              /> */}
-              <LazyLoadImage
-                className={classes.img}
-                height="100%"
-                width="100%"
-                effect="blur"
-                delayTime={1000}
-                alt={`${title} poster`}
-                src={movieImage}
-                threshold="300"
-              />
+            <CardContent className={classes.cardContent}>
+              <Typography variant="h5" className={classes.title}>
+                {title}
+              </Typography>
 
-              <CardContent className={classes.cardContent}>
-                <Typography variant="h5" className={classes.title}>
-                  {title}
-                </Typography>
-
-                <Genre genreIds={genreIds} mediaType={media_type} />
-              </CardContent>
-            </CardActionArea>
-          </Link>
-        </Card>
-      </LazyLoadComponent>
+              <Genre genreIds={genreIds} mediaType={media_type} />
+            </CardContent>
+          </CardActionArea>
+        </Link>
+      </Card>
     </>
   );
 };

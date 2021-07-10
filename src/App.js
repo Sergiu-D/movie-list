@@ -101,6 +101,7 @@ function App() {
                 <Route exact path="/search" component={Search} />
 
                 <Route
+                  exact
                   path={[
                     "/search/:type/:id/:title",
                     "/trending/:type/:id/:title",
