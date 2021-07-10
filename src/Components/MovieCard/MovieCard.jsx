@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     aspectRatio: "2/3",
+    // @media:aspectRatio: "2/3"
   },
   cardContent: {
     minHeight: "70px",

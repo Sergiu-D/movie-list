@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// TODO show more for both media types
+
 export default function MovieList({ data, sectionTitle, genres }) {
   const classes = useStyles();
 
@@ -39,34 +41,26 @@ export default function MovieList({ data, sectionTitle, genres }) {
   const searchedQuery = new URLSearchParams(history.location.search);
 
   const getQuery = searchedQuery.get("show_more");
-  const stateObj = getQuery
-    ? { value: getQuery, state: true }
-    : { value: "", state: false };
 
   useEffect(() => {
+    const stateObj = getQuery ? getQuery : "";
     setShowAllMovies(stateObj);
   }, []);
 
-  const [showAllMovies, setShowAllMovies] = useState({
-    value: "",
-    state: false,
-  });
+  const [showAllMovies, setShowAllMovies] = useState("");
 
   const handleBtn = (event) => {
     const value = event.target.value;
-
     const location = history.location.pathname;
 
-    const url = new URLSearchParams({
-      show_more: value,
-    });
+    const url = new URLSearchParams({ show_more: value });
 
-    setShowAllMovies({ value: value, state: !showAllMovies.state });
-    if (showAllMovies.state) {
-      setShowAllMovies({ value: "", state: false });
+    if (showAllMovies) {
+      setShowAllMovies("");
       history.push(`${location}`);
     }
-    if (!showAllMovies.state) {
+    if (!showAllMovies) {
+      setShowAllMovies(value);
       history.push(`${location}?${url}`);
     }
   };
@@ -76,7 +70,7 @@ export default function MovieList({ data, sectionTitle, genres }) {
       {/* TODO change h1 to typography */}
       <h1>{sectionTitle}</h1>
       <GridContainer>
-        {showAllMovies.state && showAllMovies.value === data[0].media_type
+        {showAllMovies === data[0].media_type
           ? data.map((movie, index) => {
               return (
                 <GridItem index={index}>
