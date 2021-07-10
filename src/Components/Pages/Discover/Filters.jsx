@@ -7,6 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import NativeSelect from "@material-ui/core/NativeSelect";
 import TextField from "@material-ui/core/TextField";
 
 import { Autocomplete } from "@material-ui/lab";
@@ -116,7 +117,7 @@ const Filters = ({
         <InputLabel id="media-type" style={{ color: "white" }}>
           Media type
         </InputLabel>
-        <Select
+        <NativeSelect
           labelId="media-type"
           id="media-type-select"
           variant="standard"
@@ -124,15 +125,15 @@ const Filters = ({
           style={{ color: "white" }}
           onChange={(event) => setIsMovies(event.target.value)}
         >
-          <MenuItem value={true}>Movies</MenuItem>
-          <MenuItem value={false}>Tv Shows</MenuItem>
-        </Select>
+          <option value={true}>Movies</option>
+          <option value={false}>Tv Shows</option>
+        </NativeSelect>
       </FormControl>
       <FormControl className={classes.formControl}>
         <InputLabel id="sort-by" style={{ color: "white" }}>
           Sort By
         </InputLabel>
-        <Select
+        <NativeSelect
           labelId="sort-by"
           id="sort-by-select"
           variant="standard"
@@ -140,22 +141,22 @@ const Filters = ({
           style={{ color: "white" }}
           onChange={(event) => setSorting(event.target.value)}
         >
-          <MenuItem value={"popularity.desc"}>Popularity High</MenuItem>
-          <MenuItem value={"popularity.asc"}>Popularity Low</MenuItem>
-          <MenuItem value={"release_date.desc"}>Release Date Newer</MenuItem>
-          <MenuItem value={"release_date.asc"}>Release Date Older</MenuItem>
-          <MenuItem value={"vote_average.desc"}>Vote Average High</MenuItem>
-          <MenuItem value={"vote_average.asc"}>Vote Average Low</MenuItem>
-          <MenuItem value={"vote_count.desc"}>Vote Count High</MenuItem>
-          <MenuItem value={"vote_count.asc"}>Vote Count Low</MenuItem>
-        </Select>
+          <option value={"popularity.desc"}>Popularity High</option>
+          <option value={"popularity.asc"}>Popularity Low</option>
+          <option value={"release_date.desc"}>Release Date Newer</option>
+          <option value={"release_date.asc"}>Release Date Older</option>
+          <option value={"vote_average.desc"}>Vote Average High</option>
+          <option value={"vote_average.asc"}>Vote Average Low</option>
+          <option value={"vote_count.desc"}>Vote Count High</option>
+          <option value={"vote_count.asc"}>Vote Count Low</option>
+        </NativeSelect>
       </FormControl>
 
       <FormControl className={classes.formControl}>
         <InputLabel id="vote-average" style={{ color: "white" }}>
           Vote Average
         </InputLabel>
-        <Select
+        <NativeSelect
           labelId="vote-average"
           id="vote-average-select"
           variant="standard"
@@ -164,16 +165,16 @@ const Filters = ({
           onChange={(obj, event, str) => setVoteAverage(event.props.value)}
         >
           {createVoteCount().map((number, index) => (
-            <MenuItem key={index} value={number}>
+            <option key={index} value={number}>
               {number}
-            </MenuItem>
+            </option>
           ))}
-        </Select>
+        </NativeSelect>
       </FormControl>
       <FormControl className={classes.formControl}>
         <InputLabel>Select By Year</InputLabel>
 
-        <Select
+        <NativeSelect
           labelId="select-by-year"
           id="select-by-year-select"
           variant="standard"
@@ -181,13 +182,13 @@ const Filters = ({
           style={{ color: "white" }}
           onChange={(obj, event) => setYearFilter(event.props.value)}
         >
-          <MenuItem value={0}>All</MenuItem>
+          <option value={0}>All</option>
           {yearsFilter().map((year, index) => (
-            <MenuItem key={index} value={year}>
+            <option key={index} value={year}>
               {year}
-            </MenuItem>
+            </option>
           ))}
-        </Select>
+        </NativeSelect>
       </FormControl>
       <Autocomplete
         disableCloseOnSelect

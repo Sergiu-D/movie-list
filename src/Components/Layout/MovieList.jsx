@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 // Components
 import MovieCard from "../MovieCard/MovieCard";
@@ -33,10 +34,41 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MovieList({ data, sectionTitle, genres }) {
   const classes = useStyles();
-  const [showAllMovies, setShowAllMovies] = useState(false);
 
-  const handleBtn = () => {
-    setShowAllMovies(!showAllMovies);
+  const history = useHistory();
+  const searchedQuery = new URLSearchParams(history.location.search);
+
+  const getQuery = searchedQuery.get("show_more");
+  const stateObj = getQuery
+    ? { value: getQuery, state: true }
+    : { value: "", state: false };
+
+  useEffect(() => {
+    setShowAllMovies(stateObj);
+  }, []);
+
+  const [showAllMovies, setShowAllMovies] = useState({
+    value: "",
+    state: false,
+  });
+
+  const handleBtn = (event) => {
+    const value = event.target.value;
+
+    const location = history.location.pathname;
+
+    const url = new URLSearchParams({
+      show_more: value,
+    });
+
+    setShowAllMovies({ value: value, state: !showAllMovies.state });
+    if (showAllMovies.state) {
+      setShowAllMovies({ value: "", state: false });
+      history.push(`${location}`);
+    }
+    if (!showAllMovies.state) {
+      history.push(`${location}?${url}`);
+    }
   };
 
   return (
@@ -44,7 +76,7 @@ export default function MovieList({ data, sectionTitle, genres }) {
       {/* TODO change h1 to typography */}
       <h1>{sectionTitle}</h1>
       <GridContainer>
-        {showAllMovies
+        {showAllMovies.state && showAllMovies.value === data[0].media_type
           ? data.map((movie, index) => {
               return (
                 <GridItem index={index}>
@@ -64,14 +96,18 @@ export default function MovieList({ data, sectionTitle, genres }) {
       </GridContainer>
 
       {/* TODO make btn responsive */}
-      <Button
-        variant="contained"
-        color="secondary"
+      <button
+        // component="button"
+        // variant="contained"
+        // color="secondary"
+        value={data[0].media_type}
         className={classes.btn}
-        onClick={() => handleBtn()}
+        onClick={(event) => handleBtn(event)}
       >
-        {showAllMovies ? "Show Less" : "Show More"}
-      </Button>
+        {showAllMovies
+          ? `Show Less ${data[0].media_type}`
+          : `Show More ${data[0].media_type}`}
+      </button>
     </section>
   );
 }
