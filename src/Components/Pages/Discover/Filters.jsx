@@ -99,10 +99,6 @@ const Filters = ({
 
   const handleGenresOnClose = () => {
     setGenresIds(refContainer.current);
-    console.log(
-      "🚀 ~ file: Filters.jsx ~ line 114 ~ handleGenresOnClose ~ refContainer.current",
-      refContainer.current
-    );
   };
 
   return (
@@ -174,26 +170,28 @@ const Filters = ({
       <FormControl className={classes.formControl}>
         <InputLabel>Select By Year</InputLabel>
 
-        <NativeSelect
+        <Select
           labelId="select-by-year"
           id="select-by-year-select"
           variant="standard"
+          multiple
           value={yearFilter}
           style={{ color: "white" }}
-          onChange={(obj, event) => setYearFilter(event.props.value)}
+          // onChange={(obj, event) => setYearFilter(event.props.value)}
         >
-          <option value={0}>All</option>
+          {/* <option value={0}>All</option> */}
           {yearsFilter().map((year, index) => (
-            <option key={index} value={year}>
+            <MenuItem key={index} value={year}>
               {year}
-            </option>
+            </MenuItem>
           ))}
-        </NativeSelect>
+        </Select>
       </FormControl>
       <Autocomplete
         disableCloseOnSelect
         autoSelect
         // autoComplete
+        includeInputInList
         multiple={true}
         limitTags={2}
         id="multiple-limit-tags"

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 // Components
-import MovieCard from "../MovieCard/MovieCard";
-import { GridContainer, GridItem } from "./Grid";
+import MovieCard from "../../MovieCard/MovieCard";
+import { GridContainer, GridItem } from "../Grid";
 
 // Material-Ui
 import { makeStyles, Button } from "@material-ui/core";
@@ -34,35 +34,23 @@ const useStyles = makeStyles((theme) => ({
 
 // TODO show more for both media types
 
-export default function MovieList({ data, sectionTitle, genres }) {
+export default function MovieList({
+  data,
+  sectionTitle,
+  getShowMore,
+  setGetShowMore,
+}) {
   const classes = useStyles();
 
-  const history = useHistory();
-  const searchedQuery = new URLSearchParams(history.location.search);
-
-  const getQuery = searchedQuery.get("show_more");
-
-  useEffect(() => {
-    const stateObj = getQuery ? getQuery : "";
-    setShowAllMovies(stateObj);
-  }, []);
-
-  const [showAllMovies, setShowAllMovies] = useState("");
+  const mediaType = data[0].media_type;
 
   const handleBtn = (event) => {
     const value = event.target.value;
-    const location = history.location.pathname;
 
-    const url = new URLSearchParams({ show_more: value });
-
-    if (showAllMovies) {
-      setShowAllMovies("");
-      history.push(`${location}`);
+    if (!getShowMore.includes(value)) {
+      return setGetShowMore((prev) => [...new Set([...prev, value])]);
     }
-    if (!showAllMovies) {
-      setShowAllMovies(value);
-      history.push(`${location}?${url}`);
-    }
+    return setGetShowMore((prev) => prev.filter((val) => val !== value));
   };
 
   return (
@@ -70,18 +58,18 @@ export default function MovieList({ data, sectionTitle, genres }) {
       {/* TODO change h1 to typography */}
       <h1>{sectionTitle}</h1>
       <GridContainer>
-        {showAllMovies === data[0].media_type
-          ? data.map((movie, index) => {
+        {getShowMore.includes(mediaType)
+          ? data.map((movie) => {
               return (
-                <GridItem index={index}>
+                <GridItem key={movie.id}>
                   <MovieCard movie={movie} />
                 </GridItem>
               );
             })
           : data
-              .map((movie, index) => {
+              .map((movie) => {
                 return (
-                  <GridItem index={index}>
+                  <GridItem key={movie.id}>
                     <MovieCard movie={movie} />
                   </GridItem>
                 );
@@ -91,16 +79,13 @@ export default function MovieList({ data, sectionTitle, genres }) {
 
       {/* TODO make btn responsive */}
       <button
-        // component="button"
-        // variant="contained"
-        // color="secondary"
-        value={data[0].media_type}
+        value={mediaType}
         className={classes.btn}
         onClick={(event) => handleBtn(event)}
       >
-        {showAllMovies
-          ? `Show Less ${data[0].media_type}`
-          : `Show More ${data[0].media_type}`}
+        {getShowMore.includes(mediaType)
+          ? `Show less ${mediaType === "movie" ? "Movies" : "Tv shows"}`
+          : `Show more ${mediaType === "movie" ? "Movies" : "Tv shows"}`}
       </button>
     </section>
   );

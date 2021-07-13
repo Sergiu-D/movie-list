@@ -26,7 +26,7 @@ export default function Discover() {
   const [isMovies, setIsMovies] = useState(true);
   const [sorting, setSorting] = useState("popularity.desc");
   const [voteAverage, setVoteAverage] = useState(10);
-  const [yearFilter, setYearFilter] = useState(0);
+  const [yearFilter, setYearFilter] = useState([]);
   const [genresIds, setGenresIds] = useState([]);
 
   const refContainer = useRef([]);
