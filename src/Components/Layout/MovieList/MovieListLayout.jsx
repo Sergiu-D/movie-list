@@ -57,6 +57,7 @@ export default function MovieList({
     <section className={classes.container}>
       {/* TODO change h1 to typography */}
       <h1>{sectionTitle}</h1>
+
       <GridContainer>
         {getShowMore.includes(mediaType)
           ? data.map((movie) => {

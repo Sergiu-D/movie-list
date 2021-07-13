@@ -17,7 +17,7 @@ export default function MovieList(props) {
   const { moviesQuery, showsQuery, pageTitle } = props;
 
   // Change document title
-  document.title = { pageTitle };
+  document.title = `${pageTitle}`;
 
   const history = useHistory();
   const location = history.location.pathname;
@@ -38,12 +38,19 @@ export default function MovieList(props) {
     }
   }, []);
 
+  const createSearchParams = (isMovie, isTv) => {
+    if (!isMovie && !isTv) return "";
+    if (isMovie && isTv) return { movie: isMovie, tv: isTv };
+    if (isMovie) return { movie: isMovie };
+    if (isTv) return { tv: isTv };
+  };
+
   // Set state new search params
   useEffect(() => {
-    const paramsStr = new URLSearchParams({
-      movie: getShowMore.includes("movie"),
-      tv: getShowMore.includes("tv"),
-    });
+    const isMovie = getShowMore.includes("movie");
+    const isTv = getShowMore.includes("tv");
+
+    const paramsStr = new URLSearchParams(createSearchParams(isMovie, isTv));
 
     history.replace(`${location}?${paramsStr.toString()}`);
   }, [getShowMore]);
@@ -68,10 +75,6 @@ export default function MovieList(props) {
 
   // Check for media type
   const checkMediaType = (fetchedData, mediaType) => {
-    console.log(
-      "🚀 ~ file: MovieList.jsx ~ line 75 ~ checkMediaType ~ fetchedData",
-      fetchedData
-    );
     const hasMediaType = fetchedData.results.hasOwnProperty("media_type");
 
     if (!hasMediaType) return addingMediaType(fetchedData.results, mediaType);

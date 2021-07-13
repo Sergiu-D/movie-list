@@ -48,7 +48,7 @@ export default function MoviePagination({ media, setSize, totalResults }) {
         }
       >
         <GridContainer>
-          {media.map((movie, index) => {
+          {media.map((movie) => {
             return (
               <GridItem key={movie.id}>
                 <MovieCard movie={movie} />

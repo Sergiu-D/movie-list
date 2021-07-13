@@ -1,9 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
 // Components
 import Genre from "../MovieDetails/Genre";
 import { WatchListBtn } from "../Buttons";
+
+//Context
+import GenresContextProvider from "../../Context/GenresContext";
 
 // Lazy img load
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -186,8 +189,9 @@ const MovieCard = ({ movie }) => {
               <Typography variant="h5" className={classes.title}>
                 {title}
               </Typography>
-
-              <Genre genreIds={genreIds} mediaType={media_type} />
+              <GenresContextProvider>
+                <Genre genreIds={genreIds} mediaType={media_type} />
+              </GenresContextProvider>
             </CardContent>
           </CardActionArea>
         </Link>
