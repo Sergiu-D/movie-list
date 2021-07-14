@@ -97,7 +97,7 @@ function App() {
                 <Route exact path="/newest" component={Newest} />
                 <Route exact path="/upcoming" component={Upcoming} />
                 <Route exact path="/discover">
-                  <Filters />
+                  {/* <Filters /> */}
                   <Discover />
                 </Route>
                 <Route exact path="/watchlist" component={Watchlist} />

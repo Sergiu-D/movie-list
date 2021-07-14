@@ -12,7 +12,14 @@ import { WatchListBtn } from "../Buttons";
 import Credits from "./Credits";
 
 //Material-ui
-import { makeStyles, useMediaQuery, Typography, Grid } from "@material-ui/core";
+import {
+  makeStyles,
+  useMediaQuery,
+  Typography,
+  Grid,
+  Tabs,
+  Tab,
+} from "@material-ui/core";
 
 // Spinner
 import PuffLoader from "react-spinners/PuffLoader";
@@ -85,6 +92,12 @@ const useStyles = makeStyles((theme) => ({
       aspectRatio: "1/1",
     },
   },
+
+  tabs: {
+    "& .MuiTabs-flexContainer": {
+      flexDirection: "row",
+    },
+  },
 }));
 
 export default function MovieDetails({
@@ -93,6 +106,9 @@ export default function MovieDetails({
   },
 }) {
   const classes = useStyles();
+
+  // Tabs Values
+  const [tabsValue, setTabsValue] = React.useState(0);
 
   // Media query
   const mediumBp = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -170,13 +186,16 @@ export default function MovieDetails({
     return reversedDate;
   };
 
-  // const getGenres = (g) => {
-  //   const genresArr = [];
+  const tabsComponents = [
+    <Credits id={id} mediaType={mediaType} />,
+    "Nothing yet",
+  ];
 
-  //   g.forEach((genre) => genresArr.push(genre.name));
-
-  //   return genresArr.join(" ");
-  // };
+  // Handle tabs
+  const handleTabs = (e, tab) => {
+    e.preventDefault();
+    setTabsValue(tab);
+  };
 
   return (
     <>
@@ -310,7 +329,20 @@ export default function MovieDetails({
           )}
         </Grid>
       </div>
-      <Credits id={id} mediaType={mediaType} />
+      <Tabs
+        className={classes.tabs}
+        value={tabsValue}
+        onChange={handleTabs}
+        indicatorColor="secondary"
+        textColor="secondary"
+        // orientation="vertical"
+        // centered
+      >
+        <Tab label="Cast" />
+
+        <Tab label="Similar" />
+      </Tabs>
+      {tabsComponents[tabsValue]}
     </>
   );
 }
