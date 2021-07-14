@@ -113,6 +113,7 @@ function App() {
                     "/upcoming/:id/:title",
                     "/discover/:type/:id/:title",
                     "/watchlist/:type/:id/:title",
+                    "/recommended/:fromTitle/:type/:id/:title",
                   ]}
                   component={MovieDetails}
                 />

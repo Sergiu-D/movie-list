@@ -10,6 +10,7 @@ import addingMediaType from "../../Utils/addingMediaType";
 // Components
 import { WatchListBtn } from "../Buttons";
 import Credits from "./Credits";
+import SimilarTitles from "./RecommendedTitles";
 
 //Material-ui
 import {
@@ -188,7 +189,7 @@ export default function MovieDetails({
 
   const tabsComponents = [
     <Credits id={id} mediaType={mediaType} />,
-    "Nothing yet",
+    <SimilarTitles id={id} mediaType={mediaType} fromTitle={title} />,
   ];
 
   // Handle tabs
@@ -340,7 +341,7 @@ export default function MovieDetails({
       >
         <Tab label="Cast" />
 
-        <Tab label="Similar" />
+        <Tab label="Recommended" />
       </Tabs>
       {tabsComponents[tabsValue]}
     </>

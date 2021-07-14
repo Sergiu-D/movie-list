@@ -46,8 +46,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Credits({ id, mediaType }) {
+export default function Credits(props) {
   const classes = useStyles();
+
+  const { id, mediaType } = props;
 
   const filterMediaType =
     mediaType === "movie" ? `movie/${id}/credits` : `tv/${id}/credits`;
