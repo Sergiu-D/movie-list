@@ -102,6 +102,8 @@ const useStyles = makeStyles((theme) => ({
   },
   tab: {
     color: "white",
+    fontSize: ".9rem",
+    fontWeight: "800",
     backgroundColor: "hsla(0,100%,100%, .3)",
     marginRight: ".5rem",
   },

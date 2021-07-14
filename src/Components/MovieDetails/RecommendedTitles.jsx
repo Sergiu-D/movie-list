@@ -8,12 +8,16 @@ import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 // Components
 import { GridContainerTab, GridItemTab } from "../Layout/MovieDescriptionTab";
 
+// Lazy img load
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 //Material-ui
 import {
   makeStyles,
   useMediaQuery,
   Typography,
-  Card,
+  Button,
   CardMedia,
   CardContent,
 } from "@material-ui/core";
@@ -29,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     // maxHeight: "116px",
     display: "flex",
     flexDirection: "row",
-    backgroundColor: "hsla(0, 100%, 100%,.2)",
+    backgroundColor: "hsla(0, 100%, 100%,.08)",
     padding: ".5rem 1rem",
   },
   content: {
@@ -112,11 +116,20 @@ export default function RecommendedTitles(props) {
               }/${title.title || title.name}`}
             >
               <div className={classes.itemWrapper}>
-                <CardMedia
+                {/* <CardMedia
                   className={classes.poster}
                   component="img"
                   src={checkProfileImg(title.poster_path)}
                   alt={`${title.title} profile image`}
+                /> */}
+                <LazyLoadImage
+                  className={classes.poster}
+                  height="100%"
+                  width="100px"
+                  effect="blur"
+                  alt={`${title.title} poster`}
+                  src={checkProfileImg(title.poster_path)}
+                  threshold={400}
                 />
                 <CardContent className={classes.content}>
                   <Typography
@@ -137,12 +150,14 @@ export default function RecommendedTitles(props) {
           That is it
         </Typography>
       ) : (
-        <button
+        <Button
+          variant="contained"
+          color="primary"
           onClick={() => handleShowMore(data)}
           style={{ width: "20%", padding: ".5rem 0", margin: "1rem auto" }}
         >
           Show More
-        </button>
+        </Button>
       )}
     </>
   );

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "116px",
     display: "flex",
     flexDirection: "row",
-    backgroundColor: "hsla(0, 100%, 100%,.2)",
+    backgroundColor: "hsla(0, 100%, 100%,.08)",
     padding: ".5rem 1rem",
   },
   content: {
