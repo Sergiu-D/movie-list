@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 
 // Components
 import MovieCard from "../../MovieCard/MovieCard";
@@ -34,23 +33,15 @@ const useStyles = makeStyles((theme) => ({
 
 // TODO show more for both media types
 
-export default function MovieList({
-  data,
-  sectionTitle,
-  getShowMore,
-  setGetShowMore,
-}) {
+export default function MovieList(props) {
   const classes = useStyles();
 
-  const mediaType = data[0].media_type;
+  const { data, sectionTitle, setShowMore } = props;
 
-  const handleBtn = (event) => {
-    const value = event.target.value;
+  // const mediaType = data[0].media_type;
 
-    if (!getShowMore.includes(value)) {
-      return setGetShowMore((prev) => [...new Set([...prev, value])]);
-    }
-    return setGetShowMore((prev) => prev.filter((val) => val !== value));
+  const handleBtn = () => {
+    setShowMore((prev) => prev + 1);
   };
 
   return (
@@ -59,35 +50,25 @@ export default function MovieList({
       <h1>{sectionTitle}</h1>
 
       <GridContainer>
-        {getShowMore.includes(mediaType)
-          ? data.map((movie) => {
-              return (
-                <GridItem key={movie.id}>
-                  <MovieCard movie={movie} />
-                </GridItem>
-              );
-            })
-          : data
-              .map((movie) => {
-                return (
-                  <GridItem key={movie.id}>
-                    <MovieCard movie={movie} />
-                  </GridItem>
-                );
-              })
-              .slice(0, 6)}
+        {data.map((movie) => {
+          return (
+            <GridItem key={movie.id}>
+              <MovieCard movie={movie} />
+            </GridItem>
+          );
+        })}
       </GridContainer>
 
       {/* TODO make btn responsive */}
-      <button
-        value={mediaType}
+      <Button
+        variant="contained"
+        color="primary"
+        // value={mediaType}
         className={classes.btn}
-        onClick={(event) => handleBtn(event)}
+        onClick={() => handleBtn()}
       >
-        {getShowMore.includes(mediaType)
-          ? `Show less ${mediaType === "movie" ? "Movies" : "Tv shows"}`
-          : `Show more ${mediaType === "movie" ? "Movies" : "Tv shows"}`}
-      </button>
+        Show More
+      </Button>
     </section>
   );
 }

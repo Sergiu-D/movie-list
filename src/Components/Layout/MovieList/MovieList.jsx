@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 
 // Utils
-import useSWR from "swr";
+import { useSWRInfinite } from "swr";
 import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 import addingMediaType from "../../..//Utils/addingMediaType";
 
@@ -19,84 +18,58 @@ export default function MovieList(props) {
   // Change document title
   document.title = `${pageTitle}`;
 
-  const history = useHistory();
-  const location = history.location.pathname;
-
-  const [getShowMore, setGetShowMore] = useState("");
-
-  // Set previous search params
-  useEffect(() => {
-    const query = history.location.search;
-
-    const searchParams = new URLSearchParams(query);
-
-    for (let type of searchParams.entries()) {
-      const key = type[0];
-      const value = JSON.parse(type[1]);
-
-      if (value) setGetShowMore((prev) => [...new Set([...prev, key])]);
-    }
-  }, []);
-
-  const createSearchParams = (isMovie, isTv) => {
-    if (!isMovie && !isTv) return "";
-    if (isMovie && isTv) return { movie: isMovie, tv: isTv };
-    if (isMovie) return { movie: isMovie };
-    if (isTv) return { tv: isTv };
-  };
-
-  // Set state new search params
-  useEffect(() => {
-    const isMovie = getShowMore.includes("movie");
-    const isTv = getShowMore.includes("tv");
-
-    const paramsStr = new URLSearchParams(createSearchParams(isMovie, isTv));
-
-    history.replace(`${location}?${paramsStr.toString()}`);
-  }, [getShowMore]);
-
   // Fetching data
-  const { data: moviesData, error: moviesError } = useSWR(
-    fetchingQuery(moviesQuery),
+  const {
+    data: moviesData,
+    error: moviesError,
+    setSize: setMoviesSeize,
+  } = useSWRInfinite(
+    (index) => `${fetchingQuery(moviesQuery)}&page=${index + 1}`,
     fetcher
   );
-  const { data: showsData, error: showsError } = useSWR(
-    fetchingQuery(showsQuery),
+  const {
+    data: showsData,
+    error: showsError,
+    setSize: setShowsSize,
+  } = useSWRInfinite(
+    (index) => `${fetchingQuery(showsQuery)}&page=${index + 1}`,
     fetcher
   );
 
   // Error handle
   if (!moviesData || !showsData)
     return (
-      <PuffLoader color="RGB(240, 5, 75)" css={"color: white;"} size={100} />
+      <PuffLoader
+        color="RGB(240, 5, 75)"
+        css={"color: white; margin: auto;"}
+        size={100}
+      />
     );
   if (moviesError || showsError)
     return <h1 style={{ margin: "auto" }}>Error!</h1>;
 
-  // Check for media type
-  const checkMediaType = (fetchedData, mediaType) => {
-    const hasMediaType = fetchedData.results.hasOwnProperty("media_type");
-
-    if (!hasMediaType) return addingMediaType(fetchedData.results, mediaType);
-
-    return fetchedData.results;
-  };
+  const movies = [];
+  const shows = [];
+  moviesData.forEach((obj) =>
+    movies.push(...addingMediaType(obj.results, "movie"))
+  );
+  showsData.forEach((obj) => shows.push(...addingMediaType(obj.results, "tv")));
 
   return (
     <>
       <PageTitle pageTitle={pageTitle} />
 
       <MovieListLayout
-        data={checkMediaType(moviesData, "movie")}
+        data={movies}
         sectionTitle={"Movies"}
-        setGetShowMore={setGetShowMore}
-        getShowMore={getShowMore}
+        setShowMore={setMoviesSeize}
+        // getShowMore={getShowMore}
       />
       <MovieListLayout
-        data={checkMediaType(showsData, "tv")}
+        data={shows}
         sectionTitle={"Tv Shows"}
-        setGetShowMore={setGetShowMore}
-        getShowMore={getShowMore}
+        setShowMore={setShowsSize}
+        // getShowMore={getShowMore}
       />
     </>
   );
