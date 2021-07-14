@@ -106,6 +106,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "800",
     backgroundColor: "hsla(0,100%,100%, .3)",
     marginRight: ".5rem",
+    [theme.breakpoints.down("sm")]: {
+      width: "50%",
+    },
   },
 }));
 

@@ -19,9 +19,11 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   poster: {
-    width: "100px",
-    height: "100px",
-    borderRadius: "50px",
+    maxWidth: "100px",
+    maxHeight: "100px",
+    borderRadius: "50%",
+    objectFit: "cover",
+    objectPosition: "top",
   },
 
   itemWrapper: {

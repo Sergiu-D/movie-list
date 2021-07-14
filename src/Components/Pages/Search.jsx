@@ -98,7 +98,6 @@ export default function Search() {
   };
 
   const handleTabs = (event, tab) => {
-    console.log("🚀 ~ file: Search.jsx ~ line 101 ~ handleTabs ~ tab", tab);
     const checkMediaType = !tab ? "movies" : "tv";
     searchedQuery.set("media_type", checkMediaType);
 
@@ -125,21 +124,19 @@ export default function Search() {
         textColor="primary"
         centered
       >
-        <Tab label={tabComp("Movies", totalMoviesResults)} index={0} />
+        <Tab label={tabComp("Movies", totalMoviesResults)} />
 
-        <Tab label={tabComp("Tv Shows", totalTvShowsResult)} index={1} />
+        <Tab label={tabComp("Tv Shows", totalTvShowsResult)} />
       </Tabs>
       {/* </div> */}
-      {mediaType === "movie" ? (
+      {mediaType === "movies" ? (
         <MoviePagination
-          value="movies"
           media={searchedMovieData}
           setSize={setMoviesSize}
           totalResults={totalMoviesResults}
         />
       ) : (
         <MoviePagination
-          value="tv"
           media={searchedTvShowsData}
           setSize={setTvShowsSize}
           totalResults={totalTvShowsResult}
