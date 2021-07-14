@@ -21,6 +21,7 @@ import { ToastContainer } from "react-toastify";
 
 // Components
 import Navigation from "./Components/Navigation/Navigation";
+import Filters from "./Components/Filters";
 
 // Pages
 import Trending from "./Components/Pages/Trending";
@@ -95,7 +96,10 @@ function App() {
                 <Route exact path="/trending" component={Trending} />
                 <Route exact path="/newest" component={Newest} />
                 <Route exact path="/upcoming" component={Upcoming} />
-                <Route exact path="/discover" component={Discover} />
+                <Route exact path="/discover">
+                  <Filters />
+                  <Discover />
+                </Route>
                 <Route exact path="/watchlist" component={Watchlist} />
 
                 <Route exact path="/search" component={Search} />

@@ -9,6 +9,7 @@ import addingMediaType from "../../Utils/addingMediaType";
 
 // Components
 import { WatchListBtn } from "../Buttons";
+import Credits from "./Credits";
 
 //Material-ui
 import { makeStyles, useMediaQuery, Typography, Grid } from "@material-ui/core";
@@ -140,6 +141,7 @@ export default function MovieDetails({
     vote_average,
     genres,
   } = mediaData;
+  console.log("🚀 ~ file: MovieDetails.jsx ~ line 143 ~ genres", genres);
 
   const modifiedMediaData = addingMediaType([mediaData], mediaType);
 
@@ -168,144 +170,147 @@ export default function MovieDetails({
     return reversedDate;
   };
 
-  const getGenres = (g) => {
-    const genresArr = [];
+  // const getGenres = (g) => {
+  //   const genresArr = [];
 
-    g.forEach((genre) => genresArr.push(genre.name));
+  //   g.forEach((genre) => genresArr.push(genre.name));
 
-    return genresArr.join(" ");
-  };
+  //   return genresArr.join(" ");
+  // };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {/* Background container */}
+    <>
       <div
         style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100vh",
-          zIndex: -5,
+          minHeight: "95vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {/* Background image */}
-        <img
-          src={movieBg}
-          alt={`${title} poster`}
-          style={{
-            width: "100%",
-            height: "100vh",
-            objectFit: "cover",
-            objectPosition: "50% 50%",
-          }}
-        />
-
-        {/* Background overlay */}
+        {/* Background container */}
         <div
           style={{
-            position: "inherit",
+            position: "fixed",
             top: 0,
             left: 0,
             width: "100%",
             height: "100vh",
-            background:
-              "radial-gradient(circle, rgba(0,54,77,.8) 10% , rgba(0,11,15,0.98) 70%)",
+            zIndex: -5,
           }}
-        ></div>
-      </div>
-      {/* End background container */}
-
-      <Grid container>
-        <Grid
-          item
-          lg={9}
-          md={8}
-          sm={12}
-          className={classes.gridItem}
-          style={{ minHeight: "550px" }}
         >
-          <Typography variant="h1" paragraph={true} className={classes.title}>
-            {title}
-          </Typography>
-          <WatchListBtn movie={modifiedMediaData[0]} type="large" />
+          {/* Background image */}
+          <img
+            src={movieBg}
+            alt={`${title} poster`}
+            style={{
+              width: "100%",
+              height: "100vh",
+              objectFit: "cover",
+              objectPosition: "50% 50%",
+            }}
+          />
 
-          <Typography variant="overline" className={classes.genres}>
-            {genres.map((genre) => `${genre.name}  `)}
-          </Typography>
+          {/* Background overlay */}
+          <div
+            style={{
+              position: "inherit",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100vh",
+              background:
+                "radial-gradient(circle, rgba(0,54,77,.8) 10% , rgba(0,11,15,0.98) 70%)",
+            }}
+          ></div>
+        </div>
+        {/* End background container */}
 
-          {mediaType === "movie" ? (
-            <>
-              <Typography variant="h5" paragraph={true}>
-                {reverseReleaseDate(release_date)}
-              </Typography>
-              <Typography variant="h5" paragraph={true}>
-                {formatRuntime(runtime)}
-              </Typography>
-              <Typography
-                variant="p"
-                paragraph={true}
-                className={classes.overview}
-              >
-                {overview}
-              </Typography>
-            </>
+        <Grid container>
+          <Grid
+            item
+            lg={9}
+            md={8}
+            sm={12}
+            className={classes.gridItem}
+            style={{ minHeight: "550px" }}
+          >
+            <Typography variant="h1" paragraph={true} className={classes.title}>
+              {title}
+            </Typography>
+            <WatchListBtn movie={modifiedMediaData[0]} type="large" />
+
+            <Typography variant="overline" className={classes.genres}>
+              {genres.map((genre) => `${genre.name}  `)}
+            </Typography>
+
+            {mediaType === "movie" ? (
+              <>
+                <Typography variant="h5" paragraph={true}>
+                  {reverseReleaseDate(release_date)}
+                </Typography>
+                <Typography variant="h5" paragraph={true}>
+                  {formatRuntime(runtime)}
+                </Typography>
+                <Typography
+                  variant="p"
+                  paragraph={true}
+                  className={classes.overview}
+                >
+                  {overview}
+                </Typography>
+              </>
+            ) : (
+              <>
+                <Typography variant="h5" paragraph={true}>
+                  {mediaData.first_air_date.slice(0, 4)} ~{" "}
+                  {mediaData.next_episode_to_air
+                    ? `next episode: ${mediaData.next_episode_to_air.air_date
+                        .split("-")
+                        .reverse()
+                        .join("/")}`
+                    : mediaData.last_air_date.slice(0, 4)}
+                </Typography>
+                <Typography variant="h5" paragraph={true}>
+                  Seasons: {mediaData.number_of_seasons}
+                </Typography>
+                <Typography variant="h5" paragraph={true}>
+                  Total Episodes: {mediaData.number_of_episodes}
+                </Typography>
+                <Typography variant="h5" paragraph={true}>
+                  Runtime per episode:{" "}
+                  {formatRuntime(mediaData.episode_run_time[0])}
+                </Typography>
+                <Typography variant="h6" className={classes.overview}>
+                  {overview}
+                </Typography>
+              </>
+            )}
+          </Grid>
+          {!makeVideoUrlArr(videos).length ? (
+            ""
           ) : (
-            <>
-              <Typography variant="h5" paragraph={true}>
-                {mediaData.first_air_date.slice(0, 4)} ~{" "}
-                {mediaData.next_episode_to_air
-                  ? `next episode: ${mediaData.next_episode_to_air.air_date
-                      .split("-")
-                      .reverse()
-                      .join("/")}`
-                  : mediaData.last_air_date.slice(0, 4)}
+            <Grid item lg={3} md={4} sm={12} className={classes.gridItem}>
+              <Typography variant="h2" style={{ textAlign: "center" }}>
+                Trailers
               </Typography>
-              <Typography variant="h5" paragraph={true}>
-                Seasons: {mediaData.number_of_seasons}
-              </Typography>
-              <Typography variant="h5" paragraph={true}>
-                Total Episodes: {mediaData.number_of_episodes}
-              </Typography>
-              <Typography variant="h5" paragraph={true}>
-                Runtime per episode:{" "}
-                {formatRuntime(mediaData.episode_run_time[0])}
-              </Typography>
-              <Typography variant="h6" className={classes.overview}>
-                {overview}
-              </Typography>
-            </>
+              {makeVideoUrlArr(videos)
+                .splice(0, 2)
+                .map((url, index) => (
+                  <ReactPlayer
+                    className={classes.videPlayer}
+                    controls
+                    width="100%"
+                    height={smallBp ? "13rem" : "40%"}
+                    key={index}
+                    url={url}
+                  />
+                ))}
+            </Grid>
           )}
         </Grid>
-        {!makeVideoUrlArr(videos).length ? (
-          ""
-        ) : (
-          <Grid item lg={3} md={4} sm={12} className={classes.gridItem}>
-            <Typography variant="h2" style={{ textAlign: "center" }}>
-              Trailers
-            </Typography>
-            {makeVideoUrlArr(videos)
-              .splice(0, 2)
-              .map((url, index) => (
-                <ReactPlayer
-                  className={classes.videPlayer}
-                  controls
-                  width="100%"
-                  height={smallBp ? "13rem" : "40%"}
-                  key={index}
-                  url={url}
-                />
-              ))}
-          </Grid>
-        )}
-      </Grid>
-    </div>
+      </div>
+      <Credits id={id} mediaType={mediaType} />
+    </>
   );
 }

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 
 // Material-Ui
-import { Button, makeStyles, Input, TextField } from "@material-ui/core";
+import { Button, makeStyles, Input } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 // import { Label } from "@material-ui/icons";
@@ -94,7 +94,7 @@ export default function SearchInput({ setOpenMenu }) {
       <form className={classes.form} onSubmit={(event) => handleSubmit(event)}>
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Search a title"
           style={
             isError ? { borderColor: "#900603" } : { borderColor: "white" }
           }

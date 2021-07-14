@@ -54,16 +54,16 @@ const genres = [
 
 const Filters = ({
   isMovies,
-  setIsMovies,
-  sorting,
-  setSorting,
-  voteAverage,
-  setVoteAverage,
-  yearFilter,
-  setYearFilter,
-  genresIds,
-  setGenresIds,
-  refContainer,
+  // setIsMovies,
+  // sorting,
+  // setSorting,
+  // voteAverage,
+  // setVoteAverage,
+  // yearFilter,
+  // setYearFilter,
+  // genresIds,
+  // setGenresIds,
+  // refContainer,
 }) => {
   const classes = useStyles();
 
@@ -90,16 +90,16 @@ const Filters = ({
 
   // Filter Genres
 
-  const handleGenreIds = (arr) => {
-    arr.forEach(
-      (obj, index) =>
-        (refContainer.current = [...new Set([...refContainer.current, obj])])
-    );
-  };
+  // const handleGenreIds = (arr) => {
+  //   arr.forEach(
+  //     (obj, index) =>
+  //       (refContainer.current = [...new Set([...refContainer.current, obj])])
+  //   );
+  // };
 
-  const handleGenresOnClose = () => {
-    setGenresIds(refContainer.current);
-  };
+  // const handleGenresOnClose = () => {
+  //   setGenresIds(refContainer.current);
+  // };
 
   return (
     <div
@@ -114,12 +114,12 @@ const Filters = ({
           Media type
         </InputLabel>
         <NativeSelect
-          labelId="media-type"
+          labelid="media-type"
           id="media-type-select"
           variant="standard"
-          value={isMovies}
+          // value={isMovies}
           style={{ color: "white" }}
-          onChange={(event) => setIsMovies(event.target.value)}
+          // onChange={(event) => setIsMovies(event.target.value)}
         >
           <option value={true}>Movies</option>
           <option value={false}>Tv Shows</option>
@@ -130,12 +130,12 @@ const Filters = ({
           Sort By
         </InputLabel>
         <NativeSelect
-          labelId="sort-by"
+          labelid="sort-by"
           id="sort-by-select"
           variant="standard"
-          value={sorting}
+          // value={sorting}
           style={{ color: "white" }}
-          onChange={(event) => setSorting(event.target.value)}
+          // onChange={(event) => setSorting(event.target.value)}
         >
           <option value={"popularity.desc"}>Popularity High</option>
           <option value={"popularity.asc"}>Popularity Low</option>
@@ -153,12 +153,12 @@ const Filters = ({
           Vote Average
         </InputLabel>
         <NativeSelect
-          labelId="vote-average"
+          labelid="vote-average"
           id="vote-average-select"
           variant="standard"
-          value={voteAverage}
+          // value={voteAverage}
           style={{ color: "white" }}
-          onChange={(obj, event, str) => setVoteAverage(event.props.value)}
+          // onChange={(obj, event, str) => setVoteAverage(event.props.value)}
         >
           {createVoteCount().map((number, index) => (
             <option key={index} value={number}>
@@ -171,11 +171,11 @@ const Filters = ({
         <InputLabel>Select By Year</InputLabel>
 
         <Select
-          labelId="select-by-year"
+          labelid="select-by-year"
           id="select-by-year-select"
           variant="standard"
           multiple
-          value={yearFilter}
+          // value={yearFilter}
           style={{ color: "white" }}
           // onChange={(obj, event) => setYearFilter(event.props.value)}
         >
@@ -206,11 +206,11 @@ const Filters = ({
         //   console.log("option ", opt);
         //   console.log("state ", state);
         // }}
-        onClose={() => {
-          handleGenresOnClose();
-        }}
-        value={genresIds}
-        onChange={(e, value) => handleGenreIds(value)}
+        // onClose={() => {
+        //   handleGenresOnClose();
+        // }}
+        // value={genresIds}
+        // onChange={(e, value) => handleGenreIds(value)}
         // onInputChange={(ev, val, res) => handleGenreIds(val)}
         // blurOnSelect
         renderInput={(params) => (

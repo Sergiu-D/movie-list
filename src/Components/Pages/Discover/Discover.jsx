@@ -7,7 +7,7 @@ import addingMediaType from "../../../Utils/addingMediaType";
 
 // Components
 import MoviePagination from "../../Layout/MoviePagination";
-import Filters from "./Filters";
+// import Filters from "../../Filters";
 import PageTitle from "../../PageTitle";
 
 // Spinner
@@ -24,10 +24,10 @@ export default function Discover() {
   document.title = "Discover";
 
   const [isMovies, setIsMovies] = useState(true);
-  const [sorting, setSorting] = useState("popularity.desc");
-  const [voteAverage, setVoteAverage] = useState(10);
-  const [yearFilter, setYearFilter] = useState([]);
-  const [genresIds, setGenresIds] = useState([]);
+  // const [sorting, setSorting] = useState("popularity.desc");
+  // const [voteAverage, setVoteAverage] = useState(10);
+  // const [yearFilter, setYearFilter] = useState([]);
+  // const [genresIds, setGenresIds] = useState([]);
 
   const refContainer = useRef([]);
 
@@ -44,19 +44,15 @@ export default function Discover() {
 
   if (isMovies) {
     mediaQuery = `discover/movie`;
-    filterQuery = `sort_by=${sorting}&vote_average.lte=${voteAverage}&include_adult=false&year=&primary_release_year=${yearFilter}&with_genres=${selectGenres(
-      genresIds
-    )}`;
+    filterQuery = `sort_by=popularity.desc&vote_average.lte=&include_adult=false&year=&primary_release_year=&with_genres=`;
   }
 
   if (!isMovies) {
     mediaQuery = `discover/tv`;
-    filterQuery = `sort_by=${sorting}&vote_average.lte=${voteAverage}&include_adult=false&first_air_date_year=${yearFilter}&primary_release_year=&with_genres=${selectGenres(
-      genresIds
-    )}`;
+    filterQuery = `sort_by=popularity.desc&vote_average.lte=&include_adult=false&first_air_date_year=&primary_release_year=&with_genres=`;
   }
 
-  const { data, error, mutate, setSize } = useSWRInfinite(
+  const { data, error, setSize } = useSWRInfinite(
     (index) => `${fetchingQuery(mediaQuery)}&${filterQuery}&page=${index + 1}`,
     fetcher
   );
@@ -86,19 +82,19 @@ export default function Discover() {
   return (
     <>
       <PageTitle pageTitle="Discover" />
-      <Filters
+      {/* <Filters
         isMovies={isMovies}
-        setIsMovies={setIsMovies}
-        sorting={sorting}
-        setSorting={setSorting}
-        voteAverage={voteAverage}
-        setVoteAverage={setVoteAverage}
-        yearFilter={yearFilter}
-        setYearFilter={setYearFilter}
-        genreIds={genresIds}
-        setGenresIds={setGenresIds}
-        refContainer={refContainer}
-      />
+        // setIsMovies={setIsMovies}
+        // sorting={sorting}
+        // setSorting={setSorting}
+        // voteAverage={voteAverage}
+        // setVoteAverage={setVoteAverage}
+        // yearFilter={yearFilter}
+        // setYearFilter={setYearFilter}
+        // genreIds={genresIds}
+        // setGenresIds={setGenresIds}
+        // refContainer={refContainer}
+      /> */}
       <MoviePagination
         media={isMovies ? movies : tvShows}
         setSize={setSize}
