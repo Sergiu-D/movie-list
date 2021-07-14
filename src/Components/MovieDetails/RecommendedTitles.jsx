@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "2rem",
   },
   paragraph: {
+    color: "white",
     fontSize: "1.5rem",
     fontWeight: "700",
 

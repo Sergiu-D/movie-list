@@ -95,9 +95,15 @@ const useStyles = makeStyles((theme) => ({
   },
 
   tabs: {
+    marginBottom: "1rem",
     "& .MuiTabs-flexContainer": {
       flexDirection: "row",
     },
+  },
+  tab: {
+    color: "white",
+    backgroundColor: "hsla(0,100%,100%, .3)",
+    marginRight: ".5rem",
   },
 }));
 
@@ -202,7 +208,7 @@ export default function MovieDetails({
     <>
       <div
         style={{
-          minHeight: "95vh",
+          minHeight: "94vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -339,9 +345,9 @@ export default function MovieDetails({
         // orientation="vertical"
         // centered
       >
-        <Tab label="Cast" />
+        <Tab label="Cast" className={classes.tab} />
 
-        <Tab label="Recommended" />
+        <Tab label="Recommended" className={classes.tab} />
       </Tabs>
       {tabsComponents[tabsValue]}
     </>
