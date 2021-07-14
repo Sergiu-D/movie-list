@@ -70,7 +70,6 @@ export default function RecommendedTitles(props) {
 
   if (!data) return <h3>Loading...</h3>;
   if (error) return <h3>Error!</h3>;
-  console.log("🚀 ~ file: Credits.jsx ~ line 15 ~ Credits ~ data", data);
 
   const checkProfileImg = (poster_path) => {
     const posterPath = poster_path
@@ -92,18 +91,6 @@ export default function RecommendedTitles(props) {
   data.forEach((obj) => recommendedTitles.push(...obj.results));
 
   const testLength = totalResults === recommendedTitles.length;
-  console.log(
-    "🚀 ~ file: SimilarTitles.jsx ~ line 85 ~ SimilarTitles ~ totalResults",
-    totalResults
-  );
-  console.log(
-    "🚀 ~ file: SimilarTitles.jsx ~ line 87 ~ SimilarTitles ~ recommendedTitles length",
-    recommendedTitles.length
-  );
-  console.log(
-    "🚀 ~ file: SimilarTitles.jsx ~ line 91 ~ SimilarTitles ~ testLength",
-    testLength
-  );
 
   return (
     <>

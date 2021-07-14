@@ -166,7 +166,6 @@ export default function MovieDetails({
     vote_average,
     genres,
   } = mediaData;
-  console.log("🚀 ~ file: MovieDetails.jsx ~ line 143 ~ genres", genres);
 
   const modifiedMediaData = addingMediaType([mediaData], mediaType);
 

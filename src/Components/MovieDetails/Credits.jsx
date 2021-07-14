@@ -62,10 +62,6 @@ export default function Credits(props) {
 
   if (!creditsData) return <h3>Loading...</h3>;
   if (creditsError) return <h3>Error!</h3>;
-  console.log(
-    "🚀 ~ file: Credits.jsx ~ line 15 ~ Credits ~ creditsData",
-    creditsData
-  );
 
   const checkProfileImg = (profile_path) => {
     const profileImg = profile_path
