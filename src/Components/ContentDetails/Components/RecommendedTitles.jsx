@@ -6,10 +6,7 @@ import { useSWRInfinite } from "swr";
 import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 
 // Components
-import {
-  GridContainerTab,
-  GridItemTab,
-} from "../../Layout/MovieDescriptionTab";
+import { GridContainerTab, GridItemTab } from "./DescriptionTabs";
 
 // Lazy img load
 import { LazyLoadImage } from "react-lazy-load-image-component";

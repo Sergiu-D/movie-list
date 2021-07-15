@@ -3,16 +3,16 @@ import React from "react";
 // Utils
 import { useSWRInfinite } from "swr";
 import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
-import addingMediaType from "../../..//Utils/addingMediaType";
+import addingMediaType from "../../../Utils/addingMediaType";
 
 // Components
-import MovieListLayout from "./MovieListLayout";
+import ContentListLayout from "./ContentListLayout";
 import PageTitle from "../../PageTitle";
 
 // Spinner
 import PuffLoader from "react-spinners/PuffLoader";
 
-export default function MovieList(props) {
+export default function ContentList(props) {
   const { moviesQuery, showsQuery, pageTitle } = props;
 
   // Change document title
@@ -59,13 +59,13 @@ export default function MovieList(props) {
     <>
       <PageTitle pageTitle={pageTitle} />
 
-      <MovieListLayout
+      <ContentListLayout
         data={movies}
         sectionTitle={"Movies"}
         setShowMore={setMoviesSeize}
         // getShowMore={getShowMore}
       />
-      <MovieListLayout
+      <ContentListLayout
         data={shows}
         sectionTitle={"Tv Shows"}
         setShowMore={setShowsSize}

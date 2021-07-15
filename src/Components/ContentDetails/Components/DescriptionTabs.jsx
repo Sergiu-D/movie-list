@@ -1,7 +1,7 @@
 import React from "react";
 
 //Material-ui
-import { makeStyles, useMediaQuery, Typography, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 const GridContainerTab = ({ children }) => {
   return (

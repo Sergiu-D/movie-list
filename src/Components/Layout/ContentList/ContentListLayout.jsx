@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import MovieCard from "../../MovieCard/MovieCard";
+import ContentCard from "../../ContentCard/ContentCard";
 import { GridContainer, GridItem } from "../Grid";
 
 // Material-Ui
@@ -31,9 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO show more for both media types
-
-export default function MovieList(props) {
+export default function ContentListLayout(props) {
   const classes = useStyles();
 
   const { data, sectionTitle, setShowMore } = props;
@@ -57,7 +55,7 @@ export default function MovieList(props) {
         {data.map((movie) => {
           return (
             <GridItem key={movie.id}>
-              <MovieCard movie={movie} />
+              <ContentCard movie={movie} />
             </GridItem>
           );
         })}

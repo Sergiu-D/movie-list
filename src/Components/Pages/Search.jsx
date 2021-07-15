@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 
 // Components
-import MoviePagination from "../Layout/MoviePagination";
+import ContentPagination from "../Layout/ContentPagination";
 
 // Utils
 import { useSWRInfinite } from "swr";
@@ -130,13 +130,13 @@ export default function Search() {
       </Tabs>
       {/* </div> */}
       {mediaType === "movies" ? (
-        <MoviePagination
+        <ContentPagination
           media={searchedMovieData}
           setSize={setMoviesSize}
           totalResults={totalMoviesResults}
         />
       ) : (
-        <MoviePagination
+        <ContentPagination
           media={searchedTvShowsData}
           setSize={setTvShowsSize}
           totalResults={totalTvShowsResult}

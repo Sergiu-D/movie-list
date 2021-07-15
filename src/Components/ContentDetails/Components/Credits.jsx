@@ -5,10 +5,7 @@ import useSWR from "swr";
 import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 
 // Components
-import {
-  GridContainerTab,
-  GridItemTab,
-} from "../../Layout/MovieDescriptionTab";
+import { GridContainerTab, GridItemTab } from "./DescriptionTabs";
 
 //Material-ui
 import {

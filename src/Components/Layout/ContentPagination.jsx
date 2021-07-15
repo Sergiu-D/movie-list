@@ -2,7 +2,7 @@ import React from "react";
 
 // Components
 import InfiniteScroll from "react-infinite-scroll-component";
-import MovieCard from "../MovieCard/MovieCard";
+import ContentCard from "../ContentCard/ContentCard";
 import { GridContainer, GridItem } from "./Grid";
 
 import { BackToTopBtn } from "../Buttons";
@@ -12,7 +12,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 
 // TODO add "back to top button"
 
-export default function MoviePagination({ media, setSize, totalResults }) {
+export default function ContentPagination({ media, setSize, totalResults }) {
   const handleFetchMovies = () => setSize((prev) => prev + 2);
 
   const handleHasMore = (tr, ml) => {
@@ -51,7 +51,7 @@ export default function MoviePagination({ media, setSize, totalResults }) {
           {media.map((movie) => {
             return (
               <GridItem key={movie.id}>
-                <MovieCard movie={movie} />
+                <ContentCard movie={movie} />
               </GridItem>
             );
           })}

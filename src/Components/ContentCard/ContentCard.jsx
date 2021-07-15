@@ -123,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MovieCard = ({ movie }) => {
+const ContentCard = ({ movie }) => {
   const classes = useStyles();
 
   const { id, poster_path, vote_average, media_type } = movie;
@@ -195,4 +195,4 @@ const MovieCard = ({ movie }) => {
   );
 };
 
-export default MovieCard;
+export default ContentCard;

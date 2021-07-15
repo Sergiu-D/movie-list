@@ -6,7 +6,7 @@ import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 import addingMediaType from "../../../Utils/addingMediaType";
 
 // Components
-import MoviePagination from "../../Layout/MoviePagination";
+import ContentPagination from "../../Layout/ContentPagination";
 // import Filters from "../../Filters";
 import PageTitle from "../../PageTitle";
 
@@ -95,7 +95,7 @@ export default function Discover() {
         // setGenresIds={setGenresIds}
         // refContainer={refContainer}
       /> */}
-      <MoviePagination
+      <ContentPagination
         media={isMovies ? movies : tvShows}
         setSize={setSize}
         totalResults={data[0].total_results}

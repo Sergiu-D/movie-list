@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import MovieList from "../Layout/MovieList/MovieList";
+import ContentList from "../Layout/ContentList/ContentList";
 
 export default function Newest() {
   const moviesQuery = `movie/now_playing`;
@@ -10,7 +10,7 @@ export default function Newest() {
 
   return (
     <>
-      <MovieList
+      <ContentList
         moviesQuery={moviesQuery}
         showsQuery={showsQuery}
         pageTitle={pageTitle}

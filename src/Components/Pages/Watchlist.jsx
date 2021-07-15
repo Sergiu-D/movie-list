@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 // Components
-import MovieCard from "../MovieCard/MovieCard";
+import ContentCard from "../ContentCard/ContentCard";
 import PageTitle from "../PageTitle";
 import { GridContainer, GridItem } from "../Layout/Grid";
 
@@ -57,7 +57,7 @@ const Watchlist = () => {
           {list.map((movie, index) => {
             return (
               <GridItem index={index}>
-                <MovieCard movie={movie} key={index} />
+                <ContentCard movie={movie} key={index} />
               </GridItem>
             );
           })}

@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import MovieList from "../Layout/MovieList/MovieList";
+import ContentList from "../Layout/ContentList/ContentList";
 
 export default function Trending() {
   const moviesQuery = `trending/movie/day`;
@@ -9,7 +9,7 @@ export default function Trending() {
   const pageTitle = `Trending`;
   return (
     <>
-      <MovieList
+      <ContentList
         moviesQuery={moviesQuery}
         showsQuery={showsQuery}
         pageTitle={pageTitle}

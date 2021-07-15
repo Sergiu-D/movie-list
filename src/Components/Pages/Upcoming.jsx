@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import MoviePagination from "../Layout/MoviePagination";
+import ContentPagination from "../Layout/ContentPagination";
 import addingMediaType from "../../Utils/addingMediaType";
 import PageTitle from "../PageTitle";
 
@@ -63,7 +63,7 @@ export default function Upcoming() {
   return (
     <div>
       <PageTitle pageTitle="Upcoming" />
-      <MoviePagination
+      <ContentPagination
         media={filteringDates()}
         setSize={setSize}
         isValidating={isValidating}
