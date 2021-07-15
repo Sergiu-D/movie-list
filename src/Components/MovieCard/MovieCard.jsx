@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
 // Components
-import Genre from "../MovieDetails/Genre";
+import Genre from "./Genre";
 import { WatchListBtn } from "../Buttons";
 
 //Context

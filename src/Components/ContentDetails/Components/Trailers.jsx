@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 // Utils
 import useSWR from "swr";
-import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
+import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 
 //Material-ui
 import { makeStyles, useMediaQuery, Grid, Typography } from "@material-ui/core";

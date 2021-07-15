@@ -2,10 +2,13 @@ import React from "react";
 
 //Utils
 import useSWR from "swr";
-import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
+import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 
 // Components
-import { GridContainerTab, GridItemTab } from "../Layout/MovieDescriptionTab";
+import {
+  GridContainerTab,
+  GridItemTab,
+} from "../../Layout/MovieDescriptionTab";
 
 //Material-ui
 import {

@@ -30,7 +30,7 @@ import Upcoming from "./Components/Pages/Upcoming";
 import Discover from "./Components/Pages/Discover/Discover";
 import Watchlist from "./Components/Pages/Watchlist";
 import Search from "./Components/Pages/Search";
-import MovieDetails from "./Components/MovieDetails/MovieDetails";
+import ContentDetails from "./Components/ContentDetails/ContentDetails.jsx";
 
 // Context
 import WatchListContextProvider from "./Context/WatchListContext";
@@ -115,7 +115,7 @@ function App() {
                     "/watchlist/selected",
                     "/recommended/selected",
                   ]}
-                  component={MovieDetails}
+                  component={ContentDetails}
                 />
               </WatchListContextProvider>
             </Switch>

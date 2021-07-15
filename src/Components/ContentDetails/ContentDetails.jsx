@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { useHistory } from "react-router-dom";
 
 // Utils
-import formatRuntime from "../../Utils/formatRuntime";
 import useSWR from "swr";
 import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
 import addingMediaType from "../../Utils/addingMediaType";
 
 // Components
 import { WatchListBtn } from "../Buttons";
-import Credits from "./Credits";
-import SimilarTitles from "./RecommendedTitles";
-import Trailers from "./Trailers";
+import Credits from "./Components/Credits";
+import SimilarTitles from "./Components/RecommendedTitles";
+import Trailers from "./Components/Trailers";
+import Background from "./Components/Background";
+import TvShowsDetails from "./Components/TvShowsDetails";
+import MovieDetails from "./Components/MovieDetails";
 
 //Material-ui
 import { makeStyles, Typography, Grid, Tabs, Tab } from "@material-ui/core";
@@ -21,6 +23,12 @@ import { makeStyles, Typography, Grid, Tabs, Tab } from "@material-ui/core";
 import PuffLoader from "react-spinners/PuffLoader";
 
 const useStyles = makeStyles((theme) => ({
+  wrapper: {
+    minHeight: "94vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   gridItem: {
     display: "flex",
     flexDirection: "column",
@@ -61,10 +69,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "auto",
     marginRight: "2rem",
     lineHeight: 1.8,
-    // columnWidth: "30rem",
     columnCount: 2,
     columnFill: "auto",
-    // columnRule: "1px inset white",
     columnGap: "5ch",
 
     [theme.breakpoints.down("md")]: {
@@ -91,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieDetails() {
+export default function ContentDetails() {
   const classes = useStyles();
 
   // Get search params
@@ -114,22 +120,15 @@ export default function MovieDetails() {
     return (
       <PuffLoader color="RGB(240, 5, 75)" css={"margin: 0 auto;"} size={100} />
     );
-  if (mediaError) return console.log(mediaError);
+  if (mediaError) return <h2>Fetching media data error!</h2>;
 
-  const { overview, backdrop_path, release_date, runtime, genres } = mediaData;
+  const { backdrop_path, genres } = mediaData;
   const title = mediaData.title || mediaData.name;
 
   const modifiedMediaData = addingMediaType([mediaData], mediaType);
 
   // Change document title
   document.title = title;
-
-  const movieBg = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
-
-  const reverseReleaseDate = (date) => {
-    const reversedDate = date.split("-").slice(0, 1).reverse().join(" ");
-    return reversedDate;
-  };
 
   const tabsComponents = [
     <Credits id={id} mediaType={mediaType} />,
@@ -144,51 +143,8 @@ export default function MovieDetails() {
 
   return (
     <>
-      <div
-        style={{
-          minHeight: "94vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {/* Background container */}
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100vh",
-            zIndex: -5,
-          }}
-        >
-          {/* Background image */}
-          <img
-            src={movieBg}
-            alt={`${title} poster`}
-            style={{
-              width: "100%",
-              height: "100vh",
-              objectFit: "cover",
-              objectPosition: "50% 50%",
-            }}
-          />
-
-          {/* Background overlay */}
-          <div
-            style={{
-              position: "inherit",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100vh",
-              background:
-                "radial-gradient(circle, rgba(0,54,77,.8) 10% , rgba(0,11,15,0.98) 70%)",
-            }}
-          ></div>
-        </div>
-        {/* End background container */}
+      <div className={classes.wrapper}>
+        <Background backdropPath={backdrop_path} title={title} />
 
         <Grid container>
           <Grid
@@ -209,46 +165,9 @@ export default function MovieDetails() {
             </Typography>
 
             {mediaType === "movie" ? (
-              <>
-                <Typography variant="h5" paragraph={true}>
-                  {reverseReleaseDate(release_date)}
-                </Typography>
-                <Typography variant="h5" paragraph={true}>
-                  {formatRuntime(runtime)}
-                </Typography>
-                <Typography
-                  variant="p"
-                  paragraph={true}
-                  className={classes.overview}
-                >
-                  {overview}
-                </Typography>
-              </>
+              <MovieDetails mediaData={mediaData} useStyles={useStyles} />
             ) : (
-              <>
-                <Typography variant="h5" paragraph={true}>
-                  {mediaData.first_air_date.slice(0, 4)} ~{" "}
-                  {mediaData.next_episode_to_air
-                    ? `next episode: ${mediaData.next_episode_to_air.air_date
-                        .split("-")
-                        .reverse()
-                        .join("/")}`
-                    : mediaData.last_air_date.slice(0, 4)}
-                </Typography>
-                <Typography variant="h5" paragraph={true}>
-                  Seasons: {mediaData.number_of_seasons}
-                </Typography>
-                <Typography variant="h5" paragraph={true}>
-                  Total Episodes: {mediaData.number_of_episodes}
-                </Typography>
-                <Typography variant="h5" paragraph={true}>
-                  Runtime per episode:{" "}
-                  {formatRuntime(mediaData.episode_run_time[0])}
-                </Typography>
-                <Typography variant="h6" className={classes.overview}>
-                  {overview}
-                </Typography>
-              </>
+              <TvShowsDetails mediaData={mediaData} useStyles={useStyles} />
             )}
           </Grid>
           <Trailers id={id} mediaType={mediaType} />
@@ -260,8 +179,6 @@ export default function MovieDetails() {
         onChange={handleTabs}
         indicatorColor="secondary"
         textColor="secondary"
-        // orientation="vertical"
-        // centered
       >
         <Tab label="Cast" className={classes.tab} />
 

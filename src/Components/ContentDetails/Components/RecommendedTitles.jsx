@@ -3,10 +3,13 @@ import { Link, useHistory } from "react-router-dom";
 
 // Utils
 import { useSWRInfinite } from "swr";
-import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
+import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 
 // Components
-import { GridContainerTab, GridItemTab } from "../Layout/MovieDescriptionTab";
+import {
+  GridContainerTab,
+  GridItemTab,
+} from "../../Layout/MovieDescriptionTab";
 
 // Lazy img load
 import { LazyLoadImage } from "react-lazy-load-image-component";
