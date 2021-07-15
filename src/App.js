@@ -21,7 +21,7 @@ import { ToastContainer } from "react-toastify";
 
 // Components
 import Navigation from "./Components/Navigation/Navigation";
-import Filters from "./Components/Filters";
+import Filters from "./Components/Pages/Discover/Filters";
 
 // Pages
 import Trending from "./Components/Pages/Trending";
@@ -30,7 +30,7 @@ import Upcoming from "./Components/Pages/Upcoming";
 import Discover from "./Components/Pages/Discover/Discover";
 import Watchlist from "./Components/Pages/Watchlist";
 import Search from "./Components/Pages/Search";
-import ContentDetails from "./Components/ContentDetails/ContentDetails.jsx";
+import ContentDetails from "./Components/ContentDetails/ContentDetails";
 
 // Context
 import WatchListContextProvider from "./Context/WatchListContext";
@@ -97,7 +97,7 @@ function App() {
                 <Route exact path="/newest" component={Newest} />
                 <Route exact path="/upcoming" component={Upcoming} />
                 <Route exact path="/discover">
-                  {/* <Filters /> */}
+                  <Filters />
                   <Discover />
                 </Route>
                 <Route exact path="/watchlist" component={Watchlist} />
