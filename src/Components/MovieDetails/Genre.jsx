@@ -8,7 +8,6 @@ import { Container, Typography } from "@material-ui/core";
 
 export default function Genre({ genreIds, mediaType }) {
   const [filteredGenres, setFilteredGenres] = useState([]);
-
   const { moviesGenres, showsGenres } = useContext(GenresContext);
 
   const genres = mediaType === "movie" ? moviesGenres : showsGenres;

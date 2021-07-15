@@ -5,7 +5,7 @@ import MovieCard from "../../MovieCard/MovieCard";
 import { GridContainer, GridItem } from "../Grid";
 
 // Material-Ui
-import { makeStyles, Button } from "@material-ui/core";
+import { makeStyles, Button, Divider } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,16 +38,20 @@ export default function MovieList(props) {
 
   const { data, sectionTitle, setShowMore } = props;
 
-  // const mediaType = data[0].media_type;
+  const [numberOfTitles, setNumberOfTitles] = React.useState(6);
 
   const handleBtn = () => {
     setShowMore((prev) => prev + 1);
   };
 
+  console.log("Data length ", data.length);
+
   return (
     <section className={classes.container}>
       {/* TODO change h1 to typography */}
-      <h1>{sectionTitle}</h1>
+      <h1 style={{ fontSize: "3rem", fontWeight: 200, margin: "2rem auto" }}>
+        {sectionTitle}
+      </h1>
 
       <GridContainer>
         {data.map((movie) => {
@@ -58,17 +62,24 @@ export default function MovieList(props) {
           );
         })}
       </GridContainer>
-
       {/* TODO make btn responsive */}
-      <Button
-        variant="contained"
-        color="primary"
-        // value={mediaType}
-        className={classes.btn}
-        onClick={() => handleBtn()}
-      >
-        Show More
-      </Button>
+      {data.length >= 100 ? (
+        <h3 style={{ margin: "2rem auto" }}>That is it!</h3>
+      ) : (
+        <Button
+          variant="contained"
+          color="primary"
+          // value={mediaType}
+          className={classes.btn}
+          onClick={() => handleBtn()}
+        >
+          Show More
+        </Button>
+      )}
+      {/* <Divider
+        style={{ backgroundColor: "hsla(0, 100%, 100%, .3)" }}
+        variant="middle"
+      /> */}
     </section>
   );
 }

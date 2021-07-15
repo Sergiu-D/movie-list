@@ -108,12 +108,12 @@ function App() {
                   exact
                   path={[
                     "/search/:type/:id/:title",
-                    "/trending/:type/:id/:title",
-                    "/newest/:type/:id/:title",
-                    "/upcoming/:id/:title",
-                    "/discover/:type/:id/:title",
-                    "/watchlist/:type/:id/:title",
-                    "/recommended/:fromTitle/:type/:id/:title",
+                    "/trending/selected",
+                    "/newest/selected",
+                    "/upcoming/selected",
+                    "/discover/selected",
+                    "/watchlist/selected",
+                    "/recommended/selected",
                   ]}
                   component={MovieDetails}
                 />

@@ -91,10 +91,12 @@ export default function Credits(props) {
                 className={classes.paragraph}
               >
                 {actor.name}{" "}
-                <Typography variant="body1" component="span">
-                  {" "}
-                  as {actor.character}
-                </Typography>
+                {actor.character && (
+                  <Typography variant="body1" component="span">
+                    {" "}
+                    as {actor.character}
+                  </Typography>
+                )}
               </Typography>
             </CardContent>
           </div>

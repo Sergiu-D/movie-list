@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReactPlayer from "react-player/lazy";
+
+import { useHistory } from "react-router-dom";
 
 // Utils
 import formatRuntime from "../../Utils/formatRuntime";
@@ -11,25 +12,13 @@ import addingMediaType from "../../Utils/addingMediaType";
 import { WatchListBtn } from "../Buttons";
 import Credits from "./Credits";
 import SimilarTitles from "./RecommendedTitles";
+import Trailers from "./Trailers";
 
 //Material-ui
-import {
-  makeStyles,
-  useMediaQuery,
-  Typography,
-  Grid,
-  Tabs,
-  Tab,
-} from "@material-ui/core";
+import { makeStyles, Typography, Grid, Tabs, Tab } from "@material-ui/core";
 
 // Spinner
 import PuffLoader from "react-spinners/PuffLoader";
-import { css } from "@emotion/react";
-
-const override = css`
-  color: white;
-  margin: auto;
-`;
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -84,16 +73,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  videPlayer: {
-    minWidth: "300px",
-    margin: "1.5rem auto",
-
-    aspectRatio: "16/9",
-    [theme.breakpoints.down("sm")]: {
-      aspectRatio: "1/1",
-    },
-  },
-
   tabs: {
     marginBottom: "1rem",
     "& .MuiTabs-flexContainer": {
@@ -112,85 +91,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieDetails({
-  match: {
-    params: { type: mediaType, id },
-  },
-}) {
+export default function MovieDetails() {
   const classes = useStyles();
 
+  // Get search params
+  const history = useHistory();
+  const searchParams = new URLSearchParams(history.location.search);
+  const id = JSON.parse(searchParams.get("id"));
+
+  const mediaType = searchParams.get("media_type");
+
   // Tabs Values
-  const [tabsValue, setTabsValue] = React.useState(0);
-
-  // Media query
-  const mediumBp = useMediaQuery((theme) => theme.breakpoints.down("md"));
-  const smallBp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-
-  const filterMediaType = (callType) => {
-    if (mediaType === "movie") {
-      return fetchingQuery(
-        `movie/${id}${callType === "videos" && `/${callType}`}`
-      );
-    }
-
-    if (mediaType === "tv") {
-      return fetchingQuery(
-        `tv/${id}${callType === "videos" && `/${callType}`}`
-      );
-    }
-  };
+  const [tabsValue, setTabsValue] = useState(0);
 
   // Fetching media details
   const { data: mediaData, error: mediaError } = useSWR(
-    filterMediaType(),
-    fetcher
-  );
-
-  // Fetching media videos
-  const { data: videosData, error: videosError } = useSWR(
-    filterMediaType("videos"),
+    fetchingQuery(`${mediaType}/${id}`),
     fetcher
   );
 
   if (!mediaData)
-    return <PuffLoader color="RGB(240, 5, 75)" css={override} size={100} />;
+    return (
+      <PuffLoader color="RGB(240, 5, 75)" css={"margin: 0 auto;"} size={100} />
+    );
   if (mediaError) return console.log(mediaError);
 
-  if (!videosData) return <h1>Loading...</h1>;
-  if (videosError) return <h2>Error!</h2>;
-
-  const {
-    original_title,
-    overview,
-    poster_path,
-    backdrop_path,
-    release_date,
-    runtime,
-    vote_average,
-    genres,
-  } = mediaData;
+  const { overview, backdrop_path, release_date, runtime, genres } = mediaData;
+  const title = mediaData.title || mediaData.name;
 
   const modifiedMediaData = addingMediaType([mediaData], mediaType);
-
-  const title = mediaData.title || mediaData.name;
 
   // Change document title
   document.title = title;
 
   const movieBg = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
-
-  const videos = videosData.results;
-
-  const makeVideoUrlArr = (v) => {
-    let videosURL = [];
-
-    v.forEach((video) => {
-      if (video.type === "Trailer" || video.type === "Teaser")
-        return videosURL.push([`https://www.youtube.com/watch?v=${video.key}`]);
-    });
-
-    return videosURL;
-  };
 
   const reverseReleaseDate = (date) => {
     const reversedDate = date.split("-").slice(0, 1).reverse().join(" ");
@@ -199,12 +133,12 @@ export default function MovieDetails({
 
   const tabsComponents = [
     <Credits id={id} mediaType={mediaType} />,
-    <SimilarTitles id={id} mediaType={mediaType} fromTitle={title} />,
+    <SimilarTitles id={id} mediaType={mediaType} />,
   ];
 
   // Handle tabs
   const handleTabs = (e, tab) => {
-    e.preventDefault();
+    // e.preventDefault();
     setTabsValue(tab);
   };
 
@@ -317,27 +251,7 @@ export default function MovieDetails({
               </>
             )}
           </Grid>
-          {!makeVideoUrlArr(videos).length ? (
-            ""
-          ) : (
-            <Grid item lg={3} md={4} sm={12} className={classes.gridItem}>
-              <Typography variant="h2" style={{ textAlign: "center" }}>
-                Trailers
-              </Typography>
-              {makeVideoUrlArr(videos)
-                .splice(0, 2)
-                .map((url, index) => (
-                  <ReactPlayer
-                    className={classes.videPlayer}
-                    controls
-                    width="100%"
-                    height={smallBp ? "13rem" : "40%"}
-                    key={index}
-                    url={url}
-                  />
-                ))}
-            </Grid>
-          )}
+          <Trailers id={id} mediaType={mediaType} />
         </Grid>
       </div>
       <Tabs

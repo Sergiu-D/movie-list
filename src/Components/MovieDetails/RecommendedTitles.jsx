@@ -98,9 +98,12 @@ export default function RecommendedTitles(props) {
         {recommendedTitles.map((title) => (
           <GridItemTab key={title.id}>
             <Link
-              to={`/recommended/from=${fromTitle}/${title.media_type}/${
-                title.id
-              }/${title.title || title.name}`}
+              to={{
+                pathname: `/recommended/selected`,
+                search: `?media_type=${title.media_type}&id=${title.id}&name=${
+                  title.title || title.name
+                }`,
+              }}
             >
               <div className={classes.itemWrapper}>
                 {/* <CardMedia
