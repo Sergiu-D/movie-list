@@ -139,7 +139,7 @@ const MovieCard = ({ movie }) => {
 
   // Creating URL path
   const normalizedTitle = title.replace(/\s/g, "+");
-  const urlPath = `${media_type}/${id}/${normalizedTitle}`;
+  const urlPath = `?media_type=${media_type}&id=${id}&name=${normalizedTitle}`;
 
   // Adding color to score
   function scoreBg(score) {
@@ -155,12 +155,8 @@ const MovieCard = ({ movie }) => {
         <WatchListBtn movie={movie} type="small" />
         <Link
           to={{
-            pathname: `${url === "/" ? "/trending" : url}/${urlPath}`,
-
-            state: {
-              id: id,
-              mediaType: media_type,
-            },
+            pathname: `/trending/selected`,
+            search: urlPath,
           }}
         >
           <CardActionArea className={classes.cardActionArea}>

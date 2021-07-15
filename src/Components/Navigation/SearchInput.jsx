@@ -60,8 +60,6 @@ export default function SearchInput({ setOpenMenu }) {
   const [isError, setIsError] = useState(false);
 
   const handleSubmit = (event) => {
-    // event.preventDefault();
-
     const inputValue = event.target[0].value.trim().toLowerCase();
 
     // Input validation
