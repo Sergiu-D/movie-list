@@ -40,7 +40,7 @@ export default function Discover() {
 
   if (filterParams.mediaType === "tv") {
     mediaQuery = `discover/tv`;
-    filterQuery = `sort_by=${filterParams.sortBy}&vote_average.lte=${filterParams.voteAverage}&include_adult=false&first_air_date_year=&primary_release_year=${filterParams.year}&with_genres=`;
+    filterQuery = `sort_by=${filterParams.sortBy}&vote_average.lte=${filterParams.voteAverage}&include_adult=false&first_air_date_year=${filterParams.year}&primary_release_year=&with_genres=`;
   }
 
   const { data, error, setSize } = useSWRInfinite(
