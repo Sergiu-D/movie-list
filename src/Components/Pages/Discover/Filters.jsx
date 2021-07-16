@@ -152,7 +152,7 @@ export default function Filters({ pageTitle }) {
             value={filtersValues.vote_average}
             onChange={handleChange}
           >
-            <option aria-label="None" disabled />
+            <option aria-label="None" />
             <option label="All" value="" />
             {generateVoteAverage(10).map((vote, index) => (
               <option key={index} value={vote}>
@@ -170,7 +170,7 @@ export default function Filters({ pageTitle }) {
             value={filtersValues.year}
             onChange={handleChange}
           >
-            <option aria-label="None" disabled />
+            <option aria-label="None" />
             <option label="All" value="" />
             {generateYears(1900).map((year, index) => (
               <option key={index} value={year}>
