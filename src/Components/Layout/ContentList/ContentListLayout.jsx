@@ -5,7 +5,7 @@ import ContentCard from "../../ContentCard/ContentCard";
 import { GridContainer, GridItem } from "../Grid";
 
 // Material-Ui
-import { makeStyles, Button, Divider } from "@material-ui/core";
+import { makeStyles, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,8 +41,6 @@ export default function ContentListLayout(props) {
   const handleBtn = () => {
     setShowMore((prev) => prev + 1);
   };
-
-  console.log("Data length ", data.length);
 
   return (
     <section className={classes.container}>

@@ -17,6 +17,13 @@ import {
   CardContent,
 } from "@material-ui/core";
 
+// Lazy load
+import {
+  LazyLoadComponent,
+  LazyLoadImage,
+} from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 const useStyles = makeStyles((theme) => ({
   poster: {
     maxWidth: "100px",
@@ -27,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   itemWrapper: {
-    maxHeight: "116px",
+    maxHeight: "120px",
     display: "flex",
     flexDirection: "row",
     backgroundColor: "hsla(0, 100%, 100%,.08)",
@@ -75,33 +82,54 @@ export default function Credits(props) {
 
   return (
     <GridContainerTab>
-      {creditsData.cast.map((actor) => (
-        <GridItemTab key={actor.id}>
-          <div className={classes.itemWrapper}>
-            <CardMedia
-              className={classes.poster}
-              component="img"
-              src={checkProfileImg(actor.profile_path)}
-              alt={`${actor.name} profile image`}
-            />
-            <CardContent className={classes.content}>
-              <Typography
-                variant="body1"
-                component="p"
-                className={classes.paragraph}
-              >
-                {actor.name}{" "}
-                {actor.character && (
-                  <Typography variant="body1" component="span">
-                    {" "}
-                    as {actor.character}
+      {!creditsData.cast.length ? (
+        <Typography
+          variant="h4"
+          style={{
+            margin: "1rem auto",
+            fontWeight: 200,
+          }}
+        >
+          No Info
+        </Typography>
+      ) : (
+        creditsData.cast.map((actor) => (
+          <LazyLoadComponent
+            key={actor.id}
+            placeholder={<div className={classes.itemWrapper}></div>}
+          >
+            <GridItemTab>
+              <div className={classes.itemWrapper}>
+                <LazyLoadImage
+                  height="100%"
+                  width="100px"
+                  effect="blur"
+                  className={classes.poster}
+                  component="img"
+                  src={checkProfileImg(actor.profile_path)}
+                  alt={`${actor.name} profile image`}
+                  threshold={400}
+                />
+                <CardContent className={classes.content}>
+                  <Typography
+                    variant="body1"
+                    component="p"
+                    className={classes.paragraph}
+                  >
+                    {actor.name}{" "}
+                    {actor.character && (
+                      <Typography variant="body1" component="span">
+                        {" "}
+                        as {actor.character}
+                      </Typography>
+                    )}
                   </Typography>
-                )}
-              </Typography>
-            </CardContent>
-          </div>
-        </GridItemTab>
-      ))}
+                </CardContent>
+              </div>
+            </GridItemTab>
+          </LazyLoadComponent>
+        ))
+      )}
     </GridContainerTab>
   );
 }

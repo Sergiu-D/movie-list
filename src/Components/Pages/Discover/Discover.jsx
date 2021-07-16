@@ -18,28 +18,9 @@ export default function Discover() {
   // Change document title
   document.title = "Discover";
 
-  const [isMovies, setIsMovies] = useState(true);
-
   const location = useLocation().search;
-  // console.log(
-  //   "🚀 ~ file: Discover.jsx ~ line 30 ~ Discover ~ location",
-  //   location
-  // );
+
   const searchQuery = new URLSearchParams(location);
-  console.log(
-    "🚀 ~ file: Discover.jsx ~ line 29 ~ Discover ~ searchQuery",
-    searchQuery.toString()
-  );
-  const mediaType = searchQuery.get("media_type") || "movie";
-  // console.log(
-  //   "🚀 ~ file: Discover.jsx ~ line 30 ~ Discover ~ mediaType",
-  //   mediaType
-  // );
-
-  // const sortBy = searchQuery.get("sort_by") || "popularity.desc";
-
-  // const voteAverage = searchQuery.get("vote_average") || "";
-  // const year = searchQuery.get("year") || "";
 
   const filterParams = {
     mediaType: searchQuery.get("media_type"),
@@ -52,12 +33,12 @@ export default function Discover() {
 
   let mediaQuery, filterQuery;
 
-  if (mediaType === "movie") {
+  if (filterParams.mediaType === "movie") {
     mediaQuery = `discover/movie`;
     filterQuery = `sort_by=${filterParams.sortBy}&vote_average.lte=${filterParams.voteAverage}&include_adult=false&year=${filterParams.year}&primary_release_year=&with_genres=`;
   }
 
-  if (mediaType === "tv") {
+  if (filterParams.mediaType === "tv") {
     mediaQuery = `discover/tv`;
     filterQuery = `sort_by=${filterParams.sortBy}&vote_average.lte=${filterParams.voteAverage}&include_adult=false&first_air_date_year=${filterParams.year}&primary_release_year=&with_genres=`;
   }
@@ -79,13 +60,13 @@ export default function Discover() {
   const movies = [];
   const tvShows = [];
 
-  if (mediaType === "movie") {
+  if (filterParams.mediaType === "movie") {
     data.forEach((element) => {
       movies.push(...addingMediaType(element.results, "movie"));
     });
   }
 
-  if (mediaType === "tv") {
+  if (filterParams.mediaType === "tv") {
     data.forEach((element) => {
       tvShows.push(...addingMediaType(element.results, "tv"));
     });
@@ -94,7 +75,7 @@ export default function Discover() {
   return (
     <>
       <ContentPagination
-        media={mediaType === "movie" ? movies : tvShows}
+        media={filterParams.mediaType === "movie" ? movies : tvShows}
         setSize={setSize}
         totalResults={data[0].total_results}
       />

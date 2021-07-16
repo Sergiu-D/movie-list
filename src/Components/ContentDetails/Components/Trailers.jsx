@@ -1,8 +1,6 @@
 import React from "react";
 import ReactPlayer from "react-player/lazy";
 
-import { useLocation } from "react-router-dom";
-
 // Utils
 import useSWR from "swr";
 import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
@@ -11,13 +9,30 @@ import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 import { makeStyles, useMediaQuery, Grid, Typography } from "@material-ui/core";
 
 // Spinner
-import PuffLoader from "react-spinners/PuffLoader";
+import PulseLoader from "react-spinners/PulseLoader";
+
+// Lazy load
+import { LazyLoadComponent } from "react-lazy-load-image-component";
 
 // Styles
 const useStyles = makeStyles((theme) => ({
   videPlayer: {
     minWidth: "300px",
     margin: "1.5rem auto",
+
+    aspectRatio: "16/9",
+    [theme.breakpoints.down("sm")]: {
+      minWidth: "95vw",
+      aspectRatio: "1/1",
+    },
+  },
+
+  lazyLoad: {
+    display: "flex",
+    minWidth: "300px",
+    height: "13rem",
+    margin: "1.5rem auto",
+    backgroundColor: "black",
 
     aspectRatio: "16/9",
     [theme.breakpoints.down("sm")]: {
@@ -44,8 +59,12 @@ export default function Trailers(props) {
 
   if (!videosData)
     return (
-      <PuffLoader color="RGB(240, 5, 75)" css={"margin: 0 auto;"} size={100} />
+      <div className={classes.lazyLoad}>
+        <PulseLoader color="RGB(240, 5, 75)" css={"margin: auto;"} size={10} />
+      </div>
     );
+  // <PulseLoader color="RGB(240, 5, 75)" css={"margin: auto;"} size={10} />
+
   if (videosError) return <h2>Error!</h2>;
 
   const videos = videosData.results;
@@ -76,16 +95,30 @@ export default function Trailers(props) {
           <Typography variant="h2" style={{ textAlign: "center" }}>
             Trailers
           </Typography>
-          {makeVideoUrlArr(videos).map((url) => (
-            <ReactPlayer
-              className={classes.videPlayer}
-              playing={false}
-              controls
-              width="100%"
-              height={smallBp ? "13rem" : "40%"}
-              key={url}
-              url={url}
-            />
+          {makeVideoUrlArr(videos).map((url, index) => (
+            <LazyLoadComponent
+              key={index}
+              delayTime={800}
+              placeholder={
+                <div className={classes.lazyLoad}>
+                  <PulseLoader
+                    color="RGB(240, 5, 75)"
+                    css={"margin: auto;"}
+                    size={10}
+                  />
+                </div>
+              }
+            >
+              <ReactPlayer
+                className={classes.videPlayer}
+                playing={false}
+                controls
+                width="100%"
+                height={smallBp ? "13rem" : "40%"}
+                key={url}
+                url={url}
+              />
+            </LazyLoadComponent>
           ))}
         </Grid>
       )}

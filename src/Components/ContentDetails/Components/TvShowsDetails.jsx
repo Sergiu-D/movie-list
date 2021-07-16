@@ -19,7 +19,7 @@ export default function TvShowsDetails({ mediaData, useStyles }) {
   } = mediaData;
   return (
     <>
-      <Typography variant="h5" paragraph={true}>
+      <Typography component="h5" paragraph={true}>
         {first_air_date.slice(0, 4)} ~{" "}
         {next_episode_to_air
           ? `next episode: ${next_episode_to_air.air_date
@@ -28,16 +28,16 @@ export default function TvShowsDetails({ mediaData, useStyles }) {
               .join("/")}`
           : last_air_date.slice(0, 4)}
       </Typography>
-      <Typography variant="h5" paragraph={true}>
+      <Typography component="h5" paragraph={true}>
         Seasons: {number_of_seasons}
       </Typography>
-      <Typography variant="h5" paragraph={true}>
+      <Typography component="h5" paragraph={true}>
         Total Episodes: {number_of_episodes}
       </Typography>
-      <Typography variant="h5" paragraph={true}>
+      <Typography component="h5" paragraph={true}>
         Runtime per episode: {formatRuntime(episode_run_time[0])}
       </Typography>
-      <Typography variant="h6" className={classes.overview}>
+      <Typography component="h6" className={classes.overview}>
         {overview}
       </Typography>
     </>

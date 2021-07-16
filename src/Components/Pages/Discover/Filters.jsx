@@ -56,10 +56,7 @@ export default function Filters({ pageTitle }) {
   // );
 
   const [filtersValues, setFiltersValues] = useState({});
-  console.log(
-    "🚀 ~ file: Filters.jsx ~ line 40 ~ Filters ~ filtersValues",
-    filtersValues
-  );
+
   const url = new URLSearchParams(filtersValues);
 
   useEffect(() => {
@@ -171,8 +168,10 @@ export default function Filters({ pageTitle }) {
             onChange={handleChange}
           >
             <option aria-label="None" value="" />
-            {generateVoteAverage(10).map((vote) => (
-              <option value={vote}>{vote}</option>
+            {generateVoteAverage(10).map((vote, index) => (
+              <option key={index} value={vote}>
+                {vote}
+              </option>
             ))}
           </Select>
         </FormControl>
@@ -186,8 +185,10 @@ export default function Filters({ pageTitle }) {
             onChange={handleChange}
           >
             <option aria-label="None" value="" />
-            {generateYears(1900).map((year) => (
-              <option value={year}>{year}</option>
+            {generateYears(1900).map((year, index) => (
+              <option key={index} value={year}>
+                {year}
+              </option>
             ))}
           </Select>
         </FormControl>

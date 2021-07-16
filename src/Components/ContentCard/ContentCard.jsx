@@ -126,10 +126,6 @@ const useStyles = makeStyles((theme) => ({
 const ContentCard = ({ movie }) => {
   const classes = useStyles();
   const location = useLocation();
-  console.log(
-    "🚀 ~ file: ContentCard.jsx ~ line 129 ~ ContentCard ~ location",
-    location
-  );
 
   const { id, poster_path, vote_average, media_type } = movie;
 

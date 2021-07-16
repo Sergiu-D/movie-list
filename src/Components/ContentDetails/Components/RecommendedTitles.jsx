@@ -9,7 +9,10 @@ import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 import { GridContainerTab, GridItemTab } from "./DescriptionTabs";
 
 // Lazy img load
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import {
+  LazyLoadComponent,
+  LazyLoadImage,
+} from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 //Material-ui
@@ -55,6 +58,17 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: "100",
     },
   },
+
+  button: {
+    width: "20%",
+    padding: ".5rem 0",
+    margin: "1rem auto",
+
+    [theme.breakpoints.down("sm")]: {
+      minWidth: "100%",
+      padding: ".8rem 0",
+    },
+  },
 }));
 
 export default function RecommendedTitles(props) {
@@ -84,7 +98,7 @@ export default function RecommendedTitles(props) {
     return posterPath;
   };
 
-  const handleShowMore = (data) => {
+  const handleShowMore = () => {
     setSize((prev) => prev + 1);
   };
 
@@ -94,8 +108,6 @@ export default function RecommendedTitles(props) {
 
   const recommendedTitles = [];
   data.forEach((obj) => recommendedTitles.push(...obj.results));
-
-  const testLength = totalResults === recommendedTitles.length;
 
   return (
     <>
@@ -110,46 +122,55 @@ export default function RecommendedTitles(props) {
                 }`,
               }}
             >
-              <div className={classes.itemWrapper}>
-                {/* <CardMedia
-                  className={classes.poster}
-                  component="img"
-                  src={checkProfileImg(title.poster_path)}
-                  alt={`${title.title} profile image`}
-                /> */}
-                <LazyLoadImage
-                  className={classes.poster}
-                  height="100%"
-                  width="100px"
-                  effect="blur"
-                  alt={`${title.title} poster`}
-                  src={checkProfileImg(title.poster_path)}
-                  threshold={400}
-                />
-                <CardContent className={classes.content}>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    className={classes.paragraph}
-                  >
-                    {title.title || title.name}{" "}
-                  </Typography>
-                </CardContent>
-              </div>
+              <LazyLoadComponent
+                placeholder={
+                  <div
+                    className={classes.itemWrapper}
+                    style={{ minHeight: "171px" }}
+                  ></div>
+                }
+              >
+                <div className={classes.itemWrapper}>
+                  <LazyLoadImage
+                    className={classes.poster}
+                    height="100%"
+                    width="100px"
+                    effect="blur"
+                    alt={`${title.title} poster`}
+                    src={checkProfileImg(title.poster_path)}
+                    threshold={400}
+                  />
+                  <CardContent className={classes.content}>
+                    <Typography
+                      variant="body1"
+                      component="p"
+                      className={classes.paragraph}
+                    >
+                      {title.title || title.name}{" "}
+                    </Typography>
+                  </CardContent>
+                </div>
+              </LazyLoadComponent>
             </Link>
           </GridItemTab>
         ))}
       </GridContainerTab>
       {totalResults <= recommendedTitles.length ? (
-        <Typography variant="h4" style={{ margin: "1rem auto" }}>
-          That is it
+        <Typography
+          variant="h4"
+          style={{
+            margin: "1rem auto",
+            fontWeight: 200,
+          }}
+        >
+          {!totalResults ? "No Info" : "That's it"}
         </Typography>
       ) : (
         <Button
+          className={classes.button}
           variant="contained"
           color="primary"
-          onClick={() => handleShowMore(data)}
-          style={{ width: "20%", padding: ".5rem 0", margin: "1rem auto" }}
+          onClick={() => handleShowMore()}
         >
           Show More
         </Button>

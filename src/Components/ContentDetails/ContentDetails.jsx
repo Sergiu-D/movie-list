@@ -129,10 +129,6 @@ export default function ContentDetails() {
   if (mediaError) return <h2>Fetching media data error!</h2>;
 
   const { backdrop_path, genres } = mediaData;
-  console.log(
-    "🚀 ~ file: ContentDetails.jsx ~ line 126 ~ ContentDetails ~ mediaData",
-    mediaData
-  );
   const title = mediaData.title || mediaData.name;
 
   const modifiedMediaData = addingMediaType([mediaData], mediaType);
@@ -165,7 +161,11 @@ export default function ContentDetails() {
             className={classes.gridItem}
             style={{ minHeight: "550px" }}
           >
-            <Typography variant="h1" paragraph={true} className={classes.title}>
+            <Typography
+              component="h1"
+              paragraph={true}
+              className={classes.title}
+            >
               {title}
             </Typography>
             <WatchListBtn movie={modifiedMediaData[0]} type="large" />
@@ -194,6 +194,7 @@ export default function ContentDetails() {
 
         <Tab label="Recommended" className={classes.tab} />
       </Tabs>
+
       {tabsComponents[tabsValue]}
     </>
   );

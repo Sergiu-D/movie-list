@@ -98,7 +98,7 @@ export default function Search() {
   };
 
   const handleTabs = (event, tab) => {
-    const checkMediaType = !tab ? "movies" : "tv";
+    const checkMediaType = !tab ? "movie" : "tv";
     searchedQuery.set("media_type", checkMediaType);
 
     history.push(`search?${searchedQuery.toString()}`);
@@ -118,7 +118,7 @@ export default function Search() {
 
       <Tabs
         style={{ margin: "2rem" }}
-        value={tabsValue === "movies" ? 0 : 1}
+        value={tabsValue === "movie" ? 0 : 1}
         onChange={handleTabs}
         indicatorColor="primary"
         textColor="primary"
@@ -129,7 +129,7 @@ export default function Search() {
         <Tab label={tabComp("Tv Shows", totalTvShowsResult)} />
       </Tabs>
       {/* </div> */}
-      {mediaType === "movies" ? (
+      {mediaType === "movie" ? (
         <ContentPagination
           media={searchedMovieData}
           setSize={setMoviesSize}
