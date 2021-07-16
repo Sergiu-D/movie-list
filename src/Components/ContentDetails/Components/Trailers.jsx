@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
     aspectRatio: "16/9",
     [theme.breakpoints.down("sm")]: {
+      minWidth: "95vw",
       aspectRatio: "1/1",
     },
   },

@@ -84,6 +84,10 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTabs-flexContainer": {
       flexDirection: "row",
     },
+
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "5rem",
+    },
   },
   tab: {
     color: "white",
