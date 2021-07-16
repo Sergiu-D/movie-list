@@ -161,11 +161,7 @@ export default function ContentDetails() {
             className={classes.gridItem}
             style={{ minHeight: "550px" }}
           >
-            <Typography
-              component="h1"
-              paragraph={true}
-              className={classes.title}
-            >
+            <Typography variant="h1" paragraph={true} className={classes.title}>
               {title}
             </Typography>
             <WatchListBtn movie={modifiedMediaData[0]} type="large" />

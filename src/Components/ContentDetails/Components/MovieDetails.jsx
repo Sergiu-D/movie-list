@@ -16,13 +16,13 @@ export default function MovieDetails({ mediaData, useStyles }) {
   };
   return (
     <>
-      <Typography component="h5" paragraph={true}>
+      <Typography variant="h5" paragraph={true}>
         {reverseReleaseDate(release_date)}
       </Typography>
-      <Typography component="h5" paragraph={true}>
+      <Typography variant="h5" paragraph={true}>
         {formatRuntime(runtime)}
       </Typography>
-      <Typography component="p" paragraph={true} className={classes.overview}>
+      <Typography variant="h6" paragraph={true} className={classes.overview}>
         {overview}
       </Typography>
     </>
