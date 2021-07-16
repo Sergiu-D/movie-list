@@ -118,11 +118,17 @@ export default function ContentDetails() {
 
   if (!mediaData)
     return (
-      <PuffLoader color="RGB(240, 5, 75)" css={"margin: 0 auto;"} size={100} />
+      <div style={{ display: "flex", height: "100vh", width: "100%" }}>
+        <PuffLoader color="RGB(240, 5, 75)" css={"margin: auto;"} size={100} />
+      </div>
     );
   if (mediaError) return <h2>Fetching media data error!</h2>;
 
   const { backdrop_path, genres } = mediaData;
+  console.log(
+    "🚀 ~ file: ContentDetails.jsx ~ line 126 ~ ContentDetails ~ mediaData",
+    mediaData
+  );
   const title = mediaData.title || mediaData.name;
 
   const modifiedMediaData = addingMediaType([mediaData], mediaType);

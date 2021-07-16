@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // Components
 import Genre from "./Genre";
@@ -125,6 +125,11 @@ const useStyles = makeStyles((theme) => ({
 
 const ContentCard = ({ movie }) => {
   const classes = useStyles();
+  const location = useLocation();
+  console.log(
+    "🚀 ~ file: ContentCard.jsx ~ line 129 ~ ContentCard ~ location",
+    location
+  );
 
   const { id, poster_path, vote_average, media_type } = movie;
 
@@ -134,8 +139,6 @@ const ContentCard = ({ movie }) => {
   const movieImage = poster_path
     ? `https://image.tmdb.org/t/p/w200/${poster_path}`
     : `https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg`;
-
-  const { url } = useRouteMatch();
 
   // Creating URL path
   const normalizedTitle = title.replace(/\s/g, "+");
@@ -155,7 +158,7 @@ const ContentCard = ({ movie }) => {
         <WatchListBtn movie={movie} type="small" />
         <Link
           to={{
-            pathname: `/trending/selected`,
+            pathname: `${location.pathname}/selected`,
             search: urlPath,
           }}
         >

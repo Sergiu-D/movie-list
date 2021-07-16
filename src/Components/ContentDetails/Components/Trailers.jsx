@@ -61,7 +61,6 @@ export default function Trailers(props) {
       const youTubeURL = `https://www.youtube.com/watch?v=${video.key}`;
 
       if (ReactPlayer.canPlay(youTubeURL)) return videosURL.push([youTubeURL]);
-      // if (ReactPlayer.canPlay(youTubeURL)) return setVideosURL(youTubeURL);
     });
 
     return videosURL.slice(0, 2);
@@ -80,7 +79,6 @@ export default function Trailers(props) {
             <ReactPlayer
               className={classes.videPlayer}
               playing={false}
-              muted
               controls
               width="100%"
               height={smallBp ? "13rem" : "40%"}

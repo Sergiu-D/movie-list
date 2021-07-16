@@ -4,6 +4,9 @@ import React, { useMemo, createContext } from "react";
 import useSWR from "swr";
 import fetchingQuery, { fetcher } from "../Utils/fetchingQuery";
 
+// Spinner
+import PulseLoader from "react-spinners/PulseLoader";
+
 export const GenresContext = createContext();
 
 const GenresContextProvider = ({ children }) => {
@@ -19,7 +22,10 @@ const GenresContextProvider = ({ children }) => {
     fetcher
   );
 
-  if (!moviesGenreObj || !showsGenreObj) return <h2>Loading...</h2>;
+  if (!moviesGenreObj || !showsGenreObj)
+    return (
+      <PulseLoader color="RGB(240, 5, 75)" css={"margin: 0 auto;"} size={5} />
+    );
   if (moviesError || showsError) return <h2>Error!!!</h2>;
 
   const moviesGenres = moviesGenreObj.genres;

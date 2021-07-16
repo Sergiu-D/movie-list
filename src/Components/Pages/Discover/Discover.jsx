@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
 // Utils
 import { useSWRInfinite } from "swr";
@@ -12,44 +13,53 @@ import PageTitle from "../../PageTitle";
 
 // Spinner
 import PuffLoader from "react-spinners/PuffLoader";
-import { css } from "@emotion/react";
-
-const override = css`
-  color: white;
-  margin: auto;
-`;
 
 export default function Discover() {
   // Change document title
   document.title = "Discover";
 
   const [isMovies, setIsMovies] = useState(true);
-  // const [sorting, setSorting] = useState("popularity.desc");
-  // const [voteAverage, setVoteAverage] = useState(10);
-  // const [yearFilter, setYearFilter] = useState([]);
-  // const [genresIds, setGenresIds] = useState([]);
 
-  const refContainer = useRef([]);
+  const location = useLocation().search;
+  // console.log(
+  //   "🚀 ~ file: Discover.jsx ~ line 30 ~ Discover ~ location",
+  //   location
+  // );
+  const searchQuery = new URLSearchParams(location);
+  console.log(
+    "🚀 ~ file: Discover.jsx ~ line 29 ~ Discover ~ searchQuery",
+    searchQuery.toString()
+  );
+  const mediaType = searchQuery.get("media_type") || "movie";
+  // console.log(
+  //   "🚀 ~ file: Discover.jsx ~ line 30 ~ Discover ~ mediaType",
+  //   mediaType
+  // );
 
-  const selectGenres = (genres) => {
-    const gen = [];
-    genres.map((genre) => gen.push(genre.id));
+  // const sortBy = searchQuery.get("sort_by") || "popularity.desc";
 
-    return gen.join(",");
+  // const voteAverage = searchQuery.get("vote_average") || "";
+  // const year = searchQuery.get("year") || "";
+
+  const filterParams = {
+    mediaType: searchQuery.get("media_type"),
+    sortBy: searchQuery.get("sort_by"),
+    voteAverage: searchQuery.get("vote_average") || "",
+    year: searchQuery.get("year") || "",
   };
 
   // Fetching data
 
   let mediaQuery, filterQuery;
 
-  if (isMovies) {
+  if (mediaType === "movie") {
     mediaQuery = `discover/movie`;
-    filterQuery = `sort_by=popularity.desc&vote_average.lte=&include_adult=false&year=&primary_release_year=&with_genres=`;
+    filterQuery = `sort_by=${filterParams.sortBy}&vote_average.lte=${filterParams.voteAverage}&include_adult=false&year=${filterParams.year}&primary_release_year=&with_genres=`;
   }
 
-  if (!isMovies) {
+  if (mediaType === "tv") {
     mediaQuery = `discover/tv`;
-    filterQuery = `sort_by=popularity.desc&vote_average.lte=&include_adult=false&first_air_date_year=&primary_release_year=&with_genres=`;
+    filterQuery = `sort_by=${filterParams.sortBy}&vote_average.lte=${filterParams.voteAverage}&include_adult=false&first_air_date_year=${filterParams.year}&primary_release_year=&with_genres=`;
   }
 
   const { data, error, setSize } = useSWRInfinite(
@@ -59,7 +69,9 @@ export default function Discover() {
 
   // Error handle
   if (!data)
-    return <PuffLoader color="RGB(240, 5, 75)" css={override} size={100} />;
+    return (
+      <PuffLoader color="RGB(240, 5, 75)" css={"margin: 0 auto;"} size={100} />
+    );
   if (error) return <h1 style={{ margin: "auto", color: "red" }}>Error!</h1>;
 
   // Mutate data API, injecting "media type"
@@ -67,13 +79,13 @@ export default function Discover() {
   const movies = [];
   const tvShows = [];
 
-  if (isMovies) {
+  if (mediaType === "movie") {
     data.forEach((element) => {
       movies.push(...addingMediaType(element.results, "movie"));
     });
   }
 
-  if (!isMovies) {
+  if (mediaType === "tv") {
     data.forEach((element) => {
       tvShows.push(...addingMediaType(element.results, "tv"));
     });
@@ -81,22 +93,8 @@ export default function Discover() {
 
   return (
     <>
-      <PageTitle pageTitle="Discover" />
-      {/* <Filters
-        isMovies={isMovies}
-        // setIsMovies={setIsMovies}
-        // sorting={sorting}
-        // setSorting={setSorting}
-        // voteAverage={voteAverage}
-        // setVoteAverage={setVoteAverage}
-        // yearFilter={yearFilter}
-        // setYearFilter={setYearFilter}
-        // genreIds={genresIds}
-        // setGenresIds={setGenresIds}
-        // refContainer={refContainer}
-      /> */}
       <ContentPagination
-        media={isMovies ? movies : tvShows}
+        media={mediaType === "movie" ? movies : tvShows}
         setSize={setSize}
         totalResults={data[0].total_results}
       />
