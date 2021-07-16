@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
 // Components
 import PageTitle from "../../PageTitle";
@@ -23,15 +24,18 @@ export default function Filters({ pageTitle }) {
   const classes = useStyles();
   const history = useHistory();
 
+  // Default values if history search query is empty
   const defaultParams = {
     media_type: "movie",
     sort_by: "vote_count.desc",
   };
 
+  // Check history search query
   const searchQuery = !history.location.search
     ? defaultParams
     : history.location.search;
 
+  // Set state with previous search query
   useEffect(() => {
     const urlQuery = new URLSearchParams(searchQuery);
 
@@ -40,66 +44,48 @@ export default function Filters({ pageTitle }) {
     }
   }, []);
 
-  // const getParams = (url) => {
-  //   const params = [];
-
-  //   for (let param of url.entries()) {
-  //     params.push({ ...params, [param[0]]: param[1] });
-  //   }
-
-  //   return params;
-  // };
-
-  // console.log(
-  //   "🚀 ~ file: Filters.jsx ~ line 37 ~ Filters ~ ...getParams(url)",
-  //   ...getParams(url)
-  // );
-
   const [filtersValues, setFiltersValues] = useState({});
 
-  const url = new URLSearchParams(filtersValues);
+  // Function to remove empty queries
+  const removingEmptySearchQuery = (obj) => {
+    for (let propName in obj) {
+      if (
+        obj[propName] === "" ||
+        obj[propName] === null ||
+        obj[propName] === undefined
+      ) {
+        delete obj[propName];
+      }
+    }
+    return obj;
+  };
+
+  // Push URL to stack
+  const url = new URLSearchParams(removingEmptySearchQuery(filtersValues));
 
   useEffect(() => {
-    history.push(`/discover?${url.toString()}`);
+    history.push({
+      pathname: `discover`,
+      search: `?${url.toString()}`,
+      state: { ...filtersValues },
+    });
   }, [filtersValues]);
 
   const params = [{ media_type: "movie" }];
 
+  // Function that sets the state with selected values
   const handleChange = (event) => {
     event.preventDefault();
     const key = event.target.id;
     const value = event.target.value;
 
-    // url.set({ [key]: value });
-
-    // const url = new URLSearchParams(filtersValues);
-
-    // console.log(
-    //   "🚀 ~ file: Filters.jsx ~ line 63 ~ handleChange ~ url.toString()",
-    //   url.toString()
-    // );
-    // history.push(`/discover?${url.toString()}`);
-
-    // const url = new URLSearchParams({
-
-    //   media_type: "movie",
-    //   [key]: value,
-    // });
-
     setFiltersValues((prev) => ({
       ...prev,
       [key]: value,
     }));
-
-    // url.set(key, value);
-    // console.log(
-    //   "🚀 ~ file: Filters.jsx ~ line 43 ~ handleChange ~ url",
-    //   url.toString()
-    // );
-
-    // history.push(`/discover?${url.toString()}`, { ...filtersValues });
   };
 
+  // Function that generates vote averages
   const generateVoteAverage = (from) => {
     const voteAverage = [];
 
@@ -110,6 +96,7 @@ export default function Filters({ pageTitle }) {
     return voteAverage;
   };
 
+  // Function that generates years
   const generateYears = (from) => {
     const years = [];
     const currentYear = new Date().getFullYear();
@@ -133,7 +120,6 @@ export default function Filters({ pageTitle }) {
             value={filtersValues.media_type}
             onChange={handleChange}
           >
-            <option aria-label="None" value="" />
             <option value="movie">Movies</option>
             <option value="tv">Tv Shows</option>
           </Select>
@@ -147,7 +133,6 @@ export default function Filters({ pageTitle }) {
             value={filtersValues.sort_by}
             onChange={handleChange}
           >
-            <option aria-label="None" value="" />
             <option value="popularity.desc">Popularity High</option>
             <option value="popularity.asc">Popularity Low</option>
             <option value="release_date.desc">Release Date Newer</option>
@@ -167,7 +152,8 @@ export default function Filters({ pageTitle }) {
             value={filtersValues.vote_average}
             onChange={handleChange}
           >
-            <option aria-label="None" value="" />
+            <option aria-label="None" disabled />
+            <option label="All" value="" />
             {generateVoteAverage(10).map((vote, index) => (
               <option key={index} value={vote}>
                 {vote}
@@ -184,7 +170,8 @@ export default function Filters({ pageTitle }) {
             value={filtersValues.year}
             onChange={handleChange}
           >
-            <option aria-label="None" value="" />
+            <option aria-label="None" disabled />
+            <option label="All" value="" />
             {generateYears(1900).map((year, index) => (
               <option key={index} value={year}>
                 {year}

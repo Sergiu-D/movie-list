@@ -23,8 +23,8 @@ export default function Discover() {
   const searchQuery = new URLSearchParams(location);
 
   const filterParams = {
-    mediaType: searchQuery.get("media_type"),
-    sortBy: searchQuery.get("sort_by"),
+    mediaType: searchQuery.get("media_type") || "movie",
+    sortBy: searchQuery.get("sort_by") || "vote_count.desc",
     voteAverage: searchQuery.get("vote_average") || "",
     year: searchQuery.get("year") || "",
   };

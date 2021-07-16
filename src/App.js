@@ -107,7 +107,7 @@ function App() {
                 <Route
                   exact
                   path={[
-                    "/search/:type/:id/:title",
+                    "/search/selected",
                     "/trending/selected",
                     "/newest/selected",
                     "/upcoming/selected",
