@@ -35,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     backgroundColor: "hsla(0, 100%, 100%,.08)",
     padding: ".5rem 1rem",
+    cursor: "pointer",
+
+    "&:hover": {
+      backgroundColor: "hsla(0, 100%, 100%,.15)",
+    },
   },
   content: {
     alignSelf: "center",
