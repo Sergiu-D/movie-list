@@ -24,6 +24,24 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 150,
     margin: "2rem 0",
   },
+
+  selectInputsLabels: {
+    color: "hsla(0,100%,100%,.6)",
+    fontWeight: 800,
+  },
+
+  selectInputs: {
+    color: "white",
+    borderBottom: "1px solid white",
+
+    "& .MuiSelect-icon": {
+      fill: "white",
+    },
+
+    "& .MuiSelect-select:focus": {
+      color: "black",
+    },
+  },
 }));
 
 export default function Filters({ pageTitle }) {
@@ -34,7 +52,6 @@ export default function Filters({ pageTitle }) {
   const defaultParams = {
     media_type: "movie",
     sort_by: "vote_count.desc",
-    genres: new Array(),
   };
 
   // Check history search query
@@ -152,11 +169,18 @@ export default function Filters({ pageTitle }) {
     <>
       <div className={classes.wrapper}>
         <FormControl className={classes.formControl}>
-          <InputLabel id="media_type-select">Media Type</InputLabel>
+          <InputLabel
+            id="media_type-select"
+            className={classes.selectInputsLabels}
+          >
+            Media Type
+          </InputLabel>
           <Select
             labelId="media_type-select"
             id="media_type"
+            className={classes.selectInputs}
             native
+            className={classes.selectInputs}
             value={filtersValues.media_type}
             onChange={handleChange}
           >
@@ -165,11 +189,17 @@ export default function Filters({ pageTitle }) {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-          <InputLabel id="sort_by-select">Sort By</InputLabel>
+          <InputLabel
+            className={classes.selectInputsLabels}
+            id="sort_by-select"
+          >
+            Sort By
+          </InputLabel>
           <Select
             labelId="sort_by-select"
             id="sort_by"
             native
+            className={classes.selectInputs}
             value={filtersValues.sort_by}
             onChange={handleChange}
           >
@@ -184,11 +214,17 @@ export default function Filters({ pageTitle }) {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-          <InputLabel id="vote_average-select">Vote Average</InputLabel>
+          <InputLabel
+            className={classes.selectInputsLabels}
+            id="vote_average-select"
+          >
+            Vote Average
+          </InputLabel>
           <Select
             labelId="vote_average-select"
             id="vote_average"
             native
+            className={classes.selectInputs}
             value={filtersValues.vote_average}
             onChange={handleChange}
           >
@@ -202,11 +238,14 @@ export default function Filters({ pageTitle }) {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-          <InputLabel id="year-select">Year</InputLabel>
+          <InputLabel className={classes.selectInputsLabels} id="year-select">
+            Year
+          </InputLabel>
           <Select
             labelId="year-select"
             id="year"
             native
+            className={classes.selectInputs}
             value={filtersValues.year}
             onChange={handleChange}
           >
@@ -220,11 +259,14 @@ export default function Filters({ pageTitle }) {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-          <InputLabel id="genres-select">Genres</InputLabel>
+          <InputLabel className={classes.selectInputsLabels} id="genres-select">
+            Genres
+          </InputLabel>
           <Select
             labelId="genres-select"
             id="genres"
             multiple
+            className={classes.selectInputs}
             input={<Input />}
             MenuProps={MenuProps}
             value={genres}
