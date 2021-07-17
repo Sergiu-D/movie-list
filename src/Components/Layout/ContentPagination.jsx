@@ -10,8 +10,6 @@ import { BackToTopBtn } from "../Buttons";
 // Spinner
 import PulseLoader from "react-spinners/PulseLoader";
 
-// TODO add "back to top button"
-
 export default function ContentPagination({ media, setSize, totalResults }) {
   const handleFetchMovies = () => setSize((prev) => prev + 2);
 

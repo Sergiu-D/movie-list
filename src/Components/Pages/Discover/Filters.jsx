@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 
-// Components
-import PageTitle from "../../PageTitle";
+//Context
+import { GenresContext } from "../../../Context/GenresContext";
 
 // Material Ui
-import { makeStyles, Select, InputLabel, FormControl } from "@material-ui/core";
+import {
+  makeStyles,
+  Select,
+  InputLabel,
+  FormControl,
+  MenuItem,
+  Input,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -28,6 +34,7 @@ export default function Filters({ pageTitle }) {
   const defaultParams = {
     media_type: "movie",
     sort_by: "vote_count.desc",
+    genres: [0],
   };
 
   // Check history search query
@@ -40,11 +47,17 @@ export default function Filters({ pageTitle }) {
     const urlQuery = new URLSearchParams(searchQuery);
 
     for (let param of urlQuery.entries()) {
-      setFiltersValues((prev) => ({ ...prev, [param[0]]: param[1] }));
+      const key = param[0];
+      const value = param[1];
+
+      setFiltersValues((prev) => ({ ...prev, [key]: value }));
+
+      if (key === "genres")
+        setFiltersValues((prev) => ({ ...prev, [key]: [parseInt(value)] }));
     }
   }, []);
 
-  const [filtersValues, setFiltersValues] = useState({});
+  const [filtersValues, setFiltersValues] = useState(defaultParams);
 
   // Function to remove empty queries
   const removingEmptySearchQuery = (obj) => {
@@ -52,7 +65,8 @@ export default function Filters({ pageTitle }) {
       if (
         obj[propName] === "" ||
         obj[propName] === null ||
-        obj[propName] === undefined
+        obj[propName] === undefined ||
+        obj[propName].length === 0
       ) {
         delete obj[propName];
       }
@@ -71,11 +85,8 @@ export default function Filters({ pageTitle }) {
     });
   }, [filtersValues]);
 
-  const params = [{ media_type: "movie" }];
-
   // Function that sets the state with selected values
   const handleChange = (event) => {
-    event.preventDefault();
     const key = event.target.id;
     const value = event.target.value;
 
@@ -85,6 +96,37 @@ export default function Filters({ pageTitle }) {
     }));
   };
 
+  // Get genres data from context
+  const { moviesGenres, showsGenres } = useContext(GenresContext);
+
+  const getGenres =
+    filtersValues.media_type === "movie" ? moviesGenres : showsGenres;
+
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: "25%",
+        width: 250,
+      },
+    },
+  };
+
+  const handleMultipleSelections = (event) => {
+    // const { options } = event.target;
+
+    const value = event.target.value[1];
+
+    // for (let i = 0, l = options.length; i < l; i += 1) {
+    //   if (options[i].selected) {
+    //     value.push(options[i].value);
+    //   }
+    // }
+    setFiltersValues((prev) => ({
+      ...prev,
+      genres: [value],
+    }));
+  };
+  console.log("Filter values genre ", filtersValues.genres);
   // Function that generates vote averages
   const generateVoteAverage = (from) => {
     const voteAverage = [];
@@ -109,7 +151,6 @@ export default function Filters({ pageTitle }) {
   };
   return (
     <>
-      <PageTitle pageTitle="Discover" />
       <div className={classes.wrapper}>
         <FormControl className={classes.formControl}>
           <InputLabel id="media_type-select">Media Type</InputLabel>
@@ -153,7 +194,7 @@ export default function Filters({ pageTitle }) {
             onChange={handleChange}
           >
             <option aria-label="None" />
-            <option label="All" value="" />
+            <option label="All" value={0} />
             {generateVoteAverage(10).map((vote, index) => (
               <option key={index} value={vote}>
                 {vote}
@@ -176,6 +217,28 @@ export default function Filters({ pageTitle }) {
               <option key={index} value={year}>
                 {year}
               </option>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <InputLabel id="genres-select">Genres</InputLabel>
+          <Select
+            labelId="genres-select"
+            id="genres"
+            multiple
+            input={<Input />}
+            MenuProps={MenuProps}
+            value={filtersValues.genres}
+            onChange={handleMultipleSelections}
+          >
+            <MenuItem aria-label="None" value="">
+              {" "}
+            </MenuItem>
+            <MenuItem value="all">All</MenuItem>
+            {getGenres.map((genre) => (
+              <MenuItem key={genre.id} value={genre.id}>
+                {genre.name}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
