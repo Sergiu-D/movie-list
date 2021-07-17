@@ -26,26 +26,21 @@ export default function DiscoverFetcher() {
     sortBy: searchQuery.get("sort_by") || "vote_count.desc",
     voteAverage: searchQuery.get("vote_average") || "",
     year: searchQuery.get("year") || "",
-    genres: searchQuery.get("genres") === "all" && "",
+    genres: searchQuery.get("genres") || "",
   };
 
-  console.log(!filterParams.genres);
   // Fetching data
 
   let mediaQuery, filterQuery;
 
   if (filterParams.mediaType === "movie") {
     mediaQuery = `discover/movie`;
-    filterQuery = `sort_by=${filterParams.sortBy}&vote_average.lte=${
-      filterParams.voteAverage
-    }&include_adult=false&year=&primary_release_year=${
-      filterParams.year
-    }&with_genres=${!filterParams.genres ? "" : filterParams.genres}`;
+    filterQuery = `sort_by=${filterParams.sortBy}&vote_average.lte=${filterParams.voteAverage}&include_adult=false&year=&primary_release_year=${filterParams.year}&with_genres=${filterParams.genres}`;
   }
 
   if (filterParams.mediaType === "tv") {
     mediaQuery = `discover/tv`;
-    filterQuery = `sort_by=${filterParams.sortBy}&vote_average.lte=${filterParams.voteAverage}&include_adult=false&first_air_date_year=${filterParams.year}&primary_release_year=&with_genres=`;
+    filterQuery = `sort_by=${filterParams.sortBy}&vote_average.lte=${filterParams.voteAverage}&include_adult=false&first_air_date_year=${filterParams.year}&primary_release_year=&with_genres=${filterParams.genres}`;
   }
 
   const { data, error, setSize } = useSWRInfinite(

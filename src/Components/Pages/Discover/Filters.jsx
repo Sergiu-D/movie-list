@@ -34,7 +34,7 @@ export default function Filters({ pageTitle }) {
   const defaultParams = {
     media_type: "movie",
     sort_by: "vote_count.desc",
-    genres: [0],
+    genres: new Array(),
   };
 
   // Check history search query
@@ -51,13 +51,12 @@ export default function Filters({ pageTitle }) {
       const value = param[1];
 
       setFiltersValues((prev) => ({ ...prev, [key]: value }));
-
-      if (key === "genres")
-        setFiltersValues((prev) => ({ ...prev, [key]: [parseInt(value)] }));
+      if (key === "genres") setGenres(value.split(",").map((i) => +i));
     }
   }, []);
 
   const [filtersValues, setFiltersValues] = useState(defaultParams);
+  const [genres, setGenres] = useState([]);
 
   // Function to remove empty queries
   const removingEmptySearchQuery = (obj) => {
@@ -75,15 +74,22 @@ export default function Filters({ pageTitle }) {
   };
 
   // Push URL to stack
-  const url = new URLSearchParams(removingEmptySearchQuery(filtersValues));
+  const filtersQuery = { ...filtersValues, genres: genres };
+  const url = new URLSearchParams(removingEmptySearchQuery(filtersQuery));
 
   useEffect(() => {
     history.push({
       pathname: `discover`,
       search: `?${url.toString()}`,
-      state: { ...filtersValues },
     });
-  }, [filtersValues]);
+  }, [filtersValues, genres]);
+
+  // useEffect(() => {
+  //   history.push({
+  //     pathname: `discover`,
+  //     search: `?${urlGenres.toString()}`,
+  //   });
+  // }, [genres]);
 
   // Function that sets the state with selected values
   const handleChange = (event) => {
@@ -112,21 +118,14 @@ export default function Filters({ pageTitle }) {
   };
 
   const handleMultipleSelections = (event) => {
-    // const { options } = event.target;
+    const reset = event.target.value.some((num) => num === "all");
+    if (reset) return setGenres([]);
 
-    const value = event.target.value[1];
+    const values = Array.isArray(event.target.value) ? event.target.value : [];
 
-    // for (let i = 0, l = options.length; i < l; i += 1) {
-    //   if (options[i].selected) {
-    //     value.push(options[i].value);
-    //   }
-    // }
-    setFiltersValues((prev) => ({
-      ...prev,
-      genres: [value],
-    }));
+    setGenres(values);
   };
-  console.log("Filter values genre ", filtersValues.genres);
+
   // Function that generates vote averages
   const generateVoteAverage = (from) => {
     const voteAverage = [];
@@ -228,7 +227,7 @@ export default function Filters({ pageTitle }) {
             multiple
             input={<Input />}
             MenuProps={MenuProps}
-            value={filtersValues.genres}
+            value={genres}
             onChange={handleMultipleSelections}
           >
             <MenuItem aria-label="None" value="">
