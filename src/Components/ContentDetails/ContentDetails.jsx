@@ -132,10 +132,6 @@ export default function ContentDetails() {
     );
   if (mediaError) return <h2>Fetching media data error!</h2>;
 
-  console.log(
-    "🚀 ~ file: ContentDetails.jsx ~ line 119 ~ ContentDetails ~ mediaData",
-    mediaData
-  );
   const { backdrop_path, genres, spoken_languages } = mediaData;
   const title = mediaData.title || mediaData.name;
 

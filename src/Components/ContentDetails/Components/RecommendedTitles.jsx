@@ -90,10 +90,6 @@ export default function RecommendedTitles(props) {
   if (!data) return <h3>Loading...</h3>;
   if (error) return <h3>Error!</h3>;
 
-  console.log(
-    "🚀 ~ file: RecommendedTitles.jsx ~ line 86 ~ RecommendedTitles ~ data",
-    data
-  );
   const checkProfileImg = (poster_path) => {
     const posterPath = poster_path
       ? `https://image.tmdb.org/t/p/original${poster_path}`
