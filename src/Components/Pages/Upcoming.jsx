@@ -2,12 +2,13 @@ import React from "react";
 
 // Components
 import ContentPagination from "../Layout/ContentPagination";
-import addingMediaType from "../../Utils/addingMediaType";
+
 import PageTitle from "../PageTitle";
 
 // Utils
 import { useSWRInfinite } from "swr";
 import fetchingQuery, { fetcher } from "../../Utils/fetchingQuery";
+import addingMediaType from "../../Utils/addingMediaType";
 
 // Spinner
 import PuffLoader from "react-spinners/PuffLoader";
@@ -33,7 +34,7 @@ export default function Upcoming() {
     size,
     setSize,
   } = useSWRInfinite(
-    (index) => `${fetchingQuery(moviesQuery)}&page=${index + 1}`,
+    (index) => `${fetchingQuery(moviesQuery)}&region=US&page=${index + 1}`,
     fetcher
   );
 
@@ -42,31 +43,37 @@ export default function Upcoming() {
   if (moviesError)
     return <h1 style={{ margin: "auto", color: "red" }}>Error!</h1>;
 
-  function filteringDates() {
-    const newMovies = [];
+  const totalResults = moviesData[0].total_results;
+  // function filteringDates() {
+  //   const newMovies = [];
 
-    const minimumDateMovie = Date.parse(moviesData[0].dates.minimum);
+  //   // const minimumDateMovie = Date.parse(moviesData[0].dates.minimum);
 
-    moviesData.forEach((obj) =>
-      obj.results.forEach(
-        (movie) =>
-          minimumDateMovie < Date.parse(movie.release_date) &&
-          newMovies.push(movie)
-      )
-    );
+  //   moviesData.forEach((obj) =>
+  //     obj.results.forEach(
+  //       (movie) =>
+  //         minimumDateMovie < Date.parse(movie.release_date) &&
+  //         newMovies.push(movie)
+  //     )
+  //   );
 
-    if (size < 15) return setSize((prev) => prev + 1);
+  //   if (size < 15) return setSize((prev) => prev + 1);
 
-    return newMovies;
-  }
+  //   return newMovies;
+  // }
+  const movies = [];
+
+  moviesData.forEach((element) =>
+    movies.push(...addingMediaType(element.results, "movie"))
+  );
 
   return (
     <div>
       <PageTitle pageTitle="Upcoming" />
       <ContentPagination
-        media={filteringDates()}
+        media={movies}
         setSize={setSize}
-        isValidating={isValidating}
+        totalResults={totalResults}
       />
     </div>
   );

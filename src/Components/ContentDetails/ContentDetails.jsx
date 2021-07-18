@@ -64,6 +64,10 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "center",
     },
   },
+
+  proprietySpan: {
+    fontWeight: 200,
+  },
   overview: {
     minHeight: "7rem",
     marginTop: "auto",
@@ -128,7 +132,11 @@ export default function ContentDetails() {
     );
   if (mediaError) return <h2>Fetching media data error!</h2>;
 
-  const { backdrop_path, genres } = mediaData;
+  console.log(
+    "🚀 ~ file: ContentDetails.jsx ~ line 119 ~ ContentDetails ~ mediaData",
+    mediaData
+  );
+  const { backdrop_path, genres, spoken_languages } = mediaData;
   const title = mediaData.title || mediaData.name;
 
   const modifiedMediaData = addingMediaType([mediaData], mediaType);
@@ -168,6 +176,15 @@ export default function ContentDetails() {
 
             <Typography variant="overline" className={classes.genres}>
               {genres.map((genre) => `${genre.name}  `)}
+            </Typography>
+            <Typography variant="h5" paragraph>
+              Language:{" "}
+              <span className={classes.proprietySpan}>
+                {" "}
+                {spoken_languages.length
+                  ? mediaData.spoken_languages[0].english_name
+                  : "No info"}
+              </span>
             </Typography>
 
             {mediaType === "movie" ? (
