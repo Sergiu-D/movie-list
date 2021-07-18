@@ -8,21 +8,35 @@ import { Typography } from "@material-ui/core";
 
 export default function MovieDetails({ mediaData, useStyles }) {
   const classes = useStyles();
-  const { release_date, runtime, overview } = mediaData;
+  const { release_date, status, runtime, overview } = mediaData;
+
+  const movieStatus = status.toLowerCase() === "released" ? "" : status;
 
   const reverseReleaseDate = (date) => {
-    const reversedDate = date.split("-").slice(0, 1).reverse().join(" ");
+    const reversedDate = date.split("-").reverse().join(".");
     return reversedDate;
   };
   return (
     <>
-      <Typography variant="h5" paragraph={true}>
-        {reverseReleaseDate(release_date)}
+      {movieStatus && (
+        <Typography variant="h5" paragraph className={classes.propriety}>
+          Status: <span className={classes.proprietySpan}> {movieStatus}</span>
+        </Typography>
+      )}
+
+      <Typography variant="h5" paragraph className={classes.propriety}>
+        Release date:{" "}
+        <span className={classes.proprietySpan}>
+          {" "}
+          {reverseReleaseDate(release_date) || "TBA"}
+        </span>
       </Typography>
-      <Typography variant="h5" paragraph={true}>
-        {formatRuntime(runtime)}
+
+      <Typography variant="h5" paragraph className={classes.propriety}>
+        Runtime:{" "}
+        <span className={classes.proprietySpan}> {formatRuntime(runtime)}</span>
       </Typography>
-      <Typography variant="h6" paragraph={true} className={classes.overview}>
+      <Typography variant="h6" paragraph className={classes.overview}>
         {overview}
       </Typography>
     </>
