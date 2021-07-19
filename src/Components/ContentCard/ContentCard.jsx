@@ -141,14 +141,6 @@ const ContentCard = ({ movie }) => {
   const normalizedTitle = title.replace(/\s/g, "+");
   const urlPath = `?media_type=${media_type}&id=${id}&name=${normalizedTitle}`;
 
-  // Adding color to score
-  // function scoreBg(score) {
-  //   if (score < 1) return "white";
-  //   if (score >= 8) return "green";
-  //   if (score > 5) return "orange";
-  //   if (score <= 5) return "red";
-  // }
-
   return (
     <>
       <Card className={classes.root}>
@@ -161,16 +153,6 @@ const ContentCard = ({ movie }) => {
         >
           <CardActionArea className={classes.cardActionArea}>
             <AverageVote vote_average={vote_average} />
-            {/* <Paper
-              className={classes.score}
-              style={{
-                borderColor: `${scoreBg(vote_average)}`,
-              }}
-            >
-              <Typography variant="caption" className={classes.scoreFont}>
-                {vote_average < 1 ? "N/A" : vote_average}
-              </Typography>
-            </Paper> */}
             <LazyLoadImage
               className={classes.img}
               height="100%"
