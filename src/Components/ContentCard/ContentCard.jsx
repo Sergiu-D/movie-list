@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 // Components
+import AverageVote from "./AverageVote";
 import Genre from "./Genre";
 import { WatchListBtn } from "../Buttons";
 
@@ -141,12 +142,12 @@ const ContentCard = ({ movie }) => {
   const urlPath = `?media_type=${media_type}&id=${id}&name=${normalizedTitle}`;
 
   // Adding color to score
-  function scoreBg(score) {
-    if (score < 1) return "white";
-    if (score >= 8) return "green";
-    if (score > 5) return "orange";
-    if (score <= 5) return "red";
-  }
+  // function scoreBg(score) {
+  //   if (score < 1) return "white";
+  //   if (score >= 8) return "green";
+  //   if (score > 5) return "orange";
+  //   if (score <= 5) return "red";
+  // }
 
   return (
     <>
@@ -159,7 +160,8 @@ const ContentCard = ({ movie }) => {
           }}
         >
           <CardActionArea className={classes.cardActionArea}>
-            <Paper
+            <AverageVote vote_average={vote_average} />
+            {/* <Paper
               className={classes.score}
               style={{
                 borderColor: `${scoreBg(vote_average)}`,
@@ -168,7 +170,7 @@ const ContentCard = ({ movie }) => {
               <Typography variant="caption" className={classes.scoreFont}>
                 {vote_average < 1 ? "N/A" : vote_average}
               </Typography>
-            </Paper>
+            </Paper> */}
             <LazyLoadImage
               className={classes.img}
               height="100%"
@@ -178,7 +180,6 @@ const ContentCard = ({ movie }) => {
               src={movieImage}
               threshold={400}
             />
-
             <CardContent className={classes.cardContent}>
               <Typography variant="h5" className={classes.title}>
                 {title}

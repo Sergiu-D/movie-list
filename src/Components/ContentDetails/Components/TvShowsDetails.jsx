@@ -24,7 +24,6 @@ export default function TvShowsDetails({ mediaData, useStyles }) {
   const showsStatus =
     status.toLowerCase() === "returning series" ? "On Air" : status;
 
-  console.log("show status ", showsStatus === "In Production");
   return (
     <>
       <Typography variant="h5" paragraph>

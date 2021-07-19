@@ -63,13 +63,11 @@ export default function ContentList(props) {
         data={movies}
         sectionTitle={"Movies"}
         setShowMore={setMoviesSeize}
-        // getShowMore={getShowMore}
       />
       <ContentListLayout
         data={shows}
         sectionTitle={"Tv Shows"}
         setShowMore={setShowsSize}
-        // getShowMore={getShowMore}
       />
     </>
   );
