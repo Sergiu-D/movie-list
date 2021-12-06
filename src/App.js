@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   HashRouter as Router,
   Route,
   Switch,
   Redirect,
 } from "react-router-dom";
+
+// Utils
+import useSWR from "swr";
+import { fetcher } from "./Utils/fetchingQuery";
 
 // Material-Ui
 
@@ -35,22 +39,16 @@ import WatchListContextProvider from "./Context/WatchListContext";
 
 let theme = createMuiTheme({
   typography: {
-    // Tell Material-UI what's the font-size on the html element is.
     htmlFontSize: 20,
   },
 });
 theme = responsiveFontSizes(theme);
 
-// theme.typography.h5 = {
-//   [theme.breakpoints.down("md")]: {
-//     fontSize: "1rem",
-//   },
-//   [theme.breakpoints.down("sm")]: {
-//     fontSize: ".8rem",
-//   },
-// };
-
 function App() {
+  const { data, error } = useSWR(` https://ip.nf/me.json`, fetcher);
+  if (!data) return <h1>Loading...</h1>;
+  if (error) return <h1>Error!!!</h1>;
+
   return (
     <div
       className="App"
@@ -64,7 +62,6 @@ function App() {
         position="top-center"
         autoClose={2500}
         hideProgressBar={false}
-        // newestOnTop={}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss

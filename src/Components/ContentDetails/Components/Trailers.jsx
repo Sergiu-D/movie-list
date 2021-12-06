@@ -48,7 +48,6 @@ export default function Trailers(props) {
   const classes = useStyles();
 
   // Media query
-  const mediumBp = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const smallBp = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   // Fetching media videos

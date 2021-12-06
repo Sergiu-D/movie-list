@@ -8,14 +8,7 @@ import fetchingQuery, { fetcher } from "../../../Utils/fetchingQuery";
 import { GridContainerTab, GridItemTab } from "./DescriptionTabs";
 
 //Material-ui
-import {
-  makeStyles,
-  useMediaQuery,
-  Typography,
-  Card,
-  CardMedia,
-  CardContent,
-} from "@material-ui/core";
+import { makeStyles, Typography, CardContent } from "@material-ui/core";
 
 // Lazy load
 import {

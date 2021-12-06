@@ -36,15 +36,12 @@ export default function ContentListLayout(props) {
 
   const { data, sectionTitle, setShowMore } = props;
 
-  const [numberOfTitles, setNumberOfTitles] = React.useState(6);
-
   const handleBtn = () => {
     setShowMore((prev) => prev + 1);
   };
 
   return (
     <section className={classes.container}>
-      {/* TODO change h1 to typography */}
       <h1 style={{ fontSize: "3rem", fontWeight: 200, margin: "2rem auto" }}>
         {sectionTitle}
       </h1>
@@ -58,7 +55,6 @@ export default function ContentListLayout(props) {
           );
         })}
       </GridContainer>
-      {/* TODO make btn responsive */}
       {data.length >= 100 ? (
         <h3 style={{ margin: "2rem auto" }}>That is it!</h3>
       ) : (
@@ -72,10 +68,6 @@ export default function ContentListLayout(props) {
           Show More
         </Button>
       )}
-      {/* <Divider
-        style={{ backgroundColor: "hsla(0, 100%, 100%, .3)" }}
-        variant="middle"
-      /> */}
     </section>
   );
 }

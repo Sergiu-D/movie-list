@@ -3,11 +3,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 
 // Material-Ui
-import { Button, makeStyles, Input } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-// import { Label } from "@material-ui/icons";
-// import blue from "@material-ui/core/colors/blue";
 
 // Styles
 

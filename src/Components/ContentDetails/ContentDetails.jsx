@@ -17,14 +17,7 @@ import TvShowsDetails from "./Components/TvShowsDetails";
 import MovieDetails from "./Components/MovieDetails";
 
 //Material-ui
-import {
-  makeStyles,
-  Typography,
-  Grid,
-  Tabs,
-  Tab,
-  CircularProgress,
-} from "@material-ui/core";
+import { makeStyles, Typography, Grid, Tabs, Tab } from "@material-ui/core";
 
 // Spinner
 import PuffLoader from "react-spinners/PuffLoader";
@@ -80,9 +73,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "auto",
     marginRight: "2rem",
     lineHeight: 2,
-    // columnCount: 2,
-    // columnFill: "auto",
-    // columnGap: "5ch",
 
     [theme.breakpoints.down("md")]: {
       columnCount: 1,
@@ -139,7 +129,7 @@ export default function ContentDetails() {
     );
   if (mediaError) return <h2>Fetching media data error!</h2>;
 
-  const { backdrop_path, genres, spoken_languages, vote_average } = mediaData;
+  const { backdrop_path, genres, spoken_languages } = mediaData;
 
   const title = mediaData.title || mediaData.name;
 

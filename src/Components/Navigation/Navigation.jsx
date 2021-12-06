@@ -38,16 +38,11 @@ const useStyles = makeStyles((theme) => ({
     transition: "opacity .2s ease-in-out",
 
     zIndex: 20000,
-    // [theme.breakpoints.down("sm")]: {
-    //   top: "50%",
-    //   left: "-15px",
-    //   borderRadius: "15px 15px",
-    // },
   },
 
   drawerPaper: {
     width: "357px",
-    // minHeight: "100vh",
+    minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
 

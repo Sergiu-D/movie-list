@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // Utils
 import { useSWRInfinite } from "swr";
@@ -16,14 +16,7 @@ import {
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 //Material-ui
-import {
-  makeStyles,
-  useMediaQuery,
-  Typography,
-  Button,
-  CardMedia,
-  CardContent,
-} from "@material-ui/core";
+import { makeStyles, Typography, Button, CardContent } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   poster: {

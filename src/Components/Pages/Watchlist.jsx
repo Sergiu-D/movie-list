@@ -12,6 +12,18 @@ const Watchlist = () => {
   // Change document title
   document.title = "Watch list";
 
+  const location = navigator.language;
+  console.log(
+    "🚀 ~ file: Watchlist.jsx ~ line 16 ~ Watchlist ~ location",
+    location
+  );
+
+  const userLanguage = navigator.userLanguage;
+  console.log(
+    "🚀 ~ file: Watchlist.jsx ~ line 22 ~ Watchlist ~ userLanguage",
+    userLanguage
+  );
+
   const { list } = useContext(WatchListContext);
 
   return (

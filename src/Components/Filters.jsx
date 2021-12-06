@@ -4,7 +4,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
@@ -88,19 +87,6 @@ const Filters = ({
     return years;
   };
 
-  // Filter Genres
-
-  // const handleGenreIds = (arr) => {
-  //   arr.forEach(
-  //     (obj, index) =>
-  //       (refContainer.current = [...new Set([...refContainer.current, obj])])
-  //   );
-  // };
-
-  // const handleGenresOnClose = () => {
-  //   setGenresIds(refContainer.current);
-  // };
-
   return (
     <div
       style={{
@@ -117,9 +103,7 @@ const Filters = ({
           labelid="media-type"
           id="media-type-select"
           variant="standard"
-          // value={isMovies}
           style={{ color: "white" }}
-          // onChange={(event) => setIsMovies(event.target.value)}
         >
           <option value={true}>Movies</option>
           <option value={false}>Tv Shows</option>
@@ -133,9 +117,7 @@ const Filters = ({
           labelid="sort-by"
           id="sort-by-select"
           variant="standard"
-          // value={sorting}
           style={{ color: "white" }}
-          // onChange={(event) => setSorting(event.target.value)}
         >
           <option value={"popularity.desc"}>Popularity High</option>
           <option value={"popularity.asc"}>Popularity Low</option>
@@ -156,9 +138,7 @@ const Filters = ({
           labelid="vote-average"
           id="vote-average-select"
           variant="standard"
-          // value={voteAverage}
           style={{ color: "white" }}
-          // onChange={(obj, event, str) => setVoteAverage(event.props.value)}
         >
           {createVoteCount().map((number, index) => (
             <option key={index} value={number}>
@@ -175,11 +155,8 @@ const Filters = ({
           id="select-by-year-select"
           variant="standard"
           multiple
-          // value={yearFilter}
           style={{ color: "white" }}
-          // onChange={(obj, event) => setYearFilter(event.props.value)}
         >
-          {/* <option value={0}>All</option> */}
           {yearsFilter().map((year, index) => (
             <MenuItem key={index} value={year}>
               {year}
@@ -190,29 +167,12 @@ const Filters = ({
       <Autocomplete
         disableCloseOnSelect
         autoSelect
-        // autoComplete
         includeInputInList
         multiple={true}
         limitTags={2}
         id="multiple-limit-tags"
         options={genres}
         getOptionLabel={(option) => option.name}
-        // defaultValue={[genres[2], genres[1]]}
-        // getOptionSelected={(opt, val) => {
-        //   console.log("option ", opt);
-        //   console.log("value ", val);
-        // }}
-        // filterOptions={(opt, state) => {
-        //   console.log("option ", opt);
-        //   console.log("state ", state);
-        // }}
-        // onClose={() => {
-        //   handleGenresOnClose();
-        // }}
-        // value={genresIds}
-        // onChange={(e, value) => handleGenreIds(value)}
-        // onInputChange={(ev, val, res) => handleGenreIds(val)}
-        // blurOnSelect
         renderInput={(params) => (
           <TextField
             {...params}
