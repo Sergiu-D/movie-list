@@ -24,7 +24,6 @@ export default function ContentPagination({ media, setSize, totalResults }) {
       <InfiniteScroll
         style={{ paddingTop: "1rem", overflowX: "hidden" }}
         dataLength={media.length}
-        // scrollThreshold={0.6}
         next={handleFetchMovies}
         hasMore={handleHasMore(totalResults, media.length)}
         loader={
