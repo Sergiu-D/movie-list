@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RecommendedTitles(props) {
-  const { id, mediaType, fromTitle } = props;
+  const { id, mediaType } = props;
 
   const classes = useStyles();
 
@@ -98,9 +98,14 @@ export default function RecommendedTitles(props) {
   //   const recommendedTitles = [];
 
   const recommendedTitles = [];
+
   data.forEach((obj) => recommendedTitles.push(...obj.results));
 
   const totalResults = data[0].total_results && recommendedTitles;
+  console.log(
+    "🚀 ~ file: RecommendedTitles.jsx ~ line 105 ~ RecommendedTitles ~ totalResults",
+    totalResults
+  );
 
   return (
     <>
@@ -148,7 +153,7 @@ export default function RecommendedTitles(props) {
           </GridItemTab>
         ))}
       </GridContainerTab>
-      {totalResults <= recommendedTitles.length ? (
+      {recommendedTitles.length ? (
         <Typography
           variant="h4"
           style={{
@@ -156,7 +161,7 @@ export default function RecommendedTitles(props) {
             fontWeight: 200,
           }}
         >
-          {recommendedTitles ? "No Info" : "That's it"}
+          {recommendedTitles.length === 0 ? "No Info" : "That's it"}
         </Typography>
       ) : (
         <Button

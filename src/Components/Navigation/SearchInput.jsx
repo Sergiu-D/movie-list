@@ -10,7 +10,7 @@ import SearchIcon from "@material-ui/icons/Search";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
-    maxWidth: "10rem",
+    maxWidth: "9rem",
 
     borderBottom: "1px solid",
     backgroundColor: "transparent",
@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   searchBtn: {
-    minWidth: "45px",
-    minHeight: "35px",
+    minWidth: "40px",
+    // minHeight: "40px",
     border: "1px solid white",
     borderRadius: "0 5px 5px 0",
     backgroundColor: "transparent",

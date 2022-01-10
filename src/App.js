@@ -16,6 +16,7 @@ import {
   createMuiTheme,
   responsiveFontSizes,
   MuiThemeProvider,
+  makeStyles,
 } from "@material-ui/core";
 
 // React toastify
@@ -44,11 +45,22 @@ let theme = createMuiTheme({
 });
 theme = responsiveFontSizes(theme);
 
-function App() {
-  const { data, error } = useSWR(` https://ip.nf/me.json`, fetcher);
-  if (!data) return <h1>Loading...</h1>;
-  if (error) return <h1>Error!!!</h1>;
+const useStyles = makeStyles(() => ({
+  main: {
+    maxWidth: "100vw",
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: "2",
+    paddingRight: "3.2rem",
+    [theme.breakpoints.down("md")]: {
+      paddingRight: "0",
+    },
+  },
+}));
 
+function App() {
+  const classes = useStyles();
   return (
     <div
       className="App"
@@ -73,16 +85,7 @@ function App() {
         <Router basename={process.env.PUBLIC_URL}>
           <Navigation />
 
-          <main
-            style={{
-              maxWidth: "100vw",
-              minHeight: "100vh",
-              display: "flex",
-              flexDirection: "column",
-              flexGrow: "2",
-              padding: "0 .5rem",
-            }}
-          >
+          <main className={classes.main}>
             <Switch>
               <WatchListContextProvider>
                 <Route exact path="/">

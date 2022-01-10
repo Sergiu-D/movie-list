@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   drawerPaper: {
-    width: "357px",
+    width: "300px",
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
@@ -50,12 +50,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     backgroundColor: "transparent",
     border: "none",
-    // overflowX: "hidden",
 
     [theme.breakpoints.down("md")]: {
       minWidth: "300px",
-      maxWidth: "40%",
-      width: "40%",
+      width: "30%",
       backgroundColor: "#202B34",
     },
   },
@@ -71,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
   listItem: {
     display: "flex",
-    padding: "1.5rem 25%",
+    padding: "1.5rem 3.5rem",
     [theme.breakpoints.down("md")]: {
       padding: ".8rem 25%",
     },
@@ -84,13 +82,13 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 100,
   },
   icon: {
-    marginRight: "1.3rem",
+    marginRight: "1.5rem",
     fontSize: "2rem",
     fill: "rgba(255, 255, 255, 0.5)",
   },
 
   logo: {
-    width: "9rem",
+    width: "11.5rem",
 
     [theme.breakpoints.down("md")]: {
       width: "10rem",
@@ -133,7 +131,7 @@ export default function Navigation() {
       )}
       <nav
         style={
-          mediumBp ? { minWidth: 0 } : { height: "100vh", flex: "0 0 350px" }
+          mediumBp ? { minWidth: 0 } : { height: "100vh", flex: "0 0 300px" }
         }
       >
         <Drawer
@@ -176,12 +174,30 @@ export default function Navigation() {
               );
             })}
           </List>
-          <CardMedia
-            className={classes.logo}
-            component="img"
-            alt="The movie data base logo"
-            image={TmdbLogo}
-          />
+
+          <div>
+            <p
+              style={{
+                fontSize: ".8rem",
+                margin: ".5rem 0",
+                // color: "#03B4E3",
+                // color:"#8DCEA3",
+                fontStyle: "italic",
+
+                background: "linear-gradient(to right, #8DCEA3, #03B4E3)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Powered by:
+            </p>
+            <CardMedia
+              className={classes.logo}
+              component="img"
+              alt="The movie data base logo"
+              image={TmdbLogo}
+            />
+          </div>
         </Drawer>
       </nav>
     </>
